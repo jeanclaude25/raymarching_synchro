@@ -1,0 +1,76 @@
+*
+{
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body
+{
+    overflow: hidden;
+}
+
+.webgl
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+}
+
+
+#panel_L{
+	overflow-y : scroll;
+	overflow-x: hidden;
+    position:absolute;
+	background-color:#2a1d1d;
+	width:20vw;
+	height:100vh;
+	transition: all 0.5s;
+	top:0;
+    opacity: 0.8;
+}
+
+#ortho_load{
+    visibility: hidden;
+}
+
+
+#door_L:hover,.button:hover{
+	transform: scale(1.04);
+    opacity: 1;
+}
+.button:active{
+    transform: scale(0.96);
+}
+
+h1,h2{
+    color:#FFF;
+    cursor: default;
+    -moz-user-select: none; /* Firefox */
+    -webkit-user-select: none; /* Chrome, Safari, Opéra depuis la version 15 */
+    -ms-user-select: none; /* Internet explorer depuis la version 10 et Edge */
+    user-select: none; /* Propriété standard */
+}
+h1{
+	font-size:15px;
+    text-align:center;
+	}
+h2{
+    font-size:12px;
+    text-align:left;
+    }
+
+.button{
+    text-align:center;
+    border-radius:0.5em;
+    background-color:#4e3737;
+    width:80%;
+    margin-left:10%;
+    cursor:default;height:2em;line-height:2em;
+        
+    }
+
+img{
+    width:100%;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGL viewer</title>
+</head>
+<body>
+    <canvas id="viewer"  class="webgl"></canvas>
+
+    <div id="panel_L">
+        <table border="0" cellspacing="1" cellpadding="1">
+
+            <div id="environment">
+                <h1>Environment</h1><hr>
+            </br>
+            <!-- <input type="range" id="env_intensity" min="0" max="5" value="1" step="0.01"> -->
+                <fieldset>
+                    <h2>hdr_import</h2>
+                    <input type="file" id="image_uploads_env_hdr" name="env_hdr" accept=".hdr">
+                    <!-- <img id="env_hdr"></br></br> -->
+                </fieldset>
+                
+                <div id="ortho_load">
+                <fieldset>
+                <h2>Front</h2>
+                <input type="file" id="image_uploads_env_front" name="env_front" accept=".jpg, .jpeg, .png">
+                <img id="env_front"></br></br>
+                
+                <h2>Back</h2>
+                <input type="file" id="image_uploads_env_back" name="env_back" accept=".jpg, .jpeg, .png">
+                <img id="env_back"></br></br>
+                
+                <h2>Left</h2>
+                <input type="file" id="image_uploads_env_left" name="env_left" accept=".jpg, .jpeg, .png">
+                <img id="env_left"></br></br>
+                
+                <h2>Right</h2>
+                <input type="file" id="image_uploads_env_right" name="env_right" accept=".jpg, .jpeg, .png">
+                <img id="env_right"></br></br>
+                
+                <h2>Up</h2>
+                <input type="file" id="image_uploads_env_up" name="env_up" accept=".jpg, .jpeg, .png">
+                <img id="env_up"></br></br>
+                
+                <h2>Down</h2>
+                <input type="file" id="image_uploads_env_down" name="env_down" accept=".jpg, .jpeg, .png">
+                <img id="env_down"> </br></br>
+                    </fieldset>
+                </div>
+                    
+            </br>
+
+            </div>
+</body>
+</html>
