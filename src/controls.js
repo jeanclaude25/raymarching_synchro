@@ -1,7 +1,7 @@
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { camera } from "./camera"
 import { config } from './config'
-import { camgui } from './camera'
+import { camgui } from './gui'
 
 const canvas = document.querySelector(config.html.canvasID)
 

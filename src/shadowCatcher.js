@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { updateAllMaterials } from './materials'
 import { scene } from "./scene"
 
 export const a = null
@@ -13,5 +12,3 @@ const plane = new THREE.Mesh( geometry, material )
 plane.position.y = 0
 plane.receiveShadow = true
 scene.add( plane )
-
-// updateAllMaterials()

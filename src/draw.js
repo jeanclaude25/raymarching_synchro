@@ -1,7 +1,4 @@
 import * as THREE from 'three'
-import { renderer } from './renderer'
-import { scene } from './scene'
-import { camera } from './camera'
 import Stats from 'stats.js'
 import { mixer } from './load3dFiles'
 import { effectComposer } from './postProcess'

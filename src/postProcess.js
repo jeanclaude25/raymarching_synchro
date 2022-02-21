@@ -15,24 +15,20 @@ import {SSAOPass} from 'three/examples/jsm/postprocessing/SSAOPass'
 
 import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 import { camera } from './camera'
-import { config } from './config'
 
 import { renderer } from './renderer'
 import { scene } from './scene'
 
+export const passes = []
 
-
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-}
 
 export const effectComposer = new EffectComposer(renderer)
-effectComposer.setPixelRatio(config.scene.pixelRatio)
-effectComposer.setSize(sizes.width, sizes.height)
+passes.push(effectComposer)
 
 const renderPass = new RenderPass(scene, camera)
 effectComposer.addPass(renderPass)
+const adaptive_1 = new AdaptiveToneMappingPass()
+effectComposer.addPass(adaptive_1)
 
 /**Postprocess pass to add or remove */
 let allPasses = []
@@ -67,7 +63,15 @@ const create_postProcess = (name,postP,tweek) => {
                 tweek.forEach((elem)=>{
                     ob[elem.name] == undefined?ob[elem.name] = elem.default:''
                     ob.gui.add(ob, elem.name).min(elem.min).max(elem.max).step(elem.step)
-                    .onChange((value)=>postP[elem.name] = value)
+                    .onChange((value)=>{
+                        if(elem.place){
+                        postP[elem.place][elem.name] = value
+                        console.log(postP[elem.place])
+                        }else{
+                            postP[elem.name] = value
+                            console.log(postP)
+                        }
+                    })
                     postprocessPass.pass[elem.name] = elem.default
                     })
             }
@@ -160,11 +164,70 @@ create_postProcess(
 
 create_postProcess(
     'SAOPass',
-    new SAOPass(scene,camera)
+    new SAOPass(scene,camera),
+    [
+        {
+            place:'params',
+           name:'saoIntensity',
+           default:0.01,
+           min:0,
+           max:1,
+           step:0.01 
+        },
+        {
+            place:'params',
+            name:'saoScale',
+            default:1.5,
+            min:0,
+            max:200,
+            step:0.01 
+         },
+         {
+            place:'params',
+            name:'saoKernelRadius',
+            default:12,
+            min:0,
+            max:32,
+            step:0.01 
+         },
+         {
+            place:'params',
+            name:'saoBlurRadius',
+            default:1.3,
+            min:0,
+            max:32,
+            step:0.01 
+         },
+         {
+            place:'params',
+            name:'saoBlurStdDev',
+            default:1.5,
+            min:0,
+            max:8,
+            step:0.01 
+         },
+         {
+            place:'params',
+            name:'saoMinResolution',
+            default:0.00001,
+            min:0,
+            max:1,
+            step:0.00001 
+         },
+         {
+            place:'params',
+            name:'saoBias',
+            default:0.53,
+            min:0,
+            max:1,
+            step:0.01 
+         }
+    ]
     
 )
 
 create_postProcess(
     'SSAOPass',
     new SSAOPass(scene, camera)
+    
 )

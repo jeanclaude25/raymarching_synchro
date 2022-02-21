@@ -1,5 +1,14 @@
 import * as THREE from 'three'
-import { config } from './config'
+
+export const sizes = {
+    width: null ,
+    height: null
+}
+export const refreshSizes = () => {
+    sizes.width = window.innerWidth
+    sizes.height = window.innerHeight
+}
+refreshSizes()
 
 //store scene_value
 const history_size = 2

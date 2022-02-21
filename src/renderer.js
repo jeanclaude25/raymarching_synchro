@@ -1,11 +1,9 @@
 import * as THREE from 'three'
 import { config } from './config'
+import { sizes } from './scene'
 
 
-const sizes = {
-    width: config.html.sizeX,
-    height: config.html.sizeY
-}
+
 const canvas = document.querySelector(config.html.canvasID)
 /**
  * Renderer
@@ -14,11 +12,13 @@ const canvas = document.querySelector(config.html.canvasID)
     canvas: canvas,
     antialias: config.scene.antialias.enable
 })
-renderer.setSize(sizes.width, sizes.height)
-//sur mobile
-//renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-//sur pc le mettre à 2
-renderer.setPixelRatio(config.scene.pixelRatio) //quality
+
+export const resizeRenderer = (passe) => {
+    passe.setSize(sizes.width, sizes.height)
+    passe.setPixelRatio(config.scene.pixelRatio)
+} 
+resizeRenderer(renderer)
+
 renderer.physicallyCorrectLights = config.scene.physicallyCorrectLight //realism
 renderer.outputEncoding = THREE.sRGBEncoding //realism
 renderer.toneMapping = THREE.ACESFilmicToneMapping

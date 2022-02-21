@@ -2,6 +2,7 @@ import * as THREE from 'three'
 import { scene } from './scene'
 import { config } from './config'
 import { debugObject } from './gui'
+import { DoubleSide, FrontSide } from 'three'
 /**
  * Update all materials
  */
@@ -18,6 +19,7 @@ import { debugObject } from './gui'
                  child.material.needsUpdate = true
                  child.castShadow = config.shadows.enable
                  child.receiveShadow = config.shadows.enable
+                 child.userData.materialSide =='double'?child.material.side = DoubleSide: child.material.side = FrontSide
                  
          }
      })

@@ -26,9 +26,9 @@ const animations_gltf = []
 /**
  * Models
  */
-export const load_objects = (objPath,instance,instance_path) => {
+export const load_objects = (obj) => {
  gltfLoader.load(
-    objPath,
+    obj.path,
     (gltf)=>
     {
         console.log('success ')
@@ -37,7 +37,7 @@ export const load_objects = (objPath,instance,instance_path) => {
         //ajouter mixer.update(delaTime) dans la tick function if!=null
         //mixer = new THREE.AnimationMixer(gltf.scene)
         //const action = mixer.clipAction(gltf.animations[0])
-        if(!instance)
+        if(!obj.instance)
         {
             /**Animation gltf */
         mixer = new THREE.AnimationMixer(gltf.scene)
@@ -66,7 +66,7 @@ export const load_objects = (objPath,instance,instance_path) => {
         updateAllMaterials()
         }else{
             //send to instances
-            makeInstance(gltf.scene.children[0],instance_path)
+            makeInstance(gltf.scene.children[0],obj.instance_path)
         }
 
         /**

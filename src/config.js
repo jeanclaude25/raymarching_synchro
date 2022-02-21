@@ -15,18 +15,18 @@ export const config ={
         },
         background: 'white' ,
         pixelRatio: 2,
-        toneExposure:0.62,
+        toneExposure:0.4,
         physicallyCorrectLight: true
 
     },
     lights:{
         keyLight:{
             enable: true,
-            intensity: 10,
+            intensity: 50,
             position:{
-                    x:-1.6,
-                    y:4.8,
-                    z:-3.6
+                    x:-3.14,
+                    y:2.36,
+                    z:5
                     }
         },
         fillLight:{ //none here
@@ -45,28 +45,28 @@ export const config ={
     },
     shadows: {
         enable: true,
-        mapSize: 1024,
+        mapSize: 2048,
         farDistance: 10,
         scale:{
-            near:-8.4,
-            far:18,
-            left:-19.5,
-            right:30.4,
-            top:20.6,
-            bottom:-10.8
+            near:0,
+            far:10.6,
+            left:-4.57,
+            right:4.57,
+            top:4.57,
+            bottom:-1.1
         },
         normalBias: 0.117
     },
     camera:{
         position:{
-            x:15,
-            y:5,
-            z:2
+            x:1,
+            y:1.5,
+            z:5
             },
         lookAt:{
-            x:0,
-            y:3,
-            z:0
+            x:2,
+            y:2,
+            z:-2.4
         },
         constraint:{
             vertical:true,
@@ -76,7 +76,10 @@ export const config ={
             horizontalMin:0,
             horizontalMax:1
         }
-    }
+    },
+    debug:{
+        commandLine:'?debug'
+        }
 
 
 }

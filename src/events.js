@@ -1,10 +1,8 @@
-import { renderer } from './renderer'
-import { camera } from './camera'
-import { config } from './config';
+import { renderer, resizeRenderer } from './renderer'
+import { cameraUpdate } from './camera'
+import { refreshSizes } from './scene';
+import { passes } from './postProcess';
 
-
-const viewer = document.getElementById("viewer");//choppe le viewer
-// viewer.oncontextmenu =(e)=>{ add_anchor(e) }
 
 const upload_env_hdr = document.getElementById('image_uploads_env_hdr')
 upload_env_hdr.onchange = (e) => {update_image(e,upload_env_hdr.files[0])}
@@ -39,26 +37,12 @@ environment.environment_object.path[e.target.name] = src
 environment.update_environment()
 }
 
-
-const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight
-}
-
 window.addEventListener('resize', () =>
 {
-
-    // Update sizes
-    sizes.width = window.innerWidth
-    sizes.height = window.innerHeight
-
-    // Update camera
-    camera.aspect = sizes.width / sizes.height
-    camera.updateProjectionMatrix()
-
-    // Update renderer
-    renderer.setSize(sizes.width, sizes.height)
-    renderer.setPixelRatio(config.scene.pixelRatio) //quality
+	refreshSizes()
+    cameraUpdate()
+	resizeRenderer(renderer)
+	passes.forEach((child)=> resizeRenderer(child) )
 })
 
 
