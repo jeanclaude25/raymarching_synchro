@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { config } from './config'
 import { updateAllMaterials } from './materials' //to require when debug
+import { general_quality } from './quality'
 
 const debugObject = {}
 
@@ -72,8 +73,8 @@ const lightingGui = gui.gui.addFolder('Lamps')
     /**
      * Shadows helpers
      */
-     if(config.shadows.enable){
-                        directionnalLight.castShadow = config.shadows.enable //realism
+     if(general_quality.shadows.enable){
+                        directionnalLight.castShadow = general_quality.shadows.enable 
                         directionnalLight.shadow.camera.far = config.shadows.scale.far
                         directionnalLight.shadow.camera.near = config.shadows.scale.near
                         directionnalLight.shadow.camera.top = config.shadows.scale.top
@@ -81,7 +82,7 @@ const lightingGui = gui.gui.addFolder('Lamps')
                         directionnalLight.shadow.camera.left = config.shadows.scale.left
                         directionnalLight.shadow.camera.right = config.shadows.scale.right
 
-                        directionnalLight.shadow.mapSize.set(config.shadows.mapSize,config.shadows.mapSize)
+                        directionnalLight.shadow.mapSize.set(general_quality.shadows.mapSize, general_quality.shadows.mapSize)
                         
                         const directionLightCameraHelper = new THREE.CameraHelper(directionnalLight.shadow.camera)
                         debugObject.shadowProjection = false

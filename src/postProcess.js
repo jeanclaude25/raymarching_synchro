@@ -27,8 +27,13 @@ passes.push(effectComposer)
 
 const renderPass = new RenderPass(scene, camera)
 effectComposer.addPass(renderPass)
-const adaptive_1 = new AdaptiveToneMappingPass()
-effectComposer.addPass(adaptive_1)
+// const bloom = new UnrealBloomPass()
+// bloom.threshold = 0.7
+// bloom.radius = 0.79
+// bloom.strength = 0.24
+// effectComposer.addPass(bloom)
+// const adaptive_1 = new AdaptiveToneMappingPass()
+// effectComposer.addPass(adaptive_1)
 
 /**Postprocess pass to add or remove */
 let allPasses = []
@@ -172,7 +177,7 @@ create_postProcess(
            default:0.01,
            min:0,
            max:1,
-           step:0.01 
+           step:0.001 
         },
         {
             place:'params',
@@ -180,7 +185,7 @@ create_postProcess(
             default:1.5,
             min:0,
             max:200,
-            step:0.01 
+            step:0.001 
          },
          {
             place:'params',

@@ -42,9 +42,6 @@ const controls = require('./controls')
      controls.orbitControls.update()
     //  controls.fpsControls.update(deltaTime)
  
-     //Update objects?
-     //mesh.rotation.y = -0.1*RPS
- 
      // Render
     //  renderer.render(scene, camera)
 

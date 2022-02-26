@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { config } from './config'
+import { general_quality } from './quality'
 import { sizes } from './scene'
 
 
@@ -10,12 +11,12 @@ const canvas = document.querySelector(config.html.canvasID)
  */
  export const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
-    antialias: config.scene.antialias.enable
+    antialias: general_quality.antialias
 })
 
 export const resizeRenderer = (passe) => {
     passe.setSize(sizes.width, sizes.height)
-    passe.setPixelRatio(config.scene.pixelRatio)
+    passe.setPixelRatio(general_quality.pixel_ratio)
 } 
 resizeRenderer(renderer)
 
@@ -27,7 +28,7 @@ renderer.toneMappingExposure = config.scene.toneExposure
 /**
  * Shadows
  */
- if(config.shadows.enable){
-    renderer.shadowMap.enabled = config.shadows.enable //realism
-    renderer.shadowMap.type = THREE.PCFShadowMap //realism
+ if(general_quality.shadows.enable){
+    renderer.shadowMap.enabled = general_quality.shadows.enable //realism
+    renderer.shadowMap.type =  general_quality.shadows.type//realism
     }

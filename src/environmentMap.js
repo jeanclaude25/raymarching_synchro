@@ -5,6 +5,7 @@ import {store_sceneBackground, store_environmentBackground, update_sceneBackgrou
 import { debugObject } from './gui'
 import { updateAllMaterials } from './materials'
 import { config } from './config'
+import { envMapArray, general_quality } from './quality'
 
 
 debugObject.envMapIntensity = config.lights.environmentLight.intensity
@@ -18,16 +19,16 @@ const pmremGenerator = new THREE.PMREMGenerator(renderer)
  * ENVIRONNEMENT MAP //realism
  */
  export const environment_object = {
-     hdrOrnot:true,
+     hdrOrnot:!true,
      envMap:null,
      path:{
-    env_hdr:'./textures/hdr/Ridgecrest_Road_Env.hdr',
-    env_front:'./textures/environmentMaps/0/px.jpg',
-    env_back:'./textures/environmentMaps/0/nx.jpg',
-    env_up:'./textures/environmentMaps/0/py.jpg',
-    env_down:'./textures/environmentMaps/0/ny.jpg',
-    env_left:'./textures/environmentMaps/0/pz.jpg',
-    env_right:'./textures/environmentMaps/0/nz.jpg'
+    env_hdr:`./textures/hdr/${envMapArray[general_quality.envMap]}.hdr`,
+    env_front:`./textures/environmentMaps/${general_quality.envMapExt}/${envMapArray[general_quality.envMap]}/cube_tile_0001.${general_quality.envMapExt}`,
+    env_left:`./textures/environmentMaps/${general_quality.envMapExt}/${envMapArray[general_quality.envMap]}/cube_tile_0002.${general_quality.envMapExt}`,
+    env_back:`./textures/environmentMaps/${general_quality.envMapExt}/${envMapArray[general_quality.envMap]}/cube_tile_0003.${general_quality.envMapExt}`,
+    env_down:`./textures/environmentMaps/${general_quality.envMapExt}/${envMapArray[general_quality.envMap]}/cube_tile_0004.${general_quality.envMapExt}`,
+    env_up:`./textures/environmentMaps/${general_quality.envMapExt}/${envMapArray[general_quality.envMap]}/cube_tile_0005.${general_quality.envMapExt}`,
+    env_right:`./textures/environmentMaps/${general_quality.envMapExt}/${envMapArray[general_quality.envMap]}/cube_tile_0006.${general_quality.envMapExt}`
      }
 }
 const clean_obj=()=>{
@@ -54,7 +55,8 @@ export const update_environment = () =>{
        rgbeLoader
        .load(environment_object.path.env_hdr, (hdrEquiRect, textureData) => {
         environmentMap = pmremGenerator.fromEquirectangular(hdrEquiRect);
-               pmremGenerator.compileCubemapShader()
+        pmremGenerator.compileCubemapShader()
+               
                refresh_env_scs(environmentMap.texture)
                renderer.toneMappingExposure = 1
        })
@@ -68,7 +70,7 @@ export const update_environment = () =>{
         environment_object.path.env_right,
     ],(texture)=>{
         texture.encoding = THREE.sRGBEncoding
-        texture.intensity=0.1
+        // texture.intensity = 1.5
         refresh_env_scs(texture)
     })
     }

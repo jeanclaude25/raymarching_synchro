@@ -10,19 +10,15 @@ export const config ={
         envExt:'.jpg'
     },
     scene:{
-        antialias:{
-            enable: true
-        },
         background: 'white' ,
-        pixelRatio: 2,
-        toneExposure:0.4,
+        toneExposure:1,
         physicallyCorrectLight: true
 
     },
     lights:{
         keyLight:{
             enable: true,
-            intensity: 50,
+            intensity: 5,
             position:{
                     x:-3.14,
                     y:2.36,
@@ -35,38 +31,36 @@ export const config ={
         },
         ambientLight:{
             enable: true,
-            intensity: 0.03
+            intensity: 0
         },
         environmentLight:{
             enable: true,
-            intensity: 3.315,
+            intensity: 1.4,
             encoding: 2
         }
     },
     shadows: {
-        enable: true,
-        mapSize: 2048,
         farDistance: 10,
         scale:{
             near:0,
-            far:10.6,
+            far:10.951,
             left:-4.57,
-            right:4.57,
+            right:4.64,
             top:4.57,
-            bottom:-1.1
+            bottom:-2.1
         },
         normalBias: 0.117
     },
     camera:{
         position:{
-            x:1,
-            y:1.5,
-            z:5
+            x:0.686,
+            y:1.571,
+            z:3.478
             },
         lookAt:{
             x:2,
-            y:2,
-            z:-2.4
+            y:1.637,
+            z:-0.696
         },
         constraint:{
             vertical:true,
@@ -78,7 +72,8 @@ export const config ={
         }
     },
     debug:{
-        commandLine:'?debug'
+        commandLine:'?debug',
+        rawLoad: false //impact material texture swap or not
         }
 
 

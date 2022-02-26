@@ -1,11 +1,8 @@
 import * as THREE from 'three'
-import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
-import { config } from './config'
 import { scene } from './scene'
 import { updateAllMaterials } from './materials' //to require when debug
-import { random } from 'gsap/all'
 const gui = require('./gui')
 
 export const loaded_obj={}
@@ -59,8 +56,8 @@ export const load_objects = (obj) => {
                 value?action.play():action.stop()
             })
         })
-        console.log(gltf.animations)
-        console.log(animations_gltf)
+        // console.log(gltf.animations)
+        // console.log(animations_gltf)
 
         scene.add(gltf.scene)
         updateAllMaterials()
