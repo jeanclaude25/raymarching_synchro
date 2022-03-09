@@ -2,18 +2,20 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { scene } from './scene'
-import { updateAllMaterials } from './materials' //to require when debug
+import { mountMaterials, updateAllMaterials } from './materials' //to require when debug
+import { objectLoadingManager } from './loadingManager'
+
 const gui = require('./gui')
 
 export const loaded_obj={}
 /**
  * LOADERS
  */
- const dracoLoader = new DRACOLoader()
+ const dracoLoader = new DRACOLoader(objectLoadingManager)
  //Use Draco compression to load lighter file
  //use worker & assembly to load file
  dracoLoader.setDecoderPath('./draco/') //lighter loading
- const gltfLoader = new GLTFLoader()
+ const gltfLoader = new GLTFLoader(objectLoadingManager)
  gltfLoader.setDRACOLoader(dracoLoader)
 
 /**Animation Gltf */
@@ -58,9 +60,9 @@ export const load_objects = (obj) => {
         })
         // console.log(gltf.animations)
         // console.log(animations_gltf)
-
+        
         scene.add(gltf.scene)
-        updateAllMaterials()
+        
         }else{
             //send to instances
             makeInstance(gltf.scene.children[0],obj.instance_path)

@@ -7,7 +7,7 @@ import { scene, sizes } from './scene'
  * Camera
  */
 // Base camera
-export const camera = new THREE.PerspectiveCamera(48, sizes.width / sizes.height, 0.1, 100)
+export const camera = new THREE.PerspectiveCamera(48, sizes.width / sizes.height, 0.001, 100)
 
 camera.lookAt(new THREE.Vector3(
     config.camera.lookAt.x, 

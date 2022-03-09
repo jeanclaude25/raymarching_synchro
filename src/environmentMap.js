@@ -5,7 +5,7 @@ import {store_sceneBackground, store_environmentBackground, update_sceneBackgrou
 import { debugObject } from './gui'
 import { updateAllMaterials } from './materials'
 import { config } from './config'
-import { envMapArray, general_quality } from './quality'
+import { general_quality } from './quality'
 
 
 debugObject.envMapIntensity = config.lights.environmentLight.intensity
@@ -19,16 +19,16 @@ const pmremGenerator = new THREE.PMREMGenerator(renderer)
  * ENVIRONNEMENT MAP //realism
  */
  export const environment_object = {
-     hdrOrnot:!true,
+     hdrOrnot:general_quality.textures.environment.hdr,
      envMap:null,
      path:{
-    env_hdr:`./textures/hdr/${envMapArray[general_quality.envMap]}.hdr`,
-    env_front:`./textures/environmentMaps/${general_quality.envMapExt}/${envMapArray[general_quality.envMap]}/cube_tile_0001.${general_quality.envMapExt}`,
-    env_left:`./textures/environmentMaps/${general_quality.envMapExt}/${envMapArray[general_quality.envMap]}/cube_tile_0002.${general_quality.envMapExt}`,
-    env_back:`./textures/environmentMaps/${general_quality.envMapExt}/${envMapArray[general_quality.envMap]}/cube_tile_0003.${general_quality.envMapExt}`,
-    env_down:`./textures/environmentMaps/${general_quality.envMapExt}/${envMapArray[general_quality.envMap]}/cube_tile_0004.${general_quality.envMapExt}`,
-    env_up:`./textures/environmentMaps/${general_quality.envMapExt}/${envMapArray[general_quality.envMap]}/cube_tile_0005.${general_quality.envMapExt}`,
-    env_right:`./textures/environmentMaps/${general_quality.envMapExt}/${envMapArray[general_quality.envMap]}/cube_tile_0006.${general_quality.envMapExt}`
+    env_hdr:`./textures/hdr/${general_quality.textures.environment.size}.hdr`,
+    env_front:`./textures/environmentMaps/${general_quality.textures.environment.extension}/${general_quality.textures.environment.size}/cube_tile_0001.${general_quality.textures.environment.extension}`,
+    env_left:`./textures/environmentMaps/${general_quality.textures.environment.extension}/${general_quality.textures.environment.size}/cube_tile_0002.${general_quality.textures.environment.extension}`,
+    env_back:`./textures/environmentMaps/${general_quality.textures.environment.extension}/${general_quality.textures.environment.size}/cube_tile_0003.${general_quality.textures.environment.extension}`,
+    env_down:`./textures/environmentMaps/${general_quality.textures.environment.extension}/${general_quality.textures.environment.size}/cube_tile_0004.${general_quality.textures.environment.extension}`,
+    env_up:`./textures/environmentMaps/${general_quality.textures.environment.extension}/${general_quality.textures.environment.size}/cube_tile_0005.${general_quality.textures.environment.extension}`,
+    env_right:`./textures/environmentMaps/${general_quality.textures.environment.extension}/${general_quality.textures.environment.size}/cube_tile_0006.${general_quality.textures.environment.extension}`
      }
 }
 const clean_obj=()=>{

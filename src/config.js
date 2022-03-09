@@ -11,31 +11,27 @@ export const config ={
     },
     scene:{
         background: 'white' ,
-        toneExposure:1,
+        toneExposure:0.665,
         physicallyCorrectLight: true
 
     },
     lights:{
         keyLight:{
             enable: true,
-            intensity: 5,
+            intensity: 63.136,
             position:{
-                    x:-3.14,
-                    y:2.36,
-                    z:5
+                    x:-2.995,
+                    y:2.21,
+                    z:5.092
                     }
-        },
-        fillLight:{ //none here
-            enable: true,
-            intensity: 0
         },
         ambientLight:{
             enable: true,
-            intensity: 0
+            intensity: 1.927
         },
         environmentLight:{
             enable: true,
-            intensity: 1.4,
+            intensity: 0.882,
             encoding: 2
         }
     },

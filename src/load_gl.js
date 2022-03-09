@@ -22,12 +22,29 @@ const animation = require('./draw')
 animation.tick()
 
 const loading3dfiles = require('./load3dFiles')
-loading3dfiles.load_objects({path:'./models/static/sofa.glb',instance:false})
+switch(general_quality.id){
+    case 'very_low':
+        break;
+    case 'low':
+        break;
+    case 'medium':
+        
+
+        break;
+    case 'high':
+        break;
+    case 'very_high':
+        break;
+    case 'insane':
+        break;
+}
+//LOAD GLB 4K files for computer or wide screen devices
 loading3dfiles.load_objects({path:'./models/static/walls.glb',instance:false})
+loading3dfiles.load_objects({path:'./models/static/sofa.glb',instance:false})
+loading3dfiles.load_objects({path:'./models/static/lights.glb',instance:false})
+loading3dfiles.load_objects({path:'./models/static/fauteuils.glb',instance:false})
 loading3dfiles.load_objects({path:'./models/static/plants.glb',instance:false})
 loading3dfiles.load_objects({path:'./models/static/last_furniture.glb',instance:false})
-loading3dfiles.load_objects({path:'./models/static/fauteuils.glb',instance:false})
-loading3dfiles.load_objects({path:'./models/static/lights.glb',instance:false})
-
+//LOAD GLB 2K files for mobile devices
 
 // loading3dfiles.load_objects('./models/instances/clouds/cloud.gltf',true, 'json/cloudsPoints.json')

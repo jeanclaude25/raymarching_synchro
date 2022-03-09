@@ -5,6 +5,11 @@ import { general_quality } from './quality'
 
 const debugObject = {}
 
+const colors = {
+            ambient: new THREE.Color('white'),
+            key: new THREE.Color('white')
+                }
+
 export const lighting = []
 //si debug...
 const gui = require('./gui')
@@ -22,15 +27,18 @@ const lightingGui = gui.gui.addFolder('Lamps')
      */
      const ambientGui = lightingGui.addFolder('AmbientLight')
      ambientGui.add(ambientLight, 'intensity')
-    .min(0)
-    .max(5)
-    .step(0.001)
-    .name('intensity')
+    .min(0).max(5).step(0.001).name('intensity')
+    ambientGui.addColor(colors, 'ambient').name('color')
+    .onChange(()=>{
+        ambientLight.color.r = colors.ambient.r/255
+        ambientLight.color.g = colors.ambient.g/255
+        ambientLight.color.b = colors.ambient.b/255
+    })
     
      }
     
     //DIRECTIONNAL FillLights
-    if(config.lights.fillLight.enable){
+    if(config.lights.keyLight.enable){
     const directionnalLight = new THREE.DirectionalLight(0xffffff, config.lights.keyLight.intensity)
     directionnalLight.position.x = config.lights.keyLight.position.x
     directionnalLight.position.y = config.lights.keyLight.position.y
@@ -45,14 +53,17 @@ const lightingGui = gui.gui.addFolder('Lamps')
 
      const keylightGui = lightingGui.addFolder('keyLight')
      keylightGui.add(directionnalLight, 'intensity')
-    .min(0)
-    .max(500)
-    .step(0.001)
-    .name('intensity')
+    .min(0).max(500).step(0.001).name('intensity')
+    keylightGui.addColor(colors, 'key').name('color')
+    .onChange(()=>{
+        directionnalLight.color.r = colors.key.r/255
+        directionnalLight.color.g = colors.key.g/255
+        directionnalLight.color.b = colors.key.b/255
+    })
     const kpos =  keylightGui.addFolder('position')
-    kpos.add(directionnalLight.position, 'x').min(-5).max(5).step(0.001).name('posX')
-    kpos.add(directionnalLight.position, 'y').min(-5).max(5).step(0.001).name('posY')
-    kpos.add(directionnalLight.position, 'z').min(-5).max(5).step(0.001).name('posZ')
+    kpos.add(directionnalLight.position, 'x').min(-25).max(25).step(0.001).name('posX')
+    kpos.add(directionnalLight.position, 'y').min(-25).max(25).step(0.001).name('posY')
+    kpos.add(directionnalLight.position, 'z').min(-25).max(25).step(0.001).name('posZ')
     
     const renderer = require('./renderer')
     keylightGui.add(renderer.renderer, 'toneMapping', {

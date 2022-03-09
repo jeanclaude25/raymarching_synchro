@@ -1,8 +1,7 @@
 import * as THREE from "three";
+import { textureLoadingManager } from "./loadingManager";
 
-
-const loadingManager = new THREE.LoadingManager()
-const textureLoader = new THREE.TextureLoader(loadingManager)
+const textureLoader = new THREE.TextureLoader(textureLoadingManager)
 
 
 export const load_image = (path,sourceToCopy) => {
@@ -22,6 +21,7 @@ export const load_image = (path,sourceToCopy) => {
                 texture.rotation = m.rotation
                 texture.wrapS = m.wrapS
                 texture.wrapT = m.wrapT
+                texture.flipY = false
               }
             
               resolve(texture)
