@@ -45,6 +45,8 @@ loading3dfiles.load_objects({path:'./models/static/lights.glb',instance:false})
 loading3dfiles.load_objects({path:'./models/static/fauteuils.glb',instance:false})
 loading3dfiles.load_objects({path:'./models/static/plants.glb',instance:false})
 loading3dfiles.load_objects({path:'./models/static/last_furniture.glb',instance:false})
+loading3dfiles.load_objects({path:'./models/static/background.glb',instance:false})
+
 //LOAD GLB 2K files for mobile devices
 
 // loading3dfiles.load_objects('./models/instances/clouds/cloud.gltf',true, 'json/cloudsPoints.json')

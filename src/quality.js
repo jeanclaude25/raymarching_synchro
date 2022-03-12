@@ -7,6 +7,8 @@ export let general_quality = {
     id: 'custom',
     pixel_ratio:1,
     antialias: true,
+    ambientLight: true,
+    keylight: true,
     textures:{
         environment:{
             hdr: false,
@@ -16,32 +18,32 @@ export let general_quality = {
         diffuse:{
             allow: true,
             size: texturesSizeArray[2],
-            extension: 'jpg',
-            encoding: THREE.sRGBEncoding
+            extension: 'jpg'
         },
         ao:{
             allow: true,
             size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
         },
         normal:{
             allow: true,
             size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
         },
         gloss:{
             allow: true,
             size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
         },
         disp:{
-            allow: false,
+            allow: true,
             size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+        },
+        lightsMap:{
+            allow: true,
+            size: texturesSizeArray[1],
+            extension: 'jpg'
         }
     },
     shadows: {
@@ -55,6 +57,8 @@ const very_low_quality = {
     id: 'very_low',
     pixel_ratio:1,
     antialias: true,
+    ambientLight: false,
+    keylight: false,
     textures:{
         environment:{
             hdr: false,
@@ -64,36 +68,36 @@ const very_low_quality = {
         diffuse:{
             allow: true,
             size: texturesSizeArray[0],
-            extension: 'jpg',
-            encoding: THREE.sRGBEncoding
+            extension: 'jpg'
         },
         ao:{
             allow: true,
-            size: texturesSizeArray[0],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            size: texturesSizeArray[1],
+            extension: 'jpg'
         },
         normal:{
             allow: true,
             size: texturesSizeArray[0],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
         },
         gloss:{
             allow: true,
             size: texturesSizeArray[0],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
         },
         disp:{
-            allow: false,
+            allow: true,
             size: texturesSizeArray[0],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+        },
+        lightsMap:{
+            allow: true,
+            size: texturesSizeArray[0],
+            extension: 'jpg'
         }
     },
     shadows: {
-        enable: true,
+        enable: false,
         mapSize: 512,
         type: THREE.PCFSoftShadowMap
     }
@@ -103,6 +107,8 @@ const low_quality = {
     id: 'low',
     pixel_ratio:1,
     antialias:true,
+    ambientLight: true,
+    keylight: true,
     textures:{
         environment:{
             hdr: false,
@@ -112,32 +118,35 @@ const low_quality = {
         diffuse:{
             allow: true,
             size: texturesSizeArray[1],
-            extension: 'jpg',
-            encoding: THREE.sRGBEncoding
+            extension: 'jpg'
         },
         ao:{
             allow: true,
-            size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            size: texturesSizeArray[2],
+            extension: 'jpg'
         },
         normal:{
             allow: true,
             size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
         },
         gloss:{
             allow: true,
             size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
         },
         disp:{
-            allow: false,
+            allow: true,
             size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
+        },
+        lightsMap:{
+            allow: true,
+            size: texturesSizeArray[1],
+            extension: 'jpg'
+            
         }
     },
     shadows: {
@@ -151,6 +160,8 @@ const medium_quality = {
     id: 'medium',
     pixel_ratio:1,
     antialias:true,
+    ambientLight: true,
+    keylight: true,
     textures:{
         environment:{
             hdr: false,
@@ -160,32 +171,37 @@ const medium_quality = {
         diffuse:{
             allow: true,
             size: texturesSizeArray[2],
-            extension: 'jpg',
-            encoding: THREE.sRGBEncoding
+            extension: 'jpg'
         },
         ao:{
             allow: true,
-            size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            size: texturesSizeArray[2],
+            extension: 'jpg'
+            
         },
         normal:{
             allow: true,
             size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
         },
         gloss:{
             allow: true,
             size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
         },
         disp:{
-            allow: false,
+            allow: true,
             size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
+        },
+        lightsMap:{
+            allow: true,
+            size: texturesSizeArray[1],
+            extension: 'jpg'
+            
         }
     },
     shadows: {
@@ -197,8 +213,10 @@ const medium_quality = {
 
 const high_quality = {
     id: 'high',
-    pixel_ratio:1,
-    antialias:true,
+    pixel_ratio:2,
+    antialias: false,
+    ambientLight: true,
+    keylight: true,
     textures:{
         environment:{
             hdr: false,
@@ -207,33 +225,38 @@ const high_quality = {
         },
         diffuse:{
             allow: true,
-            size: texturesSizeArray[3],
-            extension: 'jpg',
-            encoding: THREE.sRGBEncoding
+            size: texturesSizeArray[2],
+            extension: 'jpg'
         },
         ao:{
             allow: true,
-            size: texturesSizeArray[2],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            size: texturesSizeArray[3],
+            extension: 'jpg'
+            
         },
         normal:{
             allow: true,
             size: texturesSizeArray[2],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
         },
         gloss:{
             allow: true,
             size: texturesSizeArray[2],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
         },
         disp:{
             allow: true,
             size: texturesSizeArray[1],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
+        },
+        lightsMap:{
+            allow: true,
+            size: texturesSizeArray[1],
+            extension: 'jpg'
+            
         }
     },
     shadows: {
@@ -246,7 +269,9 @@ const high_quality = {
 const very_high_quality = {
     id: 'very_high',
     pixel_ratio:2,
-    antialias:true,
+    antialias: false,
+    ambientLight: true,
+    keylight: true,
     textures:{
         environment:{
             hdr: false,
@@ -255,33 +280,38 @@ const very_high_quality = {
         },
         diffuse:{
             allow: true,
-            size: texturesSizeArray[4],
-            extension: 'jpg',
-            encoding: THREE.sRGBEncoding
+            size: texturesSizeArray[3],
+            extension: 'jpg'
         },
         ao:{
             allow: true,
-            size: texturesSizeArray[3],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            size: texturesSizeArray[4],
+            extension: 'jpg'
+            
         },
         normal:{
             allow: true,
             size: texturesSizeArray[3],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
         },
         gloss:{
             allow: true,
             size: texturesSizeArray[3],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
         },
         disp:{
             allow: true,
             size: texturesSizeArray[3],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
+        },
+        lightsMap:{
+            allow: true,
+            size: texturesSizeArray[3],
+            extension: 'jpg'
+            
         }
     },
     shadows: {
@@ -294,7 +324,9 @@ const very_high_quality = {
 const insane_quality = {
     id: 'insane',
     pixel_ratio:2,
-    antialias:true,
+    antialias: true,
+    ambientLight: true,
+    keylight: true,
     textures:{
         environment:{
             hdr: false,
@@ -303,33 +335,38 @@ const insane_quality = {
         },
         diffuse:{
             allow: true,
-            size: texturesSizeArray[5],
-            extension: 'jpg',
-            encoding: THREE.sRGBEncoding
+            size: texturesSizeArray[4],
+            extension: 'jpg'
         },
         ao:{
             allow: true,
-            size: texturesSizeArray[4],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            size: texturesSizeArray[5],
+            extension: 'jpg'
+            
         },
         normal:{
             allow: true,
             size: texturesSizeArray[4],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
         },
         gloss:{
             allow: true,
             size: texturesSizeArray[4],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            extension: 'jpg'
+            
         },
         disp:{
             allow: true,
-            size: texturesSizeArray[4],
-            extension: 'jpg',
-            // encoding: THREE.sRGBEncoding
+            size: texturesSizeArray[3],
+            extension: 'jpg'
+            
+        },
+        lightsMap:{
+            allow: true,
+            size: texturesSizeArray[3],
+            extension: 'jpg'
+            
         }
     },
     shadows: {

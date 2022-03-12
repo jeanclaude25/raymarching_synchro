@@ -18,6 +18,8 @@ import { camera } from './camera'
 
 import { renderer } from './renderer'
 import { scene } from './scene'
+import { GammaCorrectionShader } from './shaders/gammaCorrection/GammaCorrection'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/shaderpass'
 
 export const passes = []
 
@@ -27,13 +29,15 @@ passes.push(effectComposer)
 
 const renderPass = new RenderPass(scene, camera)
 effectComposer.addPass(renderPass)
-// const bloom = new UnrealBloomPass()
-// bloom.threshold = 0.7
-// bloom.radius = 0.79
-// bloom.strength = 0.24
-// effectComposer.addPass(bloom)
-// const adaptive_1 = new AdaptiveToneMappingPass()
-// effectComposer.addPass(adaptive_1)
+const bloom = new UnrealBloomPass()
+bloom.threshold = 0.9
+bloom.radius = 0.1
+bloom.strength = 0.14
+effectComposer.addPass(bloom)
+
+const gammaCorrection = new ShaderPass( GammaCorrectionShader );
+effectComposer.addPass(gammaCorrection)
+
 
 /**Postprocess pass to add or remove */
 let allPasses = []

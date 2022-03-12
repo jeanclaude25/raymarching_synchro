@@ -18,7 +18,7 @@ const lightingGui = gui.gui.addFolder('Lamps')
  * Lights
  */
  //AMBIENT
- if(config.lights.ambientLight.enable){
+ if(config.lights.ambientLight.enable && general_quality.ambientLight){
      const ambientLight = new THREE.AmbientLight(0xffffff, config.lights.ambientLight.intensity)
      lighting.push(ambientLight)
      
@@ -38,7 +38,7 @@ const lightingGui = gui.gui.addFolder('Lamps')
      }
     
     //DIRECTIONNAL FillLights
-    if(config.lights.keyLight.enable){
+    if(config.lights.keyLight.enable && general_quality.keylight){
     const directionnalLight = new THREE.DirectionalLight(0xffffff, config.lights.keyLight.intensity)
     directionnalLight.position.x = config.lights.keyLight.position.x
     directionnalLight.position.y = config.lights.keyLight.position.y

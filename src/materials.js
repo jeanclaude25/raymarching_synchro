@@ -6,8 +6,23 @@ import { general_quality } from './quality'
 import { load_image } from './textures'
 import { config } from './config'
 
+import candleVertex from './shaders/candle/vertex.glsl'
+import candleFragment from './shaders/candle/fragment.glsl'
 
 
+export const candleShader = new THREE.RawShaderMaterial({
+    vertexShader: candleVertex,
+    fragmentShader: candleFragment,
+    // wireframe:true,
+    depthTest: !true,
+    depthWrite: !true,
+    transparent:true,
+    // opacity:1,
+    uniforms:{
+        uTime: {value: null},
+        uSpeed : {value: 1.0}
+    }
+})
 
 /**Mount Materials */
 export const mountMaterials = () => {
@@ -18,73 +33,100 @@ export const mountMaterials = () => {
         // }
         if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
          {
-            /**Ambient Occlusion map */
-            if(child.material.userData.ao && !config.debug.rawLoad && general_quality.textures.ao.allow){
-                    const path =  `./models/static/textures/${general_quality.textures.ao.size}/${child.material.userData.ao}.${general_quality.textures.ao.extension}`
-                    console.log(path)
-                    load_image(path, child.material.aoMap)
-                    .then(response =>{
-                        child.material.aoMap = response
-                        // child.material.aoMap.encoding = general_quality.textures.ao.encoding
-                        child.material.aoMap.flipY = false
-                        // child.material.aoMapIntensity = 1
-                    })
-                }
-                if(general_quality.id == 'very_low')return // VERY FAST Raw load
-
-            /**DIFFUSE MAP */
-        if(child.material.userData.diffuse && !config.debug.rawLoad && general_quality.textures.diffuse.allow){
-                    const ext = child.material.userData.diffuse.includes('_mask')?'png':general_quality.textures.diffuse.extension // overwrite png if the image file is a mask
-                     const path = `./models/static/textures/${general_quality.textures.diffuse.size}/${child.material.userData.diffuse}.${ext}`
-                    // console.log(child.material)
-                    load_image(path, child.material.map)
-                    .then(response =>{
-                                        child.material.map = response
-                                        child.material.map.encoding = general_quality.textures.diffuse.encoding
-                                    })
-                }
-
-                /* NORMAL MAP */
-                if(child.material.userData.normal && !config.debug.rawLoad && general_quality.textures.normal.allow){
-                    const path = `./models/static/textures/${general_quality.textures.normal.size}/${child.material.userData.normal}.${general_quality.textures.normal.extension}`
-                    load_image(path, child.material.normalMap)
-                    .then(response =>{
-                        child.material.normalMap = response
-                        // child.material.normalMap.encoding = general_quality.textures.normal.encoding
-                    })
-                }
-
-                /** Roughness / METALNESS * */
-                if(child.material.userData.gloss && !config.debug.rawLoad && general_quality.textures.gloss.allow){
-                    const path =  `./models/static/textures/${general_quality.textures.gloss.size}/${child.material.userData.gloss}.${general_quality.textures.gloss.extension}`
-                    load_image(path,child.material.roughnessMap)
-                    .then(response =>{
-                            child.material.roughnessMap = response
-                            // child.material.roughnessMap.encoding = general_quality.textures.gloss.encoding
-                            child.material.metalnessMap = response
-                            // child.material.metalnessMap.encoding = general_quality.textures.gloss.encoding
-
-                    })
-                }
-
-                /** Diplacement Texture */
-                if(child.material.userData.disp && !config.debug.rawLoad && general_quality.textures.disp.allow){
-                    const path =  `./models/static/textures/${general_quality.textures.disp.size}/${child.material.userData.disp}.${general_quality.textures.disp.extension}`
-                    load_image(path,child.material.roughnessMap) //disp is null at start so it take uv transform from roughness
-                    .then(response =>{
-                            child.material.displacementMap = response
-                            // child.material.displacementMap.encoding = general_quality.textures.disp.encoding
-                            child.material.displacementScale = 1
-                            // child.material.displacementBias = 0
-
-                    })
-                }
-
+            texturesMount(child)
+            shaderMount(child)
                 
          }
      })
 }
 
+
+
+/**Shader mount */
+const shaderMount = (child) => {
+    if(child.material.userData.shader){
+        const data = child.material.userData.shader
+        if(data == 'candle'){
+            child.material = candleShader
+            // console.log(child)
+        }
+    }
+}
+
+/**Textures mount */
+const texturesMount = (child) => {
+/**Ambient Occlusion map */
+if(child.material.userData.ao && !config.debug.rawLoad && general_quality.textures.ao.allow){
+    const path =  `./models/static/textures/${general_quality.textures.ao.size}/${child.material.userData.ao}.${general_quality.textures.ao.extension}`
+    // console.log(path)
+    load_image(path, child.material.aoMap)
+    .then(response =>{
+        child.material.aoMap = response
+        child.material.aoMap.encoding = THREE.LinearEncoding
+        child.material.aoMap.flipY = false
+        // child.material.aoMapIntensity = 1
+    })
+}
+/**LIGHTSMAP */
+if(child.material.userData.lightsmap && !config.debug.rawLoad && general_quality.textures.lightsMap.allow){
+const path = `./models/static/textures/${general_quality.textures.lightsMap.size}/${child.material.userData.lightsmap}.${general_quality.textures.lightsMap.extension}`
+load_image(path, child.material.lightMap)
+.then(response =>{
+    child.material.lightMap = response
+    child.material.lightMap.flipY = false
+    child.material.lightMapIntensity = 10
+    child.material.lightMap.encoding = THREE.LinearEncoding
+})
+}
+if(general_quality.id == 'very_low')return // VERY FAST Raw load
+
+/**DIFFUSE MAP */
+if(child.material.userData.diffuse && !config.debug.rawLoad && general_quality.textures.diffuse.allow){
+    const ext = child.material.userData.diffuse.includes('_mask')?'png':general_quality.textures.diffuse.extension // overwrite png if the image file is a mask
+     const path = `./models/static/textures/${general_quality.textures.diffuse.size}/${child.material.userData.diffuse}.${ext}`
+    // console.log(child.material)
+    load_image(path, child.material.map)
+    .then(response =>{
+                        child.material.map = response
+                        child.material.map.encoding = THREE.sRGBEncoding
+                    })
+}
+
+/* NORMAL MAP */
+if(child.material.userData.normal && !config.debug.rawLoad && general_quality.textures.normal.allow){
+    const path = `./models/static/textures/${general_quality.textures.normal.size}/${child.material.userData.normal}.${general_quality.textures.normal.extension}`
+    load_image(path, child.material.normalMap)
+    .then(response =>{
+        child.material.normalMap = response
+        child.material.normalMap.encoding = THREE.LinearEncoding
+    })
+}
+
+/** Roughness / METALNESS * */
+if(child.material.userData.gloss && !config.debug.rawLoad && general_quality.textures.gloss.allow){
+    const path =  `./models/static/textures/${general_quality.textures.gloss.size}/${child.material.userData.gloss}.${general_quality.textures.gloss.extension}`
+    load_image(path,child.material.roughnessMap)
+    .then(response =>{
+            child.material.roughnessMap = response
+            child.material.roughnessMap.encoding = THREE.LinearEncoding
+            child.material.metalnessMap = response
+            child.material.metalnessMap.encoding = THREE.LinearEncoding
+    })
+}
+
+/** Diplacement Texture */
+if(child.material.userData.disp && !config.debug.rawLoad && general_quality.textures.disp.allow){
+    const path =  `./models/static/textures/${general_quality.textures.disp.size}/${child.material.userData.disp}.${general_quality.textures.disp.extension}`
+    load_image(path,child.material.roughnessMap) //disp is null at start so it take uv transform from roughness
+    .then(response =>{
+            child.material.displacementMap = response
+            child.material.displacementMap.encoding = THREE.LinearEncoding
+            child.material.displacementScale = child.material.userData.dispScale
+            child.material.displacementBias = child.material.userData.dispBias
+
+    })
+}
+}
 /**
  * Update all materials
  */
@@ -105,6 +147,9 @@ export const mountMaterials = () => {
     if(child.material.userData.transparent){
         child.material.transparent = true
         child.material.opacity = 0.2
+        }
+    if(child.material.userData.thickness){
+        child.material.thickness = 0.025
         }
     
     child.material.needsUpdate = true

@@ -11,7 +11,9 @@ const canvas = document.querySelector(config.html.canvasID)
  */
  export const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
-    antialias: general_quality.antialias
+    powerPreference: 'high-performance',
+    antialias: general_quality.antialias,
+    logarithmicDepthBuffer: true // to avoid z-fighting but decrease performance
 })
 
 export const resizeRenderer = (passe) => {
@@ -21,9 +23,13 @@ export const resizeRenderer = (passe) => {
 resizeRenderer(renderer)
 
 renderer.physicallyCorrectLights = config.scene.physicallyCorrectLight //realism
-renderer.outputEncoding = THREE.sRGBEncoding //realism
+// renderer.outputEncoding = THREE.sRGBEncoding //realism
+/**if postprocess */
+renderer.outputEncoding = THREE.LinearEncoding
+
 renderer.toneMapping = THREE.ACESFilmicToneMapping
 renderer.toneMappingExposure = config.scene.toneExposure
+
 
 /**
  * Shadows

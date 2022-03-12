@@ -1,9 +1,12 @@
 import * as THREE from 'three'
 import Stats from 'stats.js'
 import { mixer } from './load3dFiles'
-import { effectComposer } from './postProcess'
+import { effectComposer, passes } from './postProcess'
+import { renderer } from './renderer'
+import { scene } from './scene'
+import { camera } from './camera'
 
-
+import {candleShader} from './materials'
 
 /**
  * Stats
@@ -33,7 +36,8 @@ const controls = require('./controls')
      previousTime = elapsedTime
      const RPS = elapsedTime*Math.PI*2 //round per seconds
     
-    
+     candleShader.uniforms.uTime.value = elapsedTime
+
     /**Animation gltf update */
     if(mixer!=null){
     mixer.update(deltaTime)
@@ -42,11 +46,13 @@ const controls = require('./controls')
      controls.orbitControls.update()
     //  controls.fpsControls.update(deltaTime)
  
-     // Render
-    //  renderer.render(scene, camera)
 
     //postprocessing
-    effectComposer.render()
+    if (effectComposer.passes.length > 1){
+        effectComposer.render()
+    }else{
+        renderer.render(scene, camera)
+    }
  
      // Call tick again on the next frame
      stats.end()

@@ -11,14 +11,14 @@ export const config ={
     },
     scene:{
         background: 'white' ,
-        toneExposure:0.665,
+        toneExposure:3.6,
         physicallyCorrectLight: true
 
     },
     lights:{
         keyLight:{
             enable: true,
-            intensity: 63.136,
+            intensity: 36,
             position:{
                     x:-2.995,
                     y:2.21,
@@ -27,11 +27,11 @@ export const config ={
         },
         ambientLight:{
             enable: true,
-            intensity: 1.927
+            intensity: 2
         },
         environmentLight:{
             enable: true,
-            intensity: 0.882,
+            intensity: 0.682,
             encoding: 2
         }
     },
@@ -49,14 +49,14 @@ export const config ={
     },
     camera:{
         position:{
-            x:0.686,
-            y:1.571,
-            z:3.478
+            x:1.569,
+            y:1.306,
+            z:2.648
             },
         lookAt:{
-            x:2,
-            y:1.637,
-            z:-0.696
+            x:3.153,
+            y:0.758,
+            z:-2.366
         },
         constraint:{
             vertical:true,
