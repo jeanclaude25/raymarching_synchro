@@ -8,3 +8,4 @@ export const GammaCorrectionShader = {
     vertexShader: gammaVertex,
     fragmentShader: gammaFragment
 }
+

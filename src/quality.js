@@ -6,13 +6,15 @@ const texturesSizeArray = ['256','512','1K','2K','3K','4K']
 export let general_quality = {
     id: 'custom',
     pixel_ratio:1,
-    antialias: true,
+    antialias: false,
+    smaa:true,
+    fxaa:false,
     ambientLight: true,
     keylight: true,
     textures:{
         environment:{
             hdr: false,
-            size: envMapArray[2],
+            size: envMapArray[0],
             extension: 'jpg'
         },
         diffuse:{
@@ -22,27 +24,27 @@ export let general_quality = {
         },
         ao:{
             allow: true,
-            size: texturesSizeArray[1],
+            size: texturesSizeArray[2],
             extension: 'jpg'
         },
         normal:{
             allow: true,
-            size: texturesSizeArray[1],
+            size: texturesSizeArray[0],
             extension: 'jpg'
         },
         gloss:{
             allow: true,
-            size: texturesSizeArray[1],
+            size: texturesSizeArray[0],
             extension: 'jpg'
         },
         disp:{
             allow: true,
-            size: texturesSizeArray[1],
+            size: texturesSizeArray[0],
             extension: 'jpg'
         },
         lightsMap:{
             allow: true,
-            size: texturesSizeArray[1],
+            size: texturesSizeArray[0],
             extension: 'jpg'
         }
     },
@@ -56,7 +58,9 @@ export let general_quality = {
 const very_low_quality = {
     id: 'very_low',
     pixel_ratio:1,
-    antialias: true,
+    antialias: false,
+    smaa: false,
+    fxaa: true,
     ambientLight: false,
     keylight: false,
     textures:{
@@ -106,7 +110,9 @@ const very_low_quality = {
 const low_quality = {
     id: 'low',
     pixel_ratio:1,
-    antialias:true,
+    antialias: false,
+    smaa:false,
+    fxaa:true,
     ambientLight: true,
     keylight: true,
     textures:{
@@ -159,7 +165,9 @@ const low_quality = {
 const medium_quality = {
     id: 'medium',
     pixel_ratio:1,
-    antialias:true,
+    antialias: false,
+    smaa:true,
+    fxaa:false,
     ambientLight: true,
     keylight: true,
     textures:{
@@ -215,6 +223,8 @@ const high_quality = {
     id: 'high',
     pixel_ratio:2,
     antialias: false,
+    smaa:false,
+    fxaa:false,
     ambientLight: true,
     keylight: true,
     textures:{
@@ -270,6 +280,8 @@ const very_high_quality = {
     id: 'very_high',
     pixel_ratio:2,
     antialias: false,
+    smaa:false,
+    fxaa:false,
     ambientLight: true,
     keylight: true,
     textures:{
@@ -325,6 +337,8 @@ const insane_quality = {
     id: 'insane',
     pixel_ratio:2,
     antialias: true,
+    smaa:false,
+    fxaa:false,
     ambientLight: true,
     keylight: true,
     textures:{

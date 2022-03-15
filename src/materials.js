@@ -5,24 +5,12 @@ import { DoubleSide, FrontSide } from 'three'
 import { general_quality } from './quality'
 import { load_image } from './textures'
 import { config } from './config'
+import {candleShader} from './shaders/candle/CandleShader'
+import { iFireShader } from './shaders/indirectFire/IndirectFire'
+import { waterShader } from './shaders/water/Water'
+import { SmokeShader } from './shaders/smoke/Smoke'
 
-import candleVertex from './shaders/candle/vertex.glsl'
-import candleFragment from './shaders/candle/fragment.glsl'
 
-
-export const candleShader = new THREE.RawShaderMaterial({
-    vertexShader: candleVertex,
-    fragmentShader: candleFragment,
-    // wireframe:true,
-    depthTest: !true,
-    depthWrite: !true,
-    transparent:true,
-    // opacity:1,
-    uniforms:{
-        uTime: {value: null},
-        uSpeed : {value: 1.0}
-    }
-})
 
 /**Mount Materials */
 export const mountMaterials = () => {
@@ -46,10 +34,16 @@ export const mountMaterials = () => {
 const shaderMount = (child) => {
     if(child.material.userData.shader){
         const data = child.material.userData.shader
-        if(data == 'candle'){
-            child.material = candleShader
-            // console.log(child)
+        if(data == 'candle')child.material = candleShader
+        if(data == 'indirectFire'){
+        child.material = new THREE.RawShaderMaterial(iFireShader)
+        child.material.transparent = false
         }
+        if(data == 'indirectFireFloor')child.material = new THREE.RawShaderMaterial(iFireShader)
+        if(data == 'water')child.material = waterShader
+        if(data == 'smoke')child.material = SmokeShader
+
+    
     }
 }
 
@@ -149,7 +143,7 @@ if(child.material.userData.disp && !config.debug.rawLoad && general_quality.text
         child.material.opacity = 0.2
         }
     if(child.material.userData.thickness){
-        child.material.thickness = 0.025
+        child.material.thickness = child.material.userData.thickness
         }
     
     child.material.needsUpdate = true

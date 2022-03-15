@@ -21,6 +21,10 @@ import { scene } from './scene'
 import { GammaCorrectionShader } from './shaders/gammaCorrection/GammaCorrection'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/shaderpass'
 
+import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
+import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js';
+import { general_quality } from './quality'
+
 export const passes = []
 
 
@@ -29,11 +33,22 @@ passes.push(effectComposer)
 
 const renderPass = new RenderPass(scene, camera)
 effectComposer.addPass(renderPass)
+
 const bloom = new UnrealBloomPass()
 bloom.threshold = 0.9
 bloom.radius = 0.1
 bloom.strength = 0.14
 effectComposer.addPass(bloom)
+
+if(general_quality.fxaa){
+const fxaaPass = new ShaderPass( FXAAShader );
+effectComposer.addPass(fxaaPass)
+}
+
+if(general_quality.smaa){
+    const smaaPass = new SMAAPass( window.innerWidth * renderer.getPixelRatio(), window.innerHeight * renderer.getPixelRatio() );
+    effectComposer.addPass(smaaPass)
+}
 
 const gammaCorrection = new ShaderPass( GammaCorrectionShader );
 effectComposer.addPass(gammaCorrection)

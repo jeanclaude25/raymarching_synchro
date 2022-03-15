@@ -15,6 +15,7 @@ const debug = window.location.href.includes(config.debug.commandLine)?true:false
 })
 
 export const camgui = gui.addFolder('Camera')
+export const shadersGui = gui.addFolder('Shaders')
 
 /**Functions */
 export const createPositionGuiDebug = (parentFolder, objet, min=-30, max=30, step=0.001) => {

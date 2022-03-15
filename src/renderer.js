@@ -13,7 +13,7 @@ const canvas = document.querySelector(config.html.canvasID)
     canvas: canvas,
     powerPreference: 'high-performance',
     antialias: general_quality.antialias,
-    logarithmicDepthBuffer: true // to avoid z-fighting but decrease performance
+    // logarithmicDepthBuffer: true // to avoid z-fighting but decrease performance
 })
 
 export const resizeRenderer = (passe) => {

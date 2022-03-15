@@ -6,7 +6,9 @@ import { renderer } from './renderer'
 import { scene } from './scene'
 import { camera } from './camera'
 
-import {candleShader} from './materials'
+import {candleShader} from './shaders/candle/CandleShader'
+import { iFireShader } from './shaders/indirectFire/IndirectFire'
+import { waterShader } from './shaders/water/Water'
 
 /**
  * Stats
@@ -37,6 +39,8 @@ const controls = require('./controls')
      const RPS = elapsedTime*Math.PI*2 //round per seconds
     
      candleShader.uniforms.uTime.value = elapsedTime
+     iFireShader.uniforms.uTime.value = elapsedTime
+     waterShader.uniforms.uTime.value = elapsedTime
 
     /**Animation gltf update */
     if(mixer!=null){
