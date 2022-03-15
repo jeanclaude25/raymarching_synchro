@@ -13,15 +13,9 @@ const test = require('./environmentMap')
 
 
 
-
-
-
 const light = require('./lighting_Lamps')
 for(const ob of light.lighting){scene.add(ob)}
 
-
-const animation = require('./draw')
-animation.tick()
 
 const loading3dfiles = require('./load3dFiles')
 switch(general_quality.id){

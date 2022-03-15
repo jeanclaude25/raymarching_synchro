@@ -55,7 +55,7 @@ document.addEventListener("keydown", (event) => {
        toggle_panel()
        };
 
-   if(event.key == "n"){
+   if(event.key === "n"){
 
        };
 });

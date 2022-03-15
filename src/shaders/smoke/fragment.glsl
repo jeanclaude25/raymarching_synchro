@@ -2,8 +2,13 @@ uniform vec2 uResolution;
 uniform float uScale;
 
 uniform float uTime;
+uniform float uOffset;
+uniform float uIntensity;
 uniform float uAlpha;
 uniform float uSpeed;
+uniform float uX;
+uniform float uY;
+
 varying vec2 vUv;
 
 
@@ -29,7 +34,7 @@ u = u*u*(3.0-2.0*u);
 float turbulence(){
     vec2 st = vUv.xy * uResolution.xy;
     st *= uScale * (sin(vUv.x)+0.1);
-
+    st.y += uOffset;
     st -= vec2((1. - vUv.x ));
     st = rotate((1. - vUv.x )) * st;
     st += vec2((1. - vUv.x ));
@@ -55,6 +60,7 @@ void main()
     vec2 coordUv = vUv;
     coordUv -= .5;
 	coordUv *= 10.;
+    coordUv += vec2(uX,uY);
 
     coordUv -= vec2(turbulence()* (1. - vUv.x ));
     coordUv = rotate(turbulence()* (1. - vUv.x )) * coordUv;
@@ -70,7 +76,7 @@ void main()
 	m = m * m * 4.;
 	
 	
-	m = (sin(x + uTime)) * (1. - vUv.x );
+	m = (sin(x + uTime + uOffset)) * (1. - vUv.x );
 	
 	float y = coordUv.y - m;
 	
@@ -84,7 +90,7 @@ void main()
     float edges_horizontals = (1.-vUv.y) * vUv.y;
     col *= edges_horizontals;
 
-    col*= 5.;
+    col*= uIntensity;
 
     // gl_FragColor = vec4(col, col.x * uAlpha);
     gl_FragColor = vec4(col, uAlpha);

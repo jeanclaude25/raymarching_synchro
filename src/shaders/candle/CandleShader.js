@@ -14,7 +14,7 @@ export const candleShader = new THREE.RawShaderMaterial({
     blending: THREE.AdditiveBlending,
     uniforms:{
         uTime: {value: null},
-        uSpeed : {value: 1.0},
+        uSpeed : {value: .8},
         uFrequency: {value: new THREE.Vector2(20,20)}
     }  
 })

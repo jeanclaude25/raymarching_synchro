@@ -7,7 +7,7 @@ export const objectLoadingManager = new THREE.LoadingManager(
     ()=>{
         console.log("Object loading finish")
         mountMaterials()
-        loadingbar.style.visibility = 'hidden'
+        loadingbar.style.transformOrigin= 'top right';
     },
     (e,v,s)=>{
         const percent = (v/s)*100
@@ -21,12 +21,21 @@ export const textureLoadingManager = new THREE.LoadingManager(
         console.log("All textures loaded")
         updateAllMaterials()
         const preloader = document.querySelector('.preloader')
-        console.log(preloader.style)
-        preloader.style.animationPlayState = 'running'
+        
+
+        window.setTimeout(()=>{
+            loadingbar.style.visibility = 'hidden'
+            preloader.style.animationPlayState = 'running'
+            const animation = require('./draw')
+            animation.tick()
+        },1000)
+        
     },
     (e,v,s)=>{
         const percent = (v/s)*100
         const uniform_value = 1 - (v/s)
+
+        loadingbar.style.transform = `scaleX(${uniform_value})`
     }
 )
 

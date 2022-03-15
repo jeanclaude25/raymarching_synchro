@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 import Stats from 'stats.js'
 import { mixer } from './load3dFiles'
-import { effectComposer, passes } from './postProcess'
+import { effectComposer  } from './postProcess'
 import { renderer } from './renderer'
-import { scene } from './scene'
+import { heatScene, scene } from './scene'
 import { camera } from './camera'
 
 
@@ -42,9 +42,8 @@ const controls = require('./controls')
     uTimeArrays.forEach((mat)=>mat.uniforms.uTime.value = elapsedTime )
 
     /**Animation gltf update */
-    if(mixer!=null){
-    mixer.update(deltaTime)
-    }
+    if(mixer!==null) mixer.update(deltaTime)
+    
      // Update controls
      controls.orbitControls.update()
     //  controls.fpsControls.update(deltaTime)
@@ -53,6 +52,7 @@ const controls = require('./controls')
     //postprocessing
     if (effectComposer.passes.length > 1){
         effectComposer.render()
+        // renderer.render(heatScene, camera)
     }else{
         renderer.render(scene, camera)
     }

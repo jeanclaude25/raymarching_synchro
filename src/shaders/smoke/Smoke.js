@@ -4,7 +4,7 @@ import smokeFragment from './fragment.glsl'
 import { shadersGui } from '../../gui'
 
 
-export const SmokeShader = {
+export const SmokeShader = new THREE.ShaderMaterial({
     vertexShader: smokeVertex,
     fragmentShader: smokeFragment,
     // wireframe:true,
@@ -18,14 +18,24 @@ export const SmokeShader = {
         uSpeed : {value: 1.0},
         uResolution:{value: new THREE.Vector2(1.1,1.5)},
         uScale:{value: 5},
-        uAlpha:{value:1}
+        uAlpha:{value:1},
+        uIntensity:{value:1.5},
+        uOffset:{value:0},
+        uX:{value:0},
+        uY:{value:0}
     }
-}
+})
 
 
-const smokeGui = shadersGui.addFolder('Smoke')
+const smokeGui = shadersGui.addFolder('Smoke--not connected/ dev only')
 
 smokeGui.add(SmokeShader.uniforms.uAlpha ,'value').min(0).max(1).step(0.01).name('alpha')
+smokeGui.add(SmokeShader.uniforms.uIntensity ,'value').min(1).max(10).step(0.1).name('intensity')
+smokeGui.add(SmokeShader.uniforms.uOffset ,'value').min(-10).max(10).step(0.1).name('offset')
+
+smokeGui.add(SmokeShader.uniforms.uX ,'value').min(-10).max(10).step(0.1).name('PositionX')
+smokeGui.add(SmokeShader.uniforms.uY ,'value').min(-10).max(10).step(0.1).name('PositionY')
+
 
 smokeGui.add(SmokeShader.uniforms.uSpeed ,'value').min(0).max(10).step(0.1).name('speed')
 smokeGui.add(SmokeShader.uniforms.uScale ,'value').min(0).max(10).step(0.1).name('scale')

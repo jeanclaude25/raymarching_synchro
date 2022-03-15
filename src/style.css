@@ -80,7 +80,7 @@ position: absolute;
 width: 100%;
 height: 100%;
 background-color: black;
-animation: 1s fadeOut;
+animation: 2s fadeOut;
 animation-play-state: paused;
 
 animation-fill-mode: forwards;

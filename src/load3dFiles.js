@@ -59,7 +59,7 @@ export const load_objects = (obj) => {
         })
         // console.log(gltf.animations)
         // console.log(animations_gltf)
-        
+
         scene.add(gltf.scene)
         
         }else{

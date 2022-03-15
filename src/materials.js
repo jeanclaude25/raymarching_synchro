@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { scene } from './scene'
+import { heatScene, scene } from './scene'
 import { debugObject } from './gui'
 import { DoubleSide, FrontSide } from 'three'
 import { general_quality } from './quality'
@@ -10,6 +10,8 @@ import { iFireShader } from './shaders/indirectFire/IndirectFire'
 import { waterShader } from './shaders/water/Water'
 import { SmokeShader } from './shaders/smoke/Smoke'
 import { uTimeArrays } from './draw'
+import { shadowTreeShader } from './shaders/shadowTrees/ShadowTrees'
+import { HeatDistortionShader } from './shaders/heatDistortion/HeatDistortion'
 
 
 
@@ -35,15 +37,32 @@ export const mountMaterials = () => {
 const shaderMount = (child) => {
     if(child.material.userData.shader){
         const data = child.material.userData.shader
-        if(data == 'candle')child.material = candleShader
-        if(data == 'indirectFire'){
+        if(data === 'candle')child.material = candleShader
+        if(data === 'shadowTree'){
+            child.material = shadowTreeShader
+            child.customDepthMaterial = shadowTreeShader
+            child.castShadow = true
+        }
+        if(data === 'indirectFire'){
         child.material = new THREE.RawShaderMaterial(iFireShader)
         child.material.transparent = false
         }
-        if(data == 'indirectFireFloor')child.material = new THREE.RawShaderMaterial(iFireShader)
-        if(data == 'water')child.material = waterShader
-        if(data == 'smoke')child.material = new THREE.ShaderMaterial(SmokeShader)
-    
+        if(data === 'indirectFireFloor')child.material = new THREE.RawShaderMaterial(iFireShader)
+        if(data === 'water')child.material = waterShader
+        if(data === 'smoke'){
+            const mat = SmokeShader.clone()
+            child.material = mat
+            if(child.userData.smokeIntensity) child.material.uniforms.uIntensity.value = child.userData.smokeIntensity
+            if (child.userData.smokeX) child.material.uniforms.uX.value = child.userData.smokeX
+            
+            child.material.uniforms.uOffset.value = -Math.random() * 5
+            }
+        if(data === 'heatDistortion'){
+            child.material = HeatDistortionShader
+            // heatScene.add(child)
+
+        }
+        
         uTimeArrays.push(child.material)
     
     }
@@ -74,7 +93,7 @@ load_image(path, child.material.lightMap)
     child.material.lightMap.encoding = THREE.LinearEncoding
 })
 }
-if(general_quality.id == 'very_low')return // VERY FAST Raw load
+if(general_quality.id === 'very_low')return // VERY FAST Raw load
 
 /**DIFFUSE MAP */
 if(child.material.userData.diffuse && !config.debug.rawLoad && general_quality.textures.diffuse.allow){
