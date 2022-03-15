@@ -9,6 +9,7 @@ import {candleShader} from './shaders/candle/CandleShader'
 import { iFireShader } from './shaders/indirectFire/IndirectFire'
 import { waterShader } from './shaders/water/Water'
 import { SmokeShader } from './shaders/smoke/Smoke'
+import { uTimeArrays } from './draw'
 
 
 
@@ -41,8 +42,9 @@ const shaderMount = (child) => {
         }
         if(data == 'indirectFireFloor')child.material = new THREE.RawShaderMaterial(iFireShader)
         if(data == 'water')child.material = waterShader
-        if(data == 'smoke')child.material = SmokeShader
-
+        if(data == 'smoke')child.material = new THREE.ShaderMaterial(SmokeShader)
+    
+        uTimeArrays.push(child.material)
     
     }
 }
