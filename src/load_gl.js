@@ -11,15 +11,11 @@ import { toggle_panel } from './events'
 
 // const test = require('./environmentMap')
 /**FOR DEBUG */
-if(window.location.href.includes(config.debug.commandLine)){
 
-    
-}else{
-
+if(!window.location.href.includes(config.debug.commandLine)){
+import('./environmentMap').then(()=>{ })
 }
-import('./environmentMap_debug').then(({default: environment_object})=>{
 
-})
 
 const light = require('./lighting_Lamps')
 for(const ob of light.lighting){scene.add(ob)}

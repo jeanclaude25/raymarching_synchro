@@ -1,24 +1,19 @@
 import * as THREE from 'three'
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js"
-import { renderer } from './renderer'
-import {store_sceneBackground, store_environmentBackground, update_sceneBackground, update_environmentBackground } from './scene'
+import { update_sceneBackground, update_environmentBackground } from './scene'
 import { debugObject } from './gui'
-import { updateAllMaterials } from './materials'
 import { config } from './config'
 import { general_quality } from './quality'
-
 
 debugObject.envMapIntensity = config.lights.environmentLight.intensity
 debugObject.background = true
 debugObject.environment = true
 
-const cubeTextureLoader = new THREE.CubeTextureLoader() //realism
-const rgbeLoader = new RGBELoader().setDataType(THREE.UnsignedByteType)
-const pmremGenerator = new THREE.PMREMGenerator(renderer)
+const cubeTextureLoader = new THREE.CubeTextureLoader() 
+
 /**
  * ENVIRONNEMENT MAP //realism
  */
- export const environment_object = {
+const environment_object = {
      hdrOrnot:general_quality.textures.environment.hdr,
      envMap:null,
      path:{
@@ -31,53 +26,17 @@ const pmremGenerator = new THREE.PMREMGenerator(renderer)
     env_right:`./textures/environmentMaps/${general_quality.textures.environment.extension}/${general_quality.textures.environment.size}/cube_tile_0006.${general_quality.textures.environment.extension}`
      }
 }
-const clean_obj=()=>{
-        environment_object.path.env_hdr = ''
-        environment_object.path.env_front = ''
-        environment_object.path.env_back = ''
-        environment_object.path.env_up = ''
-        environment_object.path.env_down = ''
-        environment_object.path.env_left = ''
-        environment_object.path.env_right = ''
-}
-
-const refresh_env_scs = (val) => {
-    environment_object.envMap = val
-    debugObject.background?update_sceneBackground(val):store_sceneBackground(val)
-    debugObject.environment?update_environmentBackground(val):store_environmentBackground(val)
-    clean_obj()
-}
-
-export const update_environment = () =>{
-    let environmentMap;
-
-    if(environment_object.hdrOrnot){
-       rgbeLoader
-       .load(environment_object.path.env_hdr, (hdrEquiRect, textureData) => {
-        environmentMap = pmremGenerator.fromEquirectangular(hdrEquiRect);
-        pmremGenerator.compileCubemapShader()
-               
-               refresh_env_scs(environmentMap.texture)
-               renderer.toneMappingExposure = 1
-       })
-    }else{
-        environmentMap = cubeTextureLoader.load([
-        environment_object.path.env_front,
-        environment_object.path.env_back,
-        environment_object.path.env_up,
-        environment_object.path.env_down,
-        environment_object.path.env_left,
-        environment_object.path.env_right,
-    ],(texture)=>{
-        texture.encoding = THREE.sRGBEncoding
-        // texture.intensity = 1.5
-        refresh_env_scs(texture)
-    })
-    }
-    
-}
-update_environment()
-
-
- 
+cubeTextureLoader.load([
+    environment_object.path.env_front,
+    environment_object.path.env_back,
+    environment_object.path.env_up,
+    environment_object.path.env_down,
+    environment_object.path.env_left,
+    environment_object.path.env_right,
+],(texture)=>{
+    texture.encoding = THREE.sRGBEncoding
+    // texture.intensity = 1.5
+    update_environmentBackground(texture)
+    update_sceneBackground(texture)
+})
             
