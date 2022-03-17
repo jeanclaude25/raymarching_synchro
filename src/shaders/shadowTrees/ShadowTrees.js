@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import vertex from './vertex.glsl'
 import fragment from './fragment.glsl'
-import { shadersGui } from '../../gui'
 
 
 
@@ -17,12 +16,12 @@ export const shadowTreeShader = new THREE.RawShaderMaterial({
     }  
 })
 
-const shadowGui = shadersGui.addFolder('shadow Tree')
+// const shadowGui = shadersGui.addFolder('shadow Tree')
 
-shadowGui.add(shadowTreeShader.uniforms.uSpeed ,'value')
-.min(0).max(10).step(0.1).name('speed')
+// shadowGui.add(shadowTreeShader.uniforms.uSpeed ,'value')
+// .min(0).max(10).step(0.1).name('speed')
 
-shadowGui.add(shadowTreeShader.uniforms.uFrequency.value ,'x')
-.min(0).max(100).step(0.1).name('FrequencyX')
-shadowGui.add(shadowTreeShader.uniforms.uFrequency.value ,'y')
-.min(0).max(100).step(0.1).name('FrequencyY')
+// shadowGui.add(shadowTreeShader.uniforms.uFrequency.value ,'x')
+// .min(0).max(100).step(0.1).name('FrequencyX')
+// shadowGui.add(shadowTreeShader.uniforms.uFrequency.value ,'y')
+// .min(0).max(100).step(0.1).name('FrequencyY')

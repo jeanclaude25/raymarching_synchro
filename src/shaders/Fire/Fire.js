@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import vertex from './vertex.glsl'
 import fragment from './fragment.glsl'
-import { shadersGui } from '../../gui'
 
 
 export const FireShader = new THREE.ShaderMaterial({

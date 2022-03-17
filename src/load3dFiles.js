@@ -3,8 +3,9 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { scene } from './scene'
 import { objectLoadingManager } from './loadingManager'
+import { config } from './config'
 
-const gui = require('./gui')
+
 
 export const loaded_obj={}
 /**
@@ -17,9 +18,6 @@ export const loaded_obj={}
  const gltfLoader = new GLTFLoader(objectLoadingManager)
  gltfLoader.setDRACOLoader(dracoLoader)
 
-/**Animation Gltf */
-export let mixer = null
-const animations_gltf = []
 
 /**
  * Models
@@ -37,46 +35,23 @@ export const load_objects = (obj) => {
         //const action = mixer.clipAction(gltf.animations[0])
         if(!obj.instance)
         {
-            /**Animation gltf */
-        mixer = new THREE.AnimationMixer(gltf.scene)
-        let anim_gui;
-        if(gltf.animations.length>0){
-           anim_gui = gui.gui.addFolder('Animations')
-        }
-
-        gltf.animations.forEach((anim)=> {
-            anim.toggle = false
-            const action = mixer.clipAction(anim)
-            animations_gltf.push(action)
-            
-            /**Debug */
-            
-            anim_gui.add(anim,'toggle')
-            .name(anim.name)
-            .onChange((value)=>{
-                value?action.play():action.stop()
-            })
-        })
-        // console.log(gltf.animations)
-        // console.log(animations_gltf)
-
         scene.add(gltf.scene)
-        
         }else{
             //send to instances
             makeInstance(gltf.scene.children[0],obj.instance_path)
         }
 
-        /**
-         * gui.gui
-         */
-         const scobj = gui.gui.addFolder(gltf.scene.children[0].name)
-         gltf.scene.rotation.y = -0.274
+        
+        /**DEBUG */
+if(window.location.href.includes(config.debug.commandLine)){
+    import('./gui').then(({gui})=>{
+        const scobj = gui.addFolder(gltf.scene.children[0].name)
+
          scobj.add(gltf.scene.rotation, 'y')
-         .min(-Math.PI)
-         .max(Math.PI)
-         .step(0.001)
-         .name('rotation')
+         .min(-Math.PI).max(Math.PI).step(0.001).name('rotation')
+    })
+}
+         
     },
     ()=>
     {

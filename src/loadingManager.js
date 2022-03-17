@@ -10,8 +10,8 @@ export const objectLoadingManager = new THREE.LoadingManager(
         
     },
     (e,v,s)=>{
-        const percent = (v/s)*100
-        const uniform_value = 1 - (v/s)
+        // const percent = (v/s)*100
+        // const uniform_value = 1 - (v/s)
         loadingbar.style.transform = `scaleX(${v/s})`
     }
 )
@@ -32,7 +32,7 @@ export const textureLoadingManager = new THREE.LoadingManager(
         
     },
     (e,v,s)=>{
-        const percent = (v/s)*100
+        // const percent = (v/s)*100
         const uniform_value = 1 - (v/s)
         loadingbar.style.transformOrigin= 'top right';
         loadingbar.style.transform = `scaleX(${uniform_value})`

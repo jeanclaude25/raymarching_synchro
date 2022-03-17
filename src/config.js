@@ -20,9 +20,9 @@ export const config ={
             enable: true,
             intensity: 36,
             position:{
-                    x:-2.995,
-                    y:2.21,
-                    z:5.092
+                    x: -1.35,
+                    y: 1.983,
+                    z: 5.092
                     }
         },
         ambientLight:{
@@ -49,22 +49,22 @@ export const config ={
     },
     camera:{
         position:{
-            x:1.9,
-            y:1.26,
-            z:2.68
+            x: 2.2,
+            y:1.11,
+            z:2.4
             },
         lookAt:{
-            x:3.153,
-            y:0.758,
-            z:-2.366
+            x: 2.192,
+            y: 1.03,
+            z: -1.36
         },
         constraint:{
-            vertical:true,
-            verticalMin:0.2,
-            verticalMax:1,
-            horizontal:false,
-            horizontalMin:0,
-            horizontalMax:1
+            vertical: true,
+            verticalMin: 0.2,
+            verticalMax: 1,
+            horizontal: false,
+            horizontalMin: 0,
+            horizontalMax: 1
         }
     },
     debug:{

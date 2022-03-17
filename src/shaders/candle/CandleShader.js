@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import candleVertex from './vertex.glsl'
 import candleFragment from './fragment.glsl'
-import { shadersGui } from '../../gui'
 
 
 export const candleShader = new THREE.RawShaderMaterial({
@@ -19,12 +18,12 @@ export const candleShader = new THREE.RawShaderMaterial({
     }  
 })
 
-const candleGui = shadersGui.addFolder('Candles')
+// const candleGui = shadersGui.addFolder('Candles')
 
-candleGui.add(candleShader.uniforms.uSpeed ,'value')
-.min(0).max(10).step(0.1).name('speed')
+// candleGui.add(candleShader.uniforms.uSpeed ,'value')
+// .min(0).max(10).step(0.1).name('speed')
 
-candleGui.add(candleShader.uniforms.uFrequency.value ,'x')
-.min(0).max(100).step(0.1).name('FrequencyX')
-candleGui.add(candleShader.uniforms.uFrequency.value ,'y')
-.min(0).max(100).step(0.1).name('FrequencyY')
+// candleGui.add(candleShader.uniforms.uFrequency.value ,'x')
+// .min(0).max(100).step(0.1).name('FrequencyX')
+// candleGui.add(candleShader.uniforms.uFrequency.value ,'y')
+// .min(0).max(100).step(0.1).name('FrequencyY')

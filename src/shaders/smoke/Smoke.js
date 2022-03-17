@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import smokeVertex from './vertex.glsl'
 import smokeFragment from './fragment.glsl'
-import { shadersGui } from '../../gui'
 
 
 export const SmokeShader = new THREE.ShaderMaterial({
@@ -27,18 +26,18 @@ export const SmokeShader = new THREE.ShaderMaterial({
 })
 
 
-const smokeGui = shadersGui.addFolder('Smoke--not connected/ dev only')
+// const smokeGui = shadersGui.addFolder('Smoke--not connected/ dev only')
 
-smokeGui.add(SmokeShader.uniforms.uAlpha ,'value').min(0).max(1).step(0.01).name('alpha')
-smokeGui.add(SmokeShader.uniforms.uIntensity ,'value').min(1).max(10).step(0.1).name('intensity')
-smokeGui.add(SmokeShader.uniforms.uOffset ,'value').min(-10).max(10).step(0.1).name('offset')
+// smokeGui.add(SmokeShader.uniforms.uAlpha ,'value').min(0).max(1).step(0.01).name('alpha')
+// smokeGui.add(SmokeShader.uniforms.uIntensity ,'value').min(1).max(10).step(0.1).name('intensity')
+// smokeGui.add(SmokeShader.uniforms.uOffset ,'value').min(-10).max(10).step(0.1).name('offset')
 
-smokeGui.add(SmokeShader.uniforms.uX ,'value').min(-10).max(10).step(0.1).name('PositionX')
-smokeGui.add(SmokeShader.uniforms.uY ,'value').min(-10).max(10).step(0.1).name('PositionY')
+// smokeGui.add(SmokeShader.uniforms.uX ,'value').min(-10).max(10).step(0.1).name('PositionX')
+// smokeGui.add(SmokeShader.uniforms.uY ,'value').min(-10).max(10).step(0.1).name('PositionY')
 
 
-smokeGui.add(SmokeShader.uniforms.uSpeed ,'value').min(0).max(10).step(0.1).name('speed')
-smokeGui.add(SmokeShader.uniforms.uScale ,'value').min(0).max(10).step(0.1).name('scale')
+// smokeGui.add(SmokeShader.uniforms.uSpeed ,'value').min(0).max(10).step(0.1).name('speed')
+// smokeGui.add(SmokeShader.uniforms.uScale ,'value').min(0).max(10).step(0.1).name('scale')
 
-smokeGui.add(SmokeShader.uniforms.uResolution.value ,'x').min(0).max(10).step(0.01).name('ResolutionX')
-smokeGui.add(SmokeShader.uniforms.uResolution.value ,'y').min(0).max(10).step(0.01).name('ResolutionY')
+// smokeGui.add(SmokeShader.uniforms.uResolution.value ,'x').min(0).max(10).step(0.01).name('ResolutionX')
+// smokeGui.add(SmokeShader.uniforms.uResolution.value ,'y').min(0).max(10).step(0.01).name('ResolutionY')

@@ -5,7 +5,7 @@ import { scene } from './scene'
 import { renderer } from './renderer'
 import { camera } from './camera'
 import { toggle_panel } from './events'
-// import { a } from './shadowCatcher'
+
 
 
 
@@ -40,8 +40,6 @@ switch(general_quality.id){
 }
 //LOAD GLB 4K files for computer or wide screen devices
 loading3dfiles.load_objects({path:'./models/static/walls.glb',instance:false})
-// loading3dfiles.load_objects({path:'./models/static/sofa.glb',instance:false})
-// loading3dfiles.load_objects({path:'./models/static/plants.glb',instance:false})
 loading3dfiles.load_objects({path:'./models/static/last_furniture.glb',instance:false})
 loading3dfiles.load_objects({path:'./models/static/background.glb',instance:false})
 

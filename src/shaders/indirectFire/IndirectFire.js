@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import iFireVertex from './vertex.glsl'
 import iFireFragment from './fragment.glsl'
-import { shadersGui } from '../../gui'
 
 
 export const iFireShader = new THREE.RawShaderMaterial({
@@ -27,25 +26,25 @@ export const iFireShader = new THREE.RawShaderMaterial({
     }
 })
 
-const iFGui = shadersGui.addFolder('Indirect Fire')
+// const iFGui = shadersGui.addFolder('Indirect Fire')
 
-iFGui.add(iFireShader.uniforms.uSpeed ,'value')
-.min(0).max(10).step(0.1).name('speed')
+// iFGui.add(iFireShader.uniforms.uSpeed ,'value')
+// .min(0).max(10).step(0.1).name('speed')
 
-iFGui.add(iFireShader.uniforms.amplitude ,'value')
-.min(0).max(10).step(0.1).name('amplitude')
+// iFGui.add(iFireShader.uniforms.amplitude ,'value')
+// .min(0).max(10).step(0.1).name('amplitude')
 
-iFGui.add(iFireShader.uniforms.frequency ,'value')
-.min(0).max(100).step(0.1).name('frequency')
+// iFGui.add(iFireShader.uniforms.frequency ,'value')
+// .min(0).max(100).step(0.1).name('frequency')
 
-iFGui.add(iFireShader.uniforms.mini ,'value')
-.min(0).max(1).step(0.01).name('mini')
+// iFGui.add(iFireShader.uniforms.mini ,'value')
+// .min(0).max(1).step(0.01).name('mini')
 
-iFGui.add(iFireShader.uniforms.maxi ,'value')
-.min(0).max(1).step(0.01).name('maxi')
+// iFGui.add(iFireShader.uniforms.maxi ,'value')
+// .min(0).max(1).step(0.01).name('maxi')
 
-iFGui.add(iFireShader.uniforms.uIntensity ,'value')
-.min(0).max(1).step(0.01).name('Alpha Intensity')
+// iFGui.add(iFireShader.uniforms.uIntensity ,'value')
+// .min(0).max(1).step(0.01).name('Alpha Intensity')
 
-iFGui.add(iFireShader.uniforms.uStrength ,'value')
-.min(0).max(1).step(0.01).name('strength')
+// iFGui.add(iFireShader.uniforms.uStrength ,'value')
+// .min(0).max(1).step(0.01).name('strength')

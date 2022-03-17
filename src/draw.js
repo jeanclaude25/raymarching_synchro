@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { mixer } from './load3dFiles'
 import { effectComposer, gammaCorrection  } from './postProcess'
 import { heatRenderer, renderer } from './renderer'
 import { heatScene, scene } from './scene'
@@ -33,13 +32,11 @@ if(window.location.href.includes(config.debug.commandLine)){
  {
      if(stats)stats.begin()
      const elapsedTime = clock.getElapsedTime()
-     const deltaTime = elapsedTime - previousTime
+    //  const deltaTime = elapsedTime - previousTime
      previousTime = elapsedTime
     
     uTimeArrays.forEach((mat)=>mat.uniforms.uTime.value = elapsedTime )
 
-    /**Animation gltf update */
-    if(mixer!==null) mixer.update(deltaTime)
     
      // Update controls
      orbitControls.update()

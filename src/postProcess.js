@@ -1,17 +1,6 @@
-import * as THREE from 'three'
 
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
-
-import {AdaptiveToneMappingPass} from 'three/examples/jsm/postprocessing/AdaptiveToneMappingPass'
-import {AfterimagePass} from 'three/examples/jsm/postprocessing/AfterimagePass'
-import {DotScreenPass} from 'three/examples/jsm/postprocessing/DotScreenPass'
-import {FilmPass} from 'three/examples/jsm/postprocessing/FilmPass'
-import {GlitchPass} from 'three/examples/jsm/postprocessing/GlitchPass'
-import {HalftonePass} from 'three/examples/jsm/postprocessing/HalftonePass'
-
-import {SAOPass} from 'three/examples/jsm/postprocessing/SAOPass'
-import {SSAOPass} from 'three/examples/jsm/postprocessing/SSAOPass'
 
 import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 import { camera } from './camera'
@@ -19,11 +8,10 @@ import { camera } from './camera'
 import { renderer } from './renderer'
 import { scene } from './scene'
 import { GammaCorrectionShader } from './shaders/gammaCorrection/GammaCorrection'
-import { ShaderPass } from 'three/examples/jsm/postprocessing/shaderpass'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
 
-import { FXAAShader } from 'three/examples/jsm/shaders/FXAAShader.js';
-import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js';
 import { general_quality } from './quality'
+import { config } from './config'
 
 export const passes = []
 
@@ -44,15 +32,25 @@ export const gammaCorrection = new ShaderPass( GammaCorrectionShader );
 effectComposer.addPass(gammaCorrection)
 
 if(general_quality.fxaa){
-const fxaaPass = new ShaderPass( FXAAShader );
-effectComposer.addPass(fxaaPass)
+    import('three/examples/jsm/shaders/FXAAShader.js').then(({FXAAShader})=>{
+        const fxaaPass = new ShaderPass( FXAAShader );
+        effectComposer.addPass(fxaaPass)
+    })
 }
 
 if(general_quality.smaa){
-    const smaaPass = new SMAAPass( window.innerWidth * renderer.getPixelRatio(), window.innerHeight * renderer.getPixelRatio() );
-    effectComposer.addPass(smaaPass)
+    import('three/examples/jsm/postprocessing/SMAAPass.js').then(({SMAAPass})=>{
+        const smaaPass = new SMAAPass( window.innerWidth * renderer.getPixelRatio(), window.innerHeight * renderer.getPixelRatio() );
+        effectComposer.addPass(smaaPass)
+    })
 }
 
+
+
+
+/**DEBUG */
+if(window.location.href.includes(config.debug.commandLine)){
+    import('./gui').then(({gui})=>{
 
 
 
@@ -60,10 +58,7 @@ if(general_quality.smaa){
 let allPasses = []
 
 
-const gui = require('./gui')
-const postProcess_gui = gui.gui.addFolder('PostProcessing')
-
-
+const postProcess_gui = gui.addFolder('PostProcessing')
 
 const create_postProcess = (name,postP,tweek) => {
     const ob = {
@@ -128,18 +123,24 @@ const refresh_passes = () =>{
 
 
 /**Adaptive tone mapping */
-create_postProcess(
-    'AdaptiveToneMapping',
-    new AdaptiveToneMappingPass()
-    )
+import('three/examples/jsm/postprocessing/AdaptiveToneMappingPass').then(({AdaptiveToneMappingPass})=>{
+    create_postProcess(
+        'AdaptiveToneMapping',
+        new AdaptiveToneMappingPass()
+        )
+})
+
 
 /**AfterImagePass (MotionBlur) */
-create_postProcess(
-    'MotionBlur',
-    new AfterimagePass()
-    )
+import('three/examples/jsm/postprocessing/AfterimagePass').then(({AfterimagePass})=>{
+    create_postProcess(
+        'MotionBlur',
+        new AfterimagePass()
+        )
+})
 
 /**Bloom */
+import('three/examples/jsm/postprocessing/UnrealBloomPass').then(({UnrealBloomPass})=>{
 create_postProcess(
     'Bloom',
     new UnrealBloomPass(),
@@ -167,27 +168,37 @@ create_postProcess(
          }
     ]
     )
+})
 
+import('three/examples/jsm/postprocessing/DotScreenPass').then(({DotScreenPass})=>{
 create_postProcess(
     'DotScreenPass',
     new DotScreenPass()
 )
+})
 
+import('three/examples/jsm/postprocessing/FilmPass').then(({FilmPass})=>{
 create_postProcess(
     'FilmPass',
     new FilmPass()
 )
+})
 
-create_postProcess(
-    'GlitchPass',
-    new GlitchPass()
-)
+import('three/examples/jsm/postprocessing/GlitchPass').then(({GlitchPass})=>{
+    create_postProcess(
+        'GlitchPass',
+        new GlitchPass()
+    )
+})
 
-create_postProcess(
-    'HalftonePass',
-    new HalftonePass()
-)
+import('three/examples/jsm/postprocessing/HalftonePass').then(({HalftonePass})=>{
+    create_postProcess(
+        'HalftonePass',
+        new HalftonePass()
+    )
+})
 
+import('three/examples/jsm/postprocessing/SAOPass').then(({SAOPass})=>{
 create_postProcess(
     'SAOPass',
     new SAOPass(scene,camera),
@@ -251,9 +262,16 @@ create_postProcess(
     ]
     
 )
+})
 
+
+import('three/examples/jsm/postprocessing/SSAOPass').then(({SSAOPass})=>{
 create_postProcess(
     'SSAOPass',
     new SSAOPass(scene, camera)
-    
 )
+})
+
+
+    })
+}

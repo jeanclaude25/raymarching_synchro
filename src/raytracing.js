@@ -1,30 +1,30 @@
-import * as THREE from 'three'
-import { DoubleSide, Vector3 } from 'three'
-import { camera } from './camera'
-import { scene } from './scene'
+// import * as THREE from 'three'
+// import { DoubleSide } from 'three'
+// import { camera } from './camera'
+// // import { scene } from './scene'
 
-const raycaster = new THREE.Raycaster()
-
-
-//3d objects
-const geometry = new THREE.SphereGeometry( 50, 32, 32 )
-const material = new THREE.MeshBasicMaterial( { color: 0xffff00
-    ,side: DoubleSide
-} )
-const sphere = new THREE.Mesh( geometry, material )
+// const raycaster = new THREE.Raycaster()
 
 
-export const positionFromRaycast = (cursor) => {
-	const v = document.getElementById("viewer");//choppe le viewer
+// //3d objects
+// const geometry = new THREE.SphereGeometry( 50, 32, 32 )
+// const material = new THREE.MeshBasicMaterial( { color: 0xffff00
+//     ,side: DoubleSide
+// } )
+// const sphere = new THREE.Mesh( geometry, material )
 
-    cursor.x = cursor.x / v.width * 2 - 1
-    cursor.y = - (cursor.y/ v.height) * 2 + 1
 
-    raycaster.setFromCamera(cursor, camera)
-    const intersects = raycaster.intersectObject(sphere) //array objects
+// export const positionFromRaycast = (cursor) => {
+// 	const v = document.getElementById("viewer");//choppe le viewer
+
+//     cursor.x = cursor.x / v.width * 2 - 1
+//     cursor.y = - (cursor.y/ v.height) * 2 + 1
+
+//     raycaster.setFromCamera(cursor, camera)
+//     const intersects = raycaster.intersectObject(sphere) //array objects
     
-    const position= intersects[0].point
+//     const position= intersects[0].point
     
-    return position
- }
+//     return position
+//  }
 
