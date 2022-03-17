@@ -2,6 +2,8 @@ precision lowp float;
 
 uniform vec3 uColor_1;
 uniform vec3 uColor_2;
+uniform float uIntensity;
+uniform float uStrength;
 
 varying vec2 vUv;
 varying float vColorValue;
@@ -24,6 +26,8 @@ float rectShape(vec2 position, vec2 scale){
             color += 0.4;
             vec3 final = vec3(rectShape(vec2(position.x-.5,position.y),vec2(.1)));
 			float alpha = rectShape(vec2(position.x-.5,position.y),vec2(.1)) * 1.5;
+            alpha *= uIntensity;
+            color *= uStrength;
             gl_FragColor = vec4(color, alpha);
 
 		}

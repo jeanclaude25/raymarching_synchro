@@ -3,7 +3,7 @@ import { heatScene, scene } from './scene'
 import { debugObject } from './gui'
 import { DoubleSide, FrontSide } from 'three'
 import { general_quality } from './quality'
-import { load_image } from './textures'
+import { fireText, load_image } from './textures'
 import { config } from './config'
 import {candleShader} from './shaders/candle/CandleShader'
 import { iFireShader } from './shaders/indirectFire/IndirectFire'
@@ -12,6 +12,7 @@ import { SmokeShader } from './shaders/smoke/Smoke'
 import { uTimeArrays } from './draw'
 import { shadowTreeShader } from './shaders/shadowTrees/ShadowTrees'
 import { HeatDistortionShader } from './shaders/heatDistortion/HeatDistortion'
+import { FireShader } from './shaders/Fire/Fire'
 
 
 
@@ -43,15 +44,33 @@ const shaderMount = (child) => {
             child.customDepthMaterial = shadowTreeShader
             child.castShadow = true
         }
+        if(data === 'fire'){
+            const mat = FireShader.clone()
+            child.material = new THREE.ShaderMaterial(mat)
+            child.material.index0AttributeName = "position"
+            child.material.uniforms.uDetail.value = child.userData.fireDetail
+            child.material.uniforms.uAmplitude.value = child.userData.fireAmplitude
+            
+            }
+            
         if(data === 'indirectFire'){
-        child.material = new THREE.RawShaderMaterial(iFireShader)
-        child.material.transparent = false
+            const mat = iFireShader.clone()
+            child.material = mat
+            child.material.index0AttributeName = "position"
+            child.material.transparent = false
+            child.material.uniforms.uStrength.value = 0.003;
+            }
+        if(data === 'indirectFireFloor'){
+            const mat = iFireShader.clone()
+            child.material = mat
+            child.material.index0AttributeName = "position"
+            child.material.uniforms.uStrength.value = 1;
         }
-        if(data === 'indirectFireFloor')child.material = new THREE.RawShaderMaterial(iFireShader)
         if(data === 'water')child.material = waterShader
         if(data === 'smoke'){
             const mat = SmokeShader.clone()
             child.material = mat
+            child.material.index0AttributeName = "position"
             if(child.userData.smokeIntensity) child.material.uniforms.uIntensity.value = child.userData.smokeIntensity
             if (child.userData.smokeX) child.material.uniforms.uX.value = child.userData.smokeX
             
@@ -59,10 +78,9 @@ const shaderMount = (child) => {
             }
         if(data === 'heatDistortion'){
             child.material = HeatDistortionShader
-            // heatScene.add(child)
-
+            child.material.index0AttributeName = "position"
+            heatScene.add(child)
         }
-        
         uTimeArrays.push(child.material)
     
     }

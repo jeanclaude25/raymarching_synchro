@@ -8,6 +8,7 @@ import { shadersGui } from '../../gui'
 export const shadowTreeShader = new THREE.RawShaderMaterial({
     vertexShader: vertex,
     fragmentShader: fragment,
+    side: THREE.DoubleSide,
 
     uniforms:{
         uTime: {value: null},

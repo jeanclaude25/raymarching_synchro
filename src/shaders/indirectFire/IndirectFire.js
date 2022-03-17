@@ -4,7 +4,7 @@ import iFireFragment from './fragment.glsl'
 import { shadersGui } from '../../gui'
 
 
-export const iFireShader = {
+export const iFireShader = new THREE.RawShaderMaterial({
     vertexShader: iFireVertex,
     fragmentShader: iFireFragment,
     // wireframe:true,
@@ -14,16 +14,18 @@ export const iFireShader = {
     // opacity:1,
     uniforms:{
         uTime: {value: null},
-        uSpeed : {value: 6.0},
+        uSpeed : {value: 3.2},
         amplitude: {value: 2.0},
         frequency: {value: 10.0},
         mini: {value: 0},
         maxi: {value: 1.0},
-        uColor_1: {value: new THREE.Color('yellow')},
-        uColor_2: {value: new THREE.Color('red')}
+        uColor_1: {value: new THREE.Color('#ae3d00')},
+        uColor_2: {value: new THREE.Color('red')},
+        uIntensity: {value: 0.16},
+        uStrength:{value: 0.005}
 
     }
-}
+})
 
 const iFGui = shadersGui.addFolder('Indirect Fire')
 
@@ -41,3 +43,9 @@ iFGui.add(iFireShader.uniforms.mini ,'value')
 
 iFGui.add(iFireShader.uniforms.maxi ,'value')
 .min(0).max(1).step(0.01).name('maxi')
+
+iFGui.add(iFireShader.uniforms.uIntensity ,'value')
+.min(0).max(1).step(0.01).name('Alpha Intensity')
+
+iFGui.add(iFireShader.uniforms.uStrength ,'value')
+.min(0).max(1).step(0.01).name('strength')

@@ -1,4 +1,4 @@
-import { renderer, resizeRenderer } from './renderer'
+import { heatRenderer, renderer, resizeRenderer } from './renderer'
 import { cameraUpdate } from './camera'
 import { refreshSizes } from './scene';
 import { passes } from './postProcess';
@@ -42,6 +42,7 @@ window.addEventListener('resize', () =>
 	refreshSizes()
     cameraUpdate()
 	resizeRenderer(renderer)
+	resizeRenderer(heatRenderer, false)
 	passes.forEach((child)=> resizeRenderer(child) )
 })
 

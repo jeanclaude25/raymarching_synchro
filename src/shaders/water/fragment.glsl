@@ -1,3 +1,5 @@
+precision lowp float;
+
 uniform vec3 uDepthColor;
 uniform vec3 uSurfaceColor;
 uniform float uColorOffset;

@@ -1,3 +1,5 @@
+precision lowp float;
+
 uniform vec2 uResolution;
 uniform float uScale;
 

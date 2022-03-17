@@ -28,7 +28,7 @@ export const textureLoadingManager = new THREE.LoadingManager(
             preloader.style.animationPlayState = 'running'
             const animation = require('./draw')
             animation.tick()
-        },1000)
+        },2000)
         
     },
     (e,v,s)=>{

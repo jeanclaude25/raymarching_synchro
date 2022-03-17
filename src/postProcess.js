@@ -40,6 +40,9 @@ bloom.radius = 0.1
 bloom.strength = 0.14
 effectComposer.addPass(bloom)
 
+export const gammaCorrection = new ShaderPass( GammaCorrectionShader );
+effectComposer.addPass(gammaCorrection)
+
 if(general_quality.fxaa){
 const fxaaPass = new ShaderPass( FXAAShader );
 effectComposer.addPass(fxaaPass)
@@ -50,8 +53,7 @@ if(general_quality.smaa){
     effectComposer.addPass(smaaPass)
 }
 
-const gammaCorrection = new ShaderPass( GammaCorrectionShader );
-effectComposer.addPass(gammaCorrection)
+
 
 
 /**Postprocess pass to add or remove */

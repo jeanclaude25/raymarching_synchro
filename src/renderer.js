@@ -16,9 +16,9 @@ const canvas = document.querySelector(config.html.canvasID)
     // logarithmicDepthBuffer: true // to avoid z-fighting but decrease performance
 })
 
-export const resizeRenderer = (passe) => {
+export const resizeRenderer = (passe,pr = true) => {
     passe.setSize(sizes.width, sizes.height)
-    passe.setPixelRatio(general_quality.pixel_ratio)
+    if(pr) passe.setPixelRatio(general_quality.pixel_ratio)
 } 
 resizeRenderer(renderer)
 
@@ -38,3 +38,15 @@ renderer.toneMappingExposure = config.scene.toneExposure
     renderer.shadowMap.enabled = general_quality.shadows.enable //realism
     renderer.shadowMap.type =  general_quality.shadows.type//realism
     }
+
+
+/**Heat Renderer */
+const rtWidth = sizes.width;
+const rtHeight = sizes.height;
+export const heatRenderer = new THREE.WebGLRenderTarget(rtWidth, rtHeight,{
+    minFilter: THREE.LinearFilter, 
+    magFilter: THREE.NearestFilter,
+    depthBuffer: false,
+    stencilBuffer: false
+})
+resizeRenderer(heatRenderer, false)

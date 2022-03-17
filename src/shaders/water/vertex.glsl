@@ -11,6 +11,7 @@ uniform float uSmallWavesSpeed;
 uniform float uSmallIterations;
 
 varying float vElevation;
+varying vec2 surfacePosition;
 
 // Classic Perlin 3D Noise 
 // by Stefan Gustavson

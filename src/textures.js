@@ -3,7 +3,6 @@ import { textureLoadingManager } from "./loadingManager";
 
 const textureLoader = new THREE.TextureLoader(textureLoadingManager)
 
-
 export const load_image = (path,sourceToCopy) => {
     // console.log("load" + path)
     return new Promise((resolve, reject) => {

@@ -49,9 +49,9 @@ export const config ={
     },
     camera:{
         position:{
-            x:1.569,
-            y:1.306,
-            z:2.648
+            x:1.9,
+            y:1.26,
+            z:2.68
             },
         lookAt:{
             x:3.153,

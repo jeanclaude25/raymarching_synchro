@@ -1,10 +1,11 @@
 import * as THREE from 'three'
 import Stats from 'stats.js'
 import { mixer } from './load3dFiles'
-import { effectComposer  } from './postProcess'
-import { renderer } from './renderer'
+import { effectComposer, gammaCorrection  } from './postProcess'
+import { heatRenderer, renderer } from './renderer'
 import { heatScene, scene } from './scene'
 import { camera } from './camera'
+import { GammaCorrectionShader } from './shaders/gammaCorrection/GammaCorrection'
 
 
 
@@ -51,8 +52,14 @@ const controls = require('./controls')
 
     //postprocessing
     if (effectComposer.passes.length > 1){
+        renderer.setRenderTarget(heatRenderer);
+        renderer.render(heatScene, camera);
+
+        gammaCorrection.uniforms.tHeatDistortion.value = heatRenderer.texture
+        
+        // renderer.setRenderTarget(null);
         effectComposer.render()
-        // renderer.render(heatScene, camera)
+
     }else{
         renderer.render(scene, camera)
     }
