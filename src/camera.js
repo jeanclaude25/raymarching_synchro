@@ -31,11 +31,9 @@ cameraUpdate()
 /**FOR DEBUG */
 if(window.location.href.includes(config.debug.commandLine)){
 
-    /**
-     * gui.gui
-     */
-    const gui = require('./gui')
-    gui.camgui.add(camera, 'fov').min(1).max(180).step(1)
-    gui.createPositionGuiDebug(gui.camgui, camera, -150, 150)
+    import('./gui').then(({camgui, createPositionGuiDebug})=>{
+    camgui.add(camera, 'fov').min(1).max(180).step(1)
+    createPositionGuiDebug(camgui, camera, -150, 150)
+    })
     
     }
