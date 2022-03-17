@@ -1,7 +1,7 @@
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { camera } from "./camera"
 import { config } from './config'
-import { camgui } from './gui'
+
 
 const canvas = document.querySelector(config.html.canvasID)
 
@@ -22,16 +22,23 @@ orbitControls.minPolarAngle = Math.PI / 2 - config.camera.constraint.verticalMax
 orbitControls.maxPolarAngle = Math.PI / 2 + config.camera.constraint.verticalMin
 }
 
-const look = camgui.addFolder('lookAt')
-look.add(orbitControls.target, 'x')
-.min(-10)
-.max(10)
-.step(0.001)
-look.add(orbitControls.target, 'y')
-.min(-10)
-.max(10)
-.step(0.001)
-look.add(orbitControls.target, 'z')
-.min(-10)
-.max(10)
-.step(0.001)
+/**DEBUG */
+if(window.location.href.includes(config.debug.commandLine)){
+    import('./gui').then(({default: camgui})=>{
+        const look = camgui.addFolder('lookAt')
+        look.add(orbitControls.target, 'x')
+        .min(-10)
+        .max(10)
+        .step(0.001)
+        look.add(orbitControls.target, 'y')
+        .min(-10)
+        .max(10)
+        .step(0.001)
+        look.add(orbitControls.target, 'z')
+        .min(-10)
+        .max(10)
+        .step(0.001)
+
+    })
+
+}

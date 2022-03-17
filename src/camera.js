@@ -29,7 +29,7 @@ cameraUpdate()
 
 
 /**FOR DEBUG */
-// if(window.location.href.includes(config.debug.commandLine)){
+if(window.location.href.includes(config.debug.commandLine)){
 
     /**
      * gui.gui
@@ -38,4 +38,4 @@ cameraUpdate()
     gui.camgui.add(camera, 'fov').min(1).max(180).step(1)
     gui.createPositionGuiDebug(gui.camgui, camera, -150, 150)
     
-    // }
+    }

@@ -7,7 +7,7 @@ export const objectLoadingManager = new THREE.LoadingManager(
     ()=>{
         console.log("Object loading finish")
         mountMaterials()
-        loadingbar.style.transformOrigin= 'top right';
+        
     },
     (e,v,s)=>{
         const percent = (v/s)*100
@@ -34,7 +34,7 @@ export const textureLoadingManager = new THREE.LoadingManager(
     (e,v,s)=>{
         const percent = (v/s)*100
         const uniform_value = 1 - (v/s)
-
+        loadingbar.style.transformOrigin= 'top right';
         loadingbar.style.transform = `scaleX(${uniform_value})`
     }
 )
