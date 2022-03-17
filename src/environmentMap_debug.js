@@ -19,7 +19,7 @@ const pmremGenerator = new THREE.PMREMGenerator(renderer)
  * ENVIRONNEMENT MAP //realism
  */
  export const environment_object = {
-     hdrOrnot:general_quality.textures.environment.hdr,
+     hdrOrnot: general_quality.textures.environment.hdr,
      envMap:null,
      path:{
     env_hdr:`./textures/hdr/${general_quality.textures.environment.size}.hdr`,
@@ -78,13 +78,16 @@ export const update_environment = () =>{
 }
 update_environment()
 
+if(window.location.href.includes(config.debug.commandLine)){
 
-    const gui = require('./gui')
+    import('./gui').then(({gui})=>{
+
+    // const gui = require('./gui')
      /**
      * gui.gui
      */
     
-    const envgui = gui.gui.addFolder('EnvironmentLight')
+    const envgui = gui.addFolder('EnvironmentLight')
     envgui.add(debugObject, 'envMapIntensity').min(0).max(10).step(0.001)
     .onChange(updateAllMaterials)
 
@@ -103,4 +106,5 @@ update_environment()
     update_environmentBackground(null)
     )
     
-            
+    }) 
+}   
