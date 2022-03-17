@@ -1,44 +1,40 @@
 import * as THREE from 'three'
-import Stats from 'stats.js'
 import { mixer } from './load3dFiles'
 import { effectComposer, gammaCorrection  } from './postProcess'
 import { heatRenderer, renderer } from './renderer'
 import { heatScene, scene } from './scene'
 import { camera } from './camera'
-import { GammaCorrectionShader } from './shaders/gammaCorrection/GammaCorrection'
-
+import { config } from './config'
+import { orbitControls } from './controls'
 
 
 /**Array of uniforms to animate */
 export const uTimeArrays = []
 
-/**
- * Stats
- */
-const stats = new Stats()
-stats.showPanel(0)
-document.body.appendChild(stats.dom)
-const controls = require('./controls')
+let stats;
+/**FOR DEBUG */
+if(window.location.href.includes(config.debug.commandLine)){
 
-
-/* Adding environnement */
-
-
+    import('stats.js').then(({default: Stats})=>{
+        /**STATS */
+        stats = new Stats()
+        stats.showPanel(0)
+        document.body.appendChild(stats.dom)
+    })
+}
 
 
 /**
  * Animate
  */
  const clock = new THREE.Clock()
- const insterval = 1/30
  let previousTime = 0
  export const tick = () =>
  {
-     stats.begin()
+     if(stats)stats.begin()
      const elapsedTime = clock.getElapsedTime()
      const deltaTime = elapsedTime - previousTime
      previousTime = elapsedTime
-     const RPS = elapsedTime*Math.PI*2 //round per seconds
     
     uTimeArrays.forEach((mat)=>mat.uniforms.uTime.value = elapsedTime )
 
@@ -46,8 +42,7 @@ const controls = require('./controls')
     if(mixer!==null) mixer.update(deltaTime)
     
      // Update controls
-     controls.orbitControls.update()
-    //  controls.fpsControls.update(deltaTime)
+     orbitControls.update()
  
 
     //postprocessing
@@ -65,6 +60,6 @@ const controls = require('./controls')
     }
  
      // Call tick again on the next frame
-     stats.end()
+     if(stats)stats.end()
      requestAnimationFrame(tick)
  }
