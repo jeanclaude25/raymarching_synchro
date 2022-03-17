@@ -1,7 +1,7 @@
 import './style.css'
 import { general_quality } from './quality'
 import { config } from './config'
-import { scene } from './scene'
+import { heatScene, scene } from './scene'
 import { renderer } from './renderer'
 import { camera } from './camera'
 import { toggle_panel } from './events'
@@ -39,9 +39,10 @@ switch(general_quality.id){
         break;
 }
 //LOAD GLB 4K files for computer or wide screen devices
-loading3dfiles.load_objects({path:'./models/static/walls.glb',instance:false})
-loading3dfiles.load_objects({path:'./models/static/last_furniture.glb',instance:false})
-loading3dfiles.load_objects({path:'./models/static/background.glb',instance:false})
+loading3dfiles.load_objects({path:'./models/static/walls.glb',instance:false, scene})
+loading3dfiles.load_objects({path:'./models/static/last_furniture.glb',instance:false, scene})
+loading3dfiles.load_objects({path:'./models/static/background.glb',instance:false, scene})
+loading3dfiles.load_objects({path:'./models/static/FX_Heat_cage.glb',instance:false, scene: heatScene})
 
 //LOAD GLB 2K files for mobile devices
 

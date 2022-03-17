@@ -30,6 +30,14 @@ export const mountMaterials = () => {
                 
          }
      })
+     heatScene.traverse((child)=>{
+        if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
+         {
+            // texturesMount(child)
+            shaderMount(child)
+                
+         }
+     })
 }
 
 
@@ -66,7 +74,7 @@ const shaderMount = (child) => {
             child.material.index0AttributeName = "position"
             child.material.uniforms.uStrength.value = 1;
         }
-        if(data === 'water')child.material = waterShader
+        // if(data === 'water')child.material = waterShader
         if(data === 'smoke'){
             const mat = SmokeShader.clone()
             child.material = mat
@@ -81,7 +89,7 @@ const shaderMount = (child) => {
             child.material.index0AttributeName = "position"
             heatScene.add(child)
         }
-        uTimeArrays.push(child.material)
+        if(child.material.type === 'ShaderMaterial' || child.material.type === 'RawShaderMaterial') uTimeArrays.push(child.material)
     
     }
 }

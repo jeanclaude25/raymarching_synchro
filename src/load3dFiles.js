@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
-import { scene } from './scene'
+
 import { objectLoadingManager } from './loadingManager'
 import { config } from './config'
 
@@ -35,10 +35,10 @@ export const load_objects = (obj) => {
         //const action = mixer.clipAction(gltf.animations[0])
         if(!obj.instance)
         {
-        scene.add(gltf.scene)
+        obj.scene.add(gltf.scene)
         }else{
             //send to instances
-            makeInstance(gltf.scene.children[0],obj.instance_path)
+            makeInstance(gltf.scene.children[0],obj.instance_path, obj.scene)
         }
 
         
@@ -64,7 +64,7 @@ if(window.location.href.includes(config.debug.commandLine)){
 )
 }
 
-const makeInstance = (obj,pointsFiles) => {
+const makeInstance = (obj,pointsFiles, scene) => {
     //read and parse json
     const json = require("./"+pointsFiles) 
     const points = Object.entries(json)
