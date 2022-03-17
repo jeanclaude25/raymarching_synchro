@@ -46,8 +46,6 @@ if(general_quality.smaa){
 }
 
 
-
-
 /**DEBUG */
 if(window.location.href.includes(config.debug.commandLine)){
     import('./gui').then(({gui})=>{

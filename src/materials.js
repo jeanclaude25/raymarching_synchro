@@ -54,7 +54,7 @@ const shaderMount = (child) => {
         }
         if(data === 'fire'){
             const mat = FireShader.clone()
-            child.material = new THREE.ShaderMaterial(mat)
+            child.material = mat
             child.material.index0AttributeName = "position"
             child.material.uniforms.uDetail.value = child.userData.fireDetail
             child.material.uniforms.uAmplitude.value = child.userData.fireAmplitude

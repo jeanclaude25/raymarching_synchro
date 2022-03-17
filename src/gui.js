@@ -11,7 +11,6 @@ export const debugObject = {};
 export let gui, camgui, shadersGui,
 createPositionGuiDebug, createRotationGuiDebug, createScaleGuiDebug;
 if(debug){
-    debugObject = {}
 
     gui = new dat.GUI({
        closed: true,
