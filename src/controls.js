@@ -24,20 +24,16 @@ orbitControls.maxPolarAngle = Math.PI / 2 + config.camera.constraint.verticalMin
 
 /**DEBUG */
 if(window.location.href.includes(config.debug.commandLine)){
-    import('./gui').then(({default: camgui})=>{
+    import('./gui').then(({camgui})=>{
         const look = camgui.addFolder('lookAt')
         look.add(orbitControls.target, 'x')
-        .min(-10)
-        .max(10)
-        .step(0.001)
+        .min(-10).max(10).step(0.001)
+
         look.add(orbitControls.target, 'y')
-        .min(-10)
-        .max(10)
-        .step(0.001)
+        .min(-10).max(10).step(0.001)
+
         look.add(orbitControls.target, 'z')
-        .min(-10)
-        .max(10)
-        .step(0.001)
+        .min(-10).max(10).step(0.001)
 
     })
 
