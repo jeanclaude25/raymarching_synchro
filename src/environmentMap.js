@@ -79,28 +79,5 @@ export const update_environment = () =>{
 update_environment()
 
 
-    const gui = require('./gui')
-     /**
-     * gui.gui
-     */
-    
-    const envgui = gui.gui.addFolder('EnvironmentLight')
-    envgui.add(debugObject, 'envMapIntensity').min(0).max(10).step(0.001)
-    .onChange(updateAllMaterials)
-
-    envgui.add(debugObject, 'background')
-    .name('env_visibility')
-    .onChange((value)=>
-    value?
-    update_sceneBackground(environment_object.envMap):
-    update_sceneBackground(config.scene.background)
-    )
-    envgui.add(debugObject, 'environment')
-    .name('env_effect')
-    .onChange((value)=>
-    value?
-    update_environmentBackground(environment_object.envMap):
-    update_environmentBackground(null)
-    )
-    
+ 
             
