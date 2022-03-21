@@ -1,3 +1,4 @@
+import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { camera } from "./camera"
 import { config } from './config'
@@ -7,10 +8,17 @@ const canvas = document.querySelector(config.html.canvasID)
 
 // OrbitControls
 export const orbitControls = new OrbitControls(camera, canvas)
-orbitControls.enableDamping = true
-orbitControls.target.x = config.camera.lookAt.x
-orbitControls.target.y = config.camera.lookAt.y
-orbitControls.target.z = config.camera.lookAt.z
+const cCam = config.camera
+orbitControls.enableDamping = cCam.enableDamping
+orbitControls.enablePan = cCam.enablePan
+orbitControls.enableZoom = cCam.enableZoom
+orbitControls.enableRotate = cCam.enableRotate
+
+orbitControls.target = new THREE.Vector3(
+    cCam.lookAt.x, 
+    cCam.lookAt.y, 
+    cCam.lookAt.z,
+    )
 
 /**Constraints */
 if(config.camera.constraint.horizontal){

@@ -1,17 +1,41 @@
-import { heatRenderer, renderer, resizeRenderer } from './renderer'
-import { cameraUpdate } from './camera'
+import { canvas, heatRenderer, renderer, resizeRenderer } from './renderer'
+import { cameraTilt, cameraUpdate, cameraZero } from './camera'
 import { refreshSizes } from './scene';
 import { passes } from './postProcess';
 import { config } from './config';
+import { mobileAndTabletCheck } from './detect_mobile';
 
-window.addEventListener('resize', () =>
-{
-	refreshSizes()
-    cameraUpdate()
-	resizeRenderer(renderer)
-	resizeRenderer(heatRenderer, false)
-	passes.forEach((child)=> resizeRenderer(child) )
-})
+export const events = () => {
+
+	/**MouseTilt */
+	if(!mobileAndTabletCheck()){
+		/**Computer */
+		canvas.addEventListener('mousemove', (e) =>{
+			e.stopPropagation()
+			
+				cameraTilt(e,canvas)
+		})
+		canvas.addEventListener('mouseout', (e) =>{
+			//camera to zero pos
+			cameraZero()
+		})
+	}else{
+		/**Mobile device */
+		window.DeviceOrientationEvent?window.addEventListener("deviceorientation", orientationProcess, true):''
+        
+	}
+
+	/**RESIZE EVENT */
+	window.addEventListener('resize', () =>
+	{
+		refreshSizes()
+		cameraUpdate()
+		resizeRenderer(renderer)
+		resizeRenderer(heatRenderer, false)
+		passes.forEach((child)=> resizeRenderer(child) )
+	})
+}
+
 
 
 /*************************************************************** */

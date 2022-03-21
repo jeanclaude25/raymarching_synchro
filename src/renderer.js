@@ -5,7 +5,7 @@ import { sizes } from './scene'
 
 
 
-const canvas = document.querySelector(config.html.canvasID)
+export const canvas = document.querySelector(config.html.canvasID)
 /**
  * Renderer
  */

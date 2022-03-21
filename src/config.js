@@ -48,6 +48,14 @@ export const config ={
         normalBias: 0.117
     },
     camera:{
+        enablePan: false,
+        enableDamping: true,
+        enableZoom: false,
+        enableRotate: false,
+        mouseTilt: true,
+        tiltSensibility: 0.6,
+        tiltTime:1,
+        tiltBackTime:2,
         position:{
             x: 2.2,
             y:1.11,
@@ -66,6 +74,9 @@ export const config ={
             horizontalMin: 0,
             horizontalMax: 1
         }
+    },
+    mobile:{
+        maxOrientation:20, //degree
     },
     debug:{
         commandLine:'?debug',

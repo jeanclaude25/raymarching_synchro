@@ -49,8 +49,10 @@ if(window.location.href.includes(config.debug.commandLine)){
 
         gammaCorrection.uniforms.tHeatDistortion.value = heatRenderer.texture
         
-        // renderer.setRenderTarget(null);
+        renderer.setRenderTarget(null);
         effectComposer.render()
+        // renderer.render(scene, camera)
+
 
     }else{
         renderer.render(scene, camera)

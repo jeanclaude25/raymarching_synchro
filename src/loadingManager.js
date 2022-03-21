@@ -1,4 +1,6 @@
 import * as THREE from 'three'
+import { config } from './config'
+import { events } from './events'
 import { mountMaterials, updateAllMaterials } from './materials'
 
 const loadingbar = document.querySelector('.loading-bar')
@@ -28,6 +30,9 @@ export const textureLoadingManager = new THREE.LoadingManager(
             preloader.style.animationPlayState = 'running'
             const animation = require('./draw')
             animation.tick()
+            if(!window.location.href.includes(config.debug.commandLine)){
+            events()
+            }
         },1000)
         
     },

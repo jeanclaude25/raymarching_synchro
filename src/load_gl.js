@@ -4,7 +4,7 @@ import { config } from './config'
 import { heatScene, scene } from './scene'
 import { renderer } from './renderer'
 import { camera } from './camera'
-import { toggle_panel } from './events'
+import { debugBar, logoIntro } from './loadingBar'
 
 
 
@@ -13,7 +13,11 @@ import { toggle_panel } from './events'
 /**FOR DEBUG */
 
 if(!window.location.href.includes(config.debug.commandLine)){
+    logoIntro()
 import('./environmentMap').then(()=>{ })
+}else{
+    debugBar()
+
 }
 
 
