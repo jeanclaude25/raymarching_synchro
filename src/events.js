@@ -25,18 +25,17 @@ export const events = () => {
         
 	}
 
-	/**RESIZE EVENT */
-	window.addEventListener('resize', () =>
-	{
-		refreshSizes()
-		cameraUpdate()
-		resizeRenderer(renderer)
-		resizeRenderer(heatRenderer, false)
-		passes.forEach((child)=> resizeRenderer(child) )
-	})
+	
 }
 
-
+/**RESIZE EVENT */
+window.addEventListener('resize', () => {
+	refreshSizes()
+	cameraUpdate()
+	resizeRenderer(renderer)
+	resizeRenderer(heatRenderer, false)
+	passes.forEach((child)=> resizeRenderer(child) )
+})
 
 /*************************************************************** */
 /**DEBUG */
