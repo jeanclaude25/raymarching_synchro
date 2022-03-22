@@ -56,6 +56,10 @@ export const config ={
         tiltSensibility: 0.6,
         tiltTime:1,
         tiltBackTime:2,
+        fov:{
+            mobile:33,
+            pc: 48
+        },
         position:{
             x: 2.2,
             y:1.11,

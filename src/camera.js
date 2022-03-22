@@ -1,6 +1,7 @@
 import gsap from 'gsap/all'
 import * as THREE from 'three'
 import { config } from './config'
+import { mobileAndTabletCheck } from './detect_mobile'
 import { pointerConvert } from './raytracing'
 import { scene, sizes } from './scene'
 
@@ -10,8 +11,9 @@ import { scene, sizes } from './scene'
  * Camera
  */
 // Base camera
-export const camera = new THREE.PerspectiveCamera(48, sizes.width / sizes.height, 0.001, 100)
-// camera.setFocalLength(90)
+export const camera = new THREE.PerspectiveCamera(config.camera.fov.pc, sizes.width / sizes.height, 0.001, 100)
+
+if(mobileAndTabletCheck()) camera.fov = config.camera.fov.mobile
 const pCam = config.camera.position
 camera.position.set(pCam.x, pCam.y, pCam.z)
 
@@ -77,10 +79,8 @@ export const cameraTilt = (e, canvas) => {
 if(window.location.href.includes(config.debug.commandLine)){
 
     import('./gui').then(({camgui, createPositionGuiDebug})=>{
-    camgui.add(camera, 'fov').min(1).max(180).step(1).onChange(()=>{
-        camera.updateProjectionMatrix()
-    })
-    createPositionGuiDebug(camgui, camera, -150, 150)
+        camgui.add(camera, 'fov').min(1).max(180).step(1).onChange(()=> camera.updateProjectionMatrix() )
+        createPositionGuiDebug(camgui, camera, -150, 150)
     })
     
     }
