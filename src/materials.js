@@ -7,12 +7,15 @@ import { load_image } from './textures'
 import { config } from './config'
 import {candleShader} from './shaders/candle/CandleShader'
 import { iFireShader } from './shaders/indirectFire/IndirectFire'
-import { waterShader } from './shaders/water/Water'
+// import { waterShader } from './shaders/water/Water'
 import { SmokeShader } from './shaders/smoke/Smoke'
 import { uTimeArrays } from './draw'
 import { shadowTreeShader } from './shaders/shadowTrees/ShadowTrees'
 import { HeatDistortionShader } from './shaders/heatDistortion/HeatDistortion'
-import { FireShader } from './shaders/Fire/Fire'
+// import { FireShader } from './shaders/Fire/Fire'
+import { mobileAndTabletCheck } from './detect_mobile'
+// import { videoShader } from './shaders/video/video'
+import { fireMobile, firePC } from './htmlComponents'
 
 
 
@@ -52,13 +55,25 @@ const shaderMount = (child) => {
             child.customDepthMaterial = shadowTreeShader
             child.castShadow = true
         }
+        
         if(data === 'fire'){
-            const mat = FireShader.clone()
-            child.material = mat
-            child.material.index0AttributeName = "position"
-            child.material.uniforms.uDetail.value = child.userData.fireDetail
-            child.material.uniforms.uAmplitude.value = child.userData.fireAmplitude
-            
+            // if(!mobileAndTabletCheck()){
+            // const mat = FireShader.clone()
+            //     child.material = mat
+            //     child.material.index0AttributeName = "position"
+            //     child.material.uniforms.uDetail.value = child.userData.fireDetail
+            //     child.material.uniforms.uAmplitude.value = child.userData.fireAmplitude
+            //         }else{
+                //create video html and then catch it
+                
+                const video = mobileAndTabletCheck?fireMobile:firePC
+                const texture = new THREE.VideoTexture( video )
+                child.material.map = texture
+                child.material.flatShading = true
+                child.material.transparent = true
+                child.material.blending = THREE.AdditiveBlending
+                child.material.emissiveMap = texture
+                // }
             }
             
         if(data === 'indirectFire'){

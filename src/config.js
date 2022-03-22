@@ -48,10 +48,10 @@ export const config ={
         normalBias: 0.117
     },
     camera:{
-        enablePan: false,
+        enablePan: !false,
         enableDamping: true,
         enableZoom: !false,
-        enableRotate: false,
+        enableRotate: !false,
         mouseTilt: true,
         tiltSensibility: 0.6,
         tiltTime:1,
