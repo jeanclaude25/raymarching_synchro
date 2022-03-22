@@ -50,7 +50,7 @@ export const config ={
     camera:{
         enablePan: false,
         enableDamping: true,
-        enableZoom: false,
+        enableZoom: !false,
         enableRotate: false,
         mouseTilt: true,
         tiltSensibility: 0.6,

@@ -3,7 +3,7 @@ import { cameraTilt, cameraUpdate, cameraZero } from './camera'
 import { refreshSizes } from './scene';
 import { passes } from './postProcess';
 import { config } from './config';
-import { mobileAndTabletCheck } from './detect_mobile';
+import { mobileAndTabletCheck, orientationProcess } from './detect_mobile';
 
 export const events = () => {
 
