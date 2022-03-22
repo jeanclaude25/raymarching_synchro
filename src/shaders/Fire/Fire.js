@@ -10,6 +10,7 @@ export const FireShader = new THREE.ShaderMaterial({
     depthTest: true,
     depthWrite: true,
     transparent:true,
+    blending: THREE.AdditiveBlending,
     // opacity:1,
     uniforms:{
         uTime: {value: null},
