@@ -5,6 +5,8 @@
 
         uniform float uTime;
         uniform float uSpeed;
+        uniform float uOffset;
+        uniform float uStrength;
         uniform vec2 uFrequency;
 
 
@@ -18,8 +20,8 @@
 			vUv = uv;
 
             vec4 modelPosition = vec4(position,1.0);
-            float waves = sin(modelPosition.x * uFrequency.x -(uTime * uSpeed)) * .01;
-            waves += sin(modelPosition.y * uFrequency.y - (uTime * uSpeed)) * .01;
+            float waves = sin(modelPosition.x * uFrequency.x -(uTime * uSpeed)+ uOffset) * uStrength;
+            waves += sin(modelPosition.y * uFrequency.y - (uTime * uSpeed)) * uStrength;
             modelPosition.x += waves * (1.0 - vUv.y);
             modelPosition.y += waves * (1.0 - vUv.y);
             gl_Position = projectionMatrix * modelViewMatrix * modelPosition;

@@ -12,10 +12,13 @@ import { SmokeShader } from './shaders/smoke/Smoke'
 import { uTimeArrays } from './draw'
 import { shadowTreeShader } from './shaders/shadowTrees/ShadowTrees'
 import { HeatDistortionShader } from './shaders/heatDistortion/HeatDistortion'
-// import { FireShader } from './shaders/Fire/Fire'
+import { FireShader } from './shaders/Fire/Fire'
 import { mobileAndTabletCheck } from './detect_mobile'
 // import { videoShader } from './shaders/video/video'
-import { fireMobile, firePC } from './htmlComponents'
+import { createHtmlVideo } from './htmlComponents'
+import { camera, fitCameraToObject } from './camera'
+import { orbitControls } from './controls'
+import { backgroundShader } from './shaders/background/Background'
 
 
 
@@ -28,7 +31,7 @@ export const mountMaterials = () => {
         // }
         if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
          {
-            texturesMount(child)
+            // texturesMount(child)
             shaderMount(child)
                 
          }
@@ -47,9 +50,35 @@ export const mountMaterials = () => {
 
 /**Shader mount */
 const shaderMount = (child) => {
+
+    if(child.userData.camera){
+        fitCameraToObject(camera, child, 0.3, orbitControls)
+    }
+
     if(child.material.userData.shader){
         const data = child.material.userData.shader
-        if(data === 'candle')child.material = candleShader
+
+        if(data === 'background'){
+            const mat = backgroundShader
+            child.material = mat
+            load_image('./models/static/textures/back512.jpg')
+            .then(response =>{
+                response.flipY = false
+            child.material.uniforms.uBackgroundDiffuse.value = response
+            })
+            load_image('./models/static/textures/background_layers.jpg')
+            .then(response =>{
+                response.flipY = false
+            child.material.uniforms.uBackgroundLayers.value = response
+            })
+
+        }
+        if(data === 'candle'){
+            const mat = candleShader.clone()
+            mat.uniforms.uOffset.value = Math.random() * 10
+            child.material = mat
+        }
+        
         if(data === 'shadowTree'){
             child.material = shadowTreeShader
             child.customDepthMaterial = shadowTreeShader
@@ -57,23 +86,23 @@ const shaderMount = (child) => {
         }
         
         if(data === 'fire'){
-            // if(!mobileAndTabletCheck()){
-            // const mat = FireShader.clone()
-            //     child.material = mat
-            //     child.material.index0AttributeName = "position"
-            //     child.material.uniforms.uDetail.value = child.userData.fireDetail
-            //     child.material.uniforms.uAmplitude.value = child.userData.fireAmplitude
-            //         }else{
+            if(!mobileAndTabletCheck()){
+                const mat = FireShader.clone()
+                child.material = mat
+                child.material.index0AttributeName = "position"
+                child.material.uniforms.uDetail.value = child.userData.fireDetail
+                child.material.uniforms.uAmplitude.value = child.userData.fireAmplitude
+                child.position.y += 0.1        
+            }else{
                 //create video html and then catch it
-                
-                const video = mobileAndTabletCheck?fireMobile:firePC
+                const video = createHtmlVideo("./videoTextures/",'fire', 'ogg')
                 const texture = new THREE.VideoTexture( video )
                 child.material.map = texture
                 child.material.flatShading = true
                 child.material.transparent = true
                 child.material.blending = THREE.AdditiveBlending
                 child.material.emissiveMap = texture
-                // }
+                }
             }
             
         if(data === 'indirectFire'){
@@ -179,27 +208,31 @@ if(child.material.userData.disp && !config.debug.rawLoad && general_quality.text
             child.material.displacementMap.encoding = THREE.LinearEncoding
             child.material.displacementScale = child.material.userData.dispScale
             child.material.displacementBias = child.material.userData.dispBias
-
+            // console.log(child.material)
     })
 }
 }
 /**
  * Update all materials
  */
- export const updateAllMaterials = () =>
+ export const updateAllMaterials = (lightMapIntensity = 10, aoMapIntensity = 1, emissionMapIntensity = 0.2) =>
  {
      scene.traverse((child)=>
      {
          
          if(child instanceof THREE.Mesh && child.material instanceof THREE.MeshStandardMaterial)
          {
-                update_mat(child)
+                update_mat(child, lightMapIntensity, aoMapIntensity, emissionMapIntensity)
          }
      })
  }
 
- const update_mat = (child) => {
+ const update_mat = (child, lightmapIntensity = 10, aoMapIntensity = 1, emissionMapIntensity = 0.2) => {
     child.material.envMapIntensity = debugObject.envMapIntensity
+    child.material.lightMapIntensity = lightmapIntensity
+    child.material.aoMapIntensity = aoMapIntensity
+    child.material.emissiveIntensity = emissionMapIntensity
+
     if(child.material.userData.transparent){
         child.material.transparent = true
         child.material.opacity = 0.2
@@ -214,3 +247,28 @@ if(child.material.userData.disp && !config.debug.rawLoad && general_quality.text
     child.userData.materialSide =='double'?child.material.side = DoubleSide: child.material.side = FrontSide
     child.material.needsUpdate = true
  }
+
+
+ /*************************************************************** */
+/**DEBUG */
+if(window.location.href.includes(config.debug.commandLine)){
+
+    import('./gui').then(({gui})=>{
+        const materialsGui = gui.addFolder('Materials')
+        materialsGui.add(debugObject, 'lightmapIntensity')
+        .min(0).max(40).step(0.001).onChange(()=>{
+            updateAllMaterials(debugObject.lightmapIntensity, debugObject.aoMapIntensity)
+        })
+        materialsGui.add(debugObject, 'aoMapIntensity')
+        .min(0).max(2).step(0.001).onChange(()=>{
+            updateAllMaterials(debugObject.lightmapIntensity, debugObject.aoMapIntensity)
+        })
+        materialsGui.add(debugObject, 'emissionMapIntensity')
+        .min(0).max(2).step(0.001).onChange(()=>{
+            updateAllMaterials(debugObject.lightmapIntensity, debugObject.aoMapIntensity, debugObject.emissionMapIntensity)
+        })
+
+
+    })
+
+}

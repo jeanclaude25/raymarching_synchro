@@ -26,17 +26,17 @@ const environment_object = {
     env_right:`./textures/environmentMaps/${general_quality.textures.environment.extension}/${general_quality.textures.environment.size}/cube_tile_0006.${general_quality.textures.environment.extension}`
      }
 }
-cubeTextureLoader.load([
-    environment_object.path.env_front,
-    environment_object.path.env_back,
-    environment_object.path.env_up,
-    environment_object.path.env_down,
-    environment_object.path.env_left,
-    environment_object.path.env_right,
-],(texture)=>{
-    texture.encoding = THREE.sRGBEncoding
-    // texture.intensity = 1.5
-    update_environmentBackground(texture)
-    update_sceneBackground(texture)
-})
+// cubeTextureLoader.load([
+//     environment_object.path.env_front,
+//     environment_object.path.env_back,
+//     environment_object.path.env_up,
+//     environment_object.path.env_down,
+//     environment_object.path.env_left,
+//     environment_object.path.env_right,
+// ],(texture)=>{
+//     texture.encoding = THREE.sRGBEncoding
+//     // texture.intensity = 1.5
+//     update_environmentBackground(texture)
+//     update_sceneBackground(texture)
+// })
             

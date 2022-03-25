@@ -1,14 +1,14 @@
 import * as THREE from 'three'
 
- const envMapArray = ['512','1k','2k']
+ const envMapArray = ['256','512','1k','2k']
  const texturesSizeArray = ['256','512','1K','2K','3K','4K']
 
 export let general_quality = {
     id: 'custom',
-    pixel_ratio:1,
+    pixel_ratio: 2,
     antialias: false,
-    smaa:true,
-    fxaa:false,
+    smaa: false,
+    fxaa: false,
     ambientLight: true,
     keylight: true,
     textures:{

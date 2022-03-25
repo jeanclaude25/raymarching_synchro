@@ -1,5 +1,3 @@
-
-
 export const createHtmlVideo = (path, filename, ext) => {
     const video = document.createElement('video')
 
@@ -10,11 +8,12 @@ export const createHtmlVideo = (path, filename, ext) => {
     video.autoplay = true
     video.loop = true
     video.style.visibility = 'hidden'
-
+    video.muted = false
+    video.play()
     document.body.append(video)
-
+    
     return video
 }
 
-export const fireMobile = createHtmlVideo("/videoTextures/",'fire', 'ogg')
-export const firePC = createHtmlVideo("/videoTextures/",'fire', 'webm')
+// export const fireMobile = createHtmlVideo("/videoTextures/",'fire', 'ogg')
+// export const firePC = createHtmlVideo("/videoTextures/",'fire', 'webm')

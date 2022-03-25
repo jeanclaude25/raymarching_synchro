@@ -4,7 +4,6 @@ import { config } from './config'
 import { heatScene, scene } from './scene'
 import { renderer } from './renderer'
 import { camera } from './camera'
-import { debugBar, logoIntro } from './loadingBar'
 
 
 
@@ -13,11 +12,7 @@ import { debugBar, logoIntro } from './loadingBar'
 /**FOR DEBUG */
 
 if(!window.location.href.includes(config.debug.commandLine)){
-    logoIntro()
 import('./environmentMap').then(()=>{ })
-}else{
-    debugBar()
-
 }
 
 
@@ -43,10 +38,16 @@ switch(general_quality.id){
         break;
 }
 //LOAD GLB 4K files for computer or wide screen devices
-loading3dfiles.load_objects({path:'./models/static/walls.glb',instance:false, scene})
-loading3dfiles.load_objects({path:'./models/static/last_furniture.glb',instance:false, scene})
-loading3dfiles.load_objects({path:'./models/static/background.glb',instance:false, scene})
-loading3dfiles.load_objects({path:'./models/static/FX_Heat_cage.glb',instance:false, scene: heatScene})
+// loading3dfiles.load_objects({path:'./models/static/walls.glb',instance:false, scene})
+// loading3dfiles.load_objects({path:'./models/static/last_furniture.glb',instance:false, scene})
+// loading3dfiles.load_objects({path:'./models/static/background.glb',instance:false, scene})
+// loading3dfiles.load_objects({path:'./models/static/FX_Heat_cage.glb',instance:false, scene: heatScene})
+
+//create plane
+loading3dfiles.load_objects({path:'./models/static/solution_2.glb',instance:false, scene})
+loading3dfiles.load_objects({path:'./models/static/FX_Heat_cage_s2.glb',instance:false, scene: heatScene})
+
+
 
 //LOAD GLB 2K files for mobile devices
 

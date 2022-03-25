@@ -7,7 +7,11 @@ const debug = window.location.href.includes(config.debug.commandLine)?true:false
 /**
  * Debug
  */
-export const debugObject = {};
+export const debugObject = {
+    lightmapIntensity: 10,
+    aoMapIntensity: 1,
+    emissionMapIntensity: 0.2
+};
 export let gui, camgui, shadersGui,
 createPositionGuiDebug, createRotationGuiDebug, createScaleGuiDebug;
 if(debug){

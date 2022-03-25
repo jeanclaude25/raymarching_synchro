@@ -16,9 +16,9 @@ export const HeatDistortionShader = new THREE.ShaderMaterial({
         uTime: {value: null},
         uAlpha : {value: .45},
         uSpeed : {value: 1.0},
-        uFrequency: {value: new THREE.Vector2(5.4,4.8)},
-        uResolution: {value: new THREE.Vector2(10,10)},
-        uScale:{value: 10.0}
+        uFrequency: {value: new THREE.Vector2(15,15)},
+        uResolution: {value: new THREE.Vector2(20,20)},
+        uScale:{value: 0.5}
         
     }
 })

@@ -3,7 +3,7 @@ import smokeVertex from './vertex.glsl'
 import smokeFragment from './fragment.glsl'
 
 
-export const SmokeShader = new THREE.ShaderMaterial({
+export const SmokeShader = new THREE.RawShaderMaterial({
     vertexShader: smokeVertex,
     fragmentShader: smokeFragment,
     // wireframe:true,

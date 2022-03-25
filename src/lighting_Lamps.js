@@ -126,7 +126,7 @@ const debugF = () =>{
     
                 }
                 /******** */
-			if(general_quality.shadows.enable){
+			if(config.lights.keyLight.enable && general_quality.shadows.enable){
 			const directionLightCameraHelper = new THREE.CameraHelper(debugObject.directionnalLight.shadow.camera)
                         debugObject.shadowProjection = false
                         

@@ -43,6 +43,9 @@ if(window.location.href.includes(config.debug.commandLine)){
  
 
     //postprocessing
+    // renderer.render(scene, camera)
+
+
     if (effectComposer.passes.length > 1){
         renderer.setRenderTarget(heatRenderer);
         renderer.render(heatScene, camera);

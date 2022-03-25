@@ -12,7 +12,7 @@ uniform sampler2D tHeatDistortion;
 
 			vec3 texHeat = texture2D( tHeatDistortion, vUv ).xyz *2. -1.;
 			
-			vec2 newUv = vUv + texHeat.xy *0.003;
+			vec2 newUv = vUv + texHeat.xy *0.002;
 			vec4 tex = texture2D( tDiffuse, newUv );
 			
 			// vec3 lightDirection = normalize(vec3(1.,1.,0.));

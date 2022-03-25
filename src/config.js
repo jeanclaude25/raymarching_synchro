@@ -10,14 +10,14 @@ export const config ={
         envExt:'.jpg'
     },
     scene:{
-        background: 'white' ,
+        background: 'white',
         toneExposure:3.6,
-        physicallyCorrectLight: true
+        physicallyCorrectLight: false
 
     },
     lights:{
         keyLight:{
-            enable: true,
+            enable: false,
             intensity: 36,
             position:{
                     x: -1.35,
@@ -27,11 +27,11 @@ export const config ={
         },
         ambientLight:{
             enable: true,
-            intensity: 2
+            intensity: 0.45
         },
         environmentLight:{
-            enable: true,
-            intensity: 0.682,
+            enable: false,
+            intensity: 0,
             encoding: 2
         }
     },
@@ -48,27 +48,27 @@ export const config ={
         normalBias: 0.117
     },
     camera:{
-        enablePan: !false,
-        enableDamping: true,
-        enableZoom: !false,
-        enableRotate: !false,
-        mouseTilt: true,
-        tiltSensibility: 0.6,
+        enablePan: false,
+        enableDamping: false,
+        enableZoom: false,
+        enableRotate: false,
+        mouseTilt: false,
+        tiltSensibility: 0.1,
         tiltTime:1,
         tiltBackTime:2,
         fov:{
-            mobile:33,
+            mobile:48,
             pc: 48
         },
         position:{
-            x: 2.2,
-            y:1.11,
-            z:2.4
+            x: 0,
+            y: 0,
+            z: 3
             },
         lookAt:{
-            x: 2.192,
-            y: 1.03,
-            z: -1.36
+            x: 0,
+            y: 0,
+            z: 0
         },
         constraint:{
             vertical: true,
