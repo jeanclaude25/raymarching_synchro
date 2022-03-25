@@ -8,18 +8,17 @@ import { config } from '../../config'
 export const backgroundShader = new THREE.RawShaderMaterial({
     vertexShader: vertex,
     fragmentShader: fragment,
-
+    // transparent:true,
     uniforms:{
         uTime: {value: null},
         u_resolution: {value: new THREE.Vector2(1,1)},
         uBackgroundDiffuse: {value: null},
         uBackgroundLayers: {value: null},
-        uTreeStrength: {value: 0.0005},
+        uFnoise: {value: null},
+        uCnoise: {value: null},
+        // uTreeStrength: {value: 0.05},
+        uTreeStrength: {value: 0.012},
         uWaterStrength: {value: 0}
-        // uSpeed : {value: 1.1},
-        // uOffset : {value: 0},
-        // uFrequency: {value: new THREE.Vector2(20,20)},
-        // uStrength: {value: 0.001}
     }
 })
 

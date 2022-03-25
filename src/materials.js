@@ -66,10 +66,22 @@ const shaderMount = (child) => {
                 response.flipY = false
             child.material.uniforms.uBackgroundDiffuse.value = response
             })
-            load_image('./models/static/textures/background_layers.jpg')
+            load_image('./models/static/textures/background_layers_png.png')
             .then(response =>{
                 response.flipY = false
             child.material.uniforms.uBackgroundLayers.value = response
+            })
+            load_image('./models/static/textures/fnoise.png')
+            .then(response => {
+                response.wrapS = THREE.RepeatWrapping
+                response.wrapT = THREE.RepeatWrapping
+                child.material.uniforms.uFnoise.value = response 
+            })
+            load_image('./models/static/textures/cellnoise.png')
+            .then(response => {
+                response.wrapS = THREE.RepeatWrapping
+                response.wrapT = THREE.RepeatWrapping
+                child.material.uniforms.uCnoise.value = response 
             })
 
         }

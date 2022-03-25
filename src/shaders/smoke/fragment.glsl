@@ -92,7 +92,7 @@ void main()
     float edges_horizontals = (1.-vUv.y) * vUv.y;
     col *= edges_horizontals;
 
-    col*= uIntensity;
+    col*= uIntensity + 2.5;
 
     // gl_FragColor = vec4(col, col.x * uAlpha);
     gl_FragColor = vec4(col, uAlpha);
