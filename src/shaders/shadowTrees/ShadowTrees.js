@@ -7,11 +7,12 @@ import fragment from './fragment.glsl'
 export const shadowTreeShader = new THREE.RawShaderMaterial({
     vertexShader: vertex,
     fragmentShader: fragment,
-    side: THREE.DoubleSide,
-
+    transparent: true,
+    blending: THREE.SubtractiveBlending,
     uniforms:{
         uTime: {value: null},
-        uSpeed : {value: 1.7},
+        uSpeed : {value: 1},
+        uDiffuse:{value: null},
         uFrequency: {value: new THREE.Vector2(0.9, 1.0)}
     }  
 })

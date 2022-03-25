@@ -82,7 +82,11 @@ const shaderMount = (child) => {
         if(data === 'shadowTree'){
             child.material = shadowTreeShader
             child.customDepthMaterial = shadowTreeShader
-            child.castShadow = true
+            load_image('./models/static/textures/other128.png')
+            .then(response =>{
+                response.flipY = false
+            child.material.uniforms.uDiffuse.value = response
+            })
         }
         
         if(data === 'fire'){

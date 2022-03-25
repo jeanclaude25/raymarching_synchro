@@ -20,8 +20,8 @@
             vec4 modelPosition = vec4(position,1.0);
             float waves = sin(modelPosition.x * uFrequency.x -(uTime * uSpeed)) * .01;
             waves += sin(modelPosition.y * uFrequency.y - (uTime * uSpeed)) * .01;
-            modelPosition.x += waves * (1.0 - vUv.y);
-            modelPosition.y += waves * (1.0 - vUv.y);
+            modelPosition.x += waves * (1.0 - vUv.x);
+            modelPosition.y += waves * (1.0 - vUv.x);
             gl_Position = projectionMatrix * modelViewMatrix * modelPosition;
 
 		}

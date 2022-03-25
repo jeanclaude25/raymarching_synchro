@@ -27,7 +27,7 @@ export const config ={
         },
         ambientLight:{
             enable: true,
-            intensity: 0.45
+            intensity: 0.5
         },
         environmentLight:{
             enable: false,

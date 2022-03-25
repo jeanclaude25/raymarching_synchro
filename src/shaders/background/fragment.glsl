@@ -18,6 +18,7 @@ varying vec2 vUv;
             //Water movement
             float waterMask = (vUv.y * 0.1) * (vUv.x * (1.0-vUv.x) * 2.5) * layers.r;
             float waterWave = sin(vUv.x * 5.0 + sin(uTime+ vUv.y * clamp(waterMask * 10., 0., 10. ) + cos(vUv.x))) * uWaterStrength ;
+            
             distortedUv.x +=  waterWave * waterMask ;
 
             
