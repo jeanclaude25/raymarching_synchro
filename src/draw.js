@@ -4,7 +4,8 @@ import { heatRenderer, renderer } from './renderer'
 import { heatScene, scene } from './scene'
 import { camera } from './camera'
 import { config } from './config'
-import { orbitControls } from './controls'
+// import { orbitControls } from './controls'
+import { candleList } from './materials'
 
 
 /**Array of uniforms to animate */
@@ -28,23 +29,27 @@ if(window.location.href.includes(config.debug.commandLine)){
  */
  const clock = new THREE.Clock()
  let previousTime = 0
+ let halfTime = false;
  export const tick = () =>
  {
      if(stats)stats.begin()
+     halfTime = !halfTime;
      const elapsedTime = clock.getElapsedTime()
     //  const deltaTime = elapsedTime - previousTime
      previousTime = elapsedTime
     
     uTimeArrays.forEach((mat)=>mat.uniforms.uTime.value = elapsedTime )
-
+    if(halfTime){
+        candleList.forEach((candle)=>{
+            const number = Math.floor( Math.random() * 200)
+            number===5?candle.uniforms.uAlpha.value = 0:candle.uniforms.uAlpha.value = 1
+        })
+    }
+    
     
      // Update controls
-     orbitControls.update()
+    //  orbitControls.update()
  
-
-    //postprocessing
-    // renderer.render(scene, camera)
-
 
     if (effectComposer.passes.length > 1){
         renderer.setRenderTarget(heatRenderer);
@@ -54,7 +59,6 @@ if(window.location.href.includes(config.debug.commandLine)){
         
         renderer.setRenderTarget(null);
         effectComposer.render()
-        // renderer.render(scene, camera)
 
 
     }else{

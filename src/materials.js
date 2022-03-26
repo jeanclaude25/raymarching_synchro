@@ -21,7 +21,7 @@ import { orbitControls } from './controls'
 import { backgroundShader } from './shaders/background/Background'
 
 
-
+export const candleList = []
 /**Mount Materials */
 export const mountMaterials = () => {
 
@@ -89,6 +89,7 @@ const shaderMount = (child) => {
             const mat = candleShader.clone()
             mat.uniforms.uOffset.value = Math.random() * 10
             child.material = mat
+            candleList.push(child.material)
         }
         
         if(data === 'shadowTree'){
@@ -141,8 +142,10 @@ const shaderMount = (child) => {
             child.material.index0AttributeName = "position"
             if(child.userData.smokeIntensity) child.material.uniforms.uIntensity.value = child.userData.smokeIntensity
             if (child.userData.smokeX) child.material.uniforms.uX.value = child.userData.smokeX
+            if (child.userData.smokeY) child.material.uniforms.uY.value = child.userData.smokeY
             
-            child.material.uniforms.uOffset.value = -Math.random() * 5
+            if (child.userData.offset) child.material.uniforms.uOffset.value = child.userData.offset
+            
             }
         if(data === 'heatDistortion'){
             child.material = HeatDistortionShader

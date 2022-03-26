@@ -1,6 +1,6 @@
 precision lowp float;
 
-uniform vec2 uResolution;
+
 uniform float uScale;
 
 uniform float uTime;
@@ -34,7 +34,7 @@ u = u*u*(3.0-2.0*u);
     return res*res;
 }
 float turbulence(){
-    vec2 st = vUv.xy * uResolution.xy;
+    vec2 st = vUv.xy; // * uResolution.xy;
     st *= uScale * (sin(vUv.x)+0.1);
     st.y += uOffset;
     st -= vec2((1. - vUv.x ));
@@ -54,6 +54,7 @@ float Rect(vec2 coordUv, vec2 p, float width, float height, float blur)
 	float mask = smoothstep(-width, -width + blur, coordUv.x) - smoothstep(width - blur, width, coordUv.x);
 	mask *= smoothstep(-height, -height + blur, coordUv.y) - smoothstep(height - blur, height, coordUv.y);
 	
+
 	return mask;
 }
 

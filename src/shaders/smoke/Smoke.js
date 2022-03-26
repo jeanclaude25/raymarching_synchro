@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 import smokeVertex from './vertex.glsl'
 import smokeFragment from './fragment.glsl'
-
+// import { shadersGui } from '../../gui'
 
 export const SmokeShader = new THREE.RawShaderMaterial({
     vertexShader: smokeVertex,
@@ -16,7 +16,7 @@ export const SmokeShader = new THREE.RawShaderMaterial({
         uTime: {value: null},
         uSpeed : {value: 1.0},
         uResolution:{value: new THREE.Vector2(1.1,1.5)},
-        uScale:{value: 5},
+        uScale:{value: 10},
         uAlpha:{value:1},
         uIntensity:{value:1.5},
         uOffset:{value:0},

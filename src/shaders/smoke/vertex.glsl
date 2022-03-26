@@ -3,6 +3,8 @@ uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 uniform mat4 modelViewMatrix;
 
+uniform vec2 uResolution;
+
 attribute vec2 uv;
 attribute vec3 position;
 
@@ -15,5 +17,5 @@ void main()
     vec4 projectedPosition = projectionMatrix * viewPosition;
     gl_Position = projectedPosition;
 
-    vUv = uv;
+    vUv = uv * uResolution;
 }
