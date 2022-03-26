@@ -5,7 +5,7 @@ import * as THREE from 'three'
 
 export let general_quality = {
     id: 'custom',
-    pixel_ratio: 2,
+    pixel_ratio: Math.min(window.devicePixelRatio, 2),
     antialias: false,
     smaa: false,
     fxaa: false,

@@ -23,7 +23,7 @@ export const resizeRenderer = (passe,pr = true) => {
 resizeRenderer(renderer)
 
 renderer.physicallyCorrectLights = config.scene.physicallyCorrectLight //realism
-renderer.outputEncoding = THREE.sRGBEncoding //realism
+// renderer.outputEncoding = THREE.sRGBEncoding //realism
 /**if postprocess */
 // renderer.outputEncoding = THREE.LinearEncoding
 

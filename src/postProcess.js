@@ -22,11 +22,11 @@ passes.push(effectComposer)
 const renderPass = new RenderPass(scene, camera)
 effectComposer.addPass(renderPass)
 
-const bloom = new UnrealBloomPass()
-bloom.threshold = 0.9
-bloom.radius = 0.1
-bloom.strength = 0.3
-effectComposer.addPass(bloom)
+// const bloom = new UnrealBloomPass()
+// bloom.threshold = 0.9
+// bloom.radius = 0.3
+// bloom.strength = 0.5
+// effectComposer.addPass(bloom)
 
 export const gammaCorrection = new ShaderPass( GammaCorrectionShader );
 effectComposer.addPass(gammaCorrection)
