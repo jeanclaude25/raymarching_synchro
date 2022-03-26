@@ -10,6 +10,7 @@ uniform sampler2D uFnoise;
 uniform sampler2D uCnoise;
 
 uniform float uTime;
+uniform float uWaterSpeed;
 
 varying vec2 vUv;
 
@@ -57,7 +58,7 @@ float avg(vec4 color) {
 
             //make waves
             // Flow Speed, increase to make the water flow faster.
-            float speed = 1.0;
+            float speed = uWaterSpeed;
             
             // Water Scale, scales the water, not the background.
             float scale =  (1.0- vUv.y) + 3.;

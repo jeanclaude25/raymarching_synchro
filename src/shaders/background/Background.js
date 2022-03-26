@@ -11,6 +11,7 @@ export const backgroundShader = new THREE.RawShaderMaterial({
     // transparent:true,
     uniforms:{
         uTime: {value: null},
+        uWaterSpeed:{value: .5},
         u_resolution: {value: new THREE.Vector2(1,1)},
         uBackgroundDiffuse: {value: null},
         uBackgroundLayers: {value: null},

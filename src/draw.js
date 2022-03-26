@@ -42,7 +42,7 @@ if(window.location.href.includes(config.debug.commandLine)){
     if(halfTime){
         candleList.forEach((candle)=>{
             const number = Math.floor( Math.random() * 200)
-            number===5?candle.uniforms.uAlpha.value = 0:candle.uniforms.uAlpha.value = 1
+            number===5?candle.uniforms.uAlpha.value = 0:candle.uniforms.uAlpha.value = 0.9
         })
     }
     
