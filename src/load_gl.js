@@ -13,6 +13,11 @@ import { camera } from './camera'
 
 if(!window.location.href.includes(config.debug.commandLine)){
 import('./environmentMap').then(()=>{ })
+const doc = document.querySelector('.preloader')
+doc.style.backgroundImage = "url('./textures/logo.png')"
+}else{
+    const doc = document.querySelector('.loading-bar')
+    doc.style.visibility = 'visible'
 }
 
 
