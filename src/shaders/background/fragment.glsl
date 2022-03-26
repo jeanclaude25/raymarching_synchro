@@ -58,22 +58,23 @@ float avg(vec4 color) {
 
             //make waves
             // Flow Speed, increase to make the water flow faster.
-            float speed = uWaterSpeed;
+            float speed = uWaterSpeed * (vUv.y -.5);
             
             // Water Scale, scales the water, not the background.
-            float scale =  (1.0- vUv.y) + 3.;
+            vec2 scale = vec2(vUv.x + (1.0-vUv.x), vUv.y * 4.);
             
             // Water opacity, higher opacity means the water reflects more light.
-            float opacity = 0.5;
+            float opacity = .5;
 
-            vec2 scaledUv = vUv * scale;
+            vec2 scaledUv = vUv * scale ;
+
             vec4 water1 = texture2D(uFnoise, scaledUv + uTime*0.02*speed - 0.1);
             vec4 water2 = texture2D(uFnoise, scaledUv.xy + uTime*speed*vec2(-0.02, -0.02) + 0.1);
             // Water highlights
-            vec4 highlights1 = texture2D(uCnoise, scaledUv.xy + uTime*speed / vec2(-10, 100));
-            vec4 highlights2 = texture2D(uCnoise, scaledUv.xy + uTime*speed / vec2(10, 100));
+            vec4 highlights1 = texture2D(uCnoise, scaledUv.xy + uTime*speed * vec2(-0.1, 0.01));
+            vec4 highlights2 = texture2D(uCnoise, scaledUv.xy + uTime*speed * vec2(0.1, 0.01));
             
-            mirrorUv += avg(water1) * 0.05;
+            mirrorUv += avg(water1) * (0.15* vUv.y);
 
             // Average the colors of the water layers (convert from 1 channel to 4 channel
             water1.rgb = vec3(avg(water1));
