@@ -28,8 +28,8 @@ effectComposer.addPass(renderPass)
 // bloom.strength = 0.5
 // effectComposer.addPass(bloom)
 
-export const gammaCorrection = new ShaderPass( GammaCorrectionShader );
-effectComposer.addPass(gammaCorrection)
+// export const gammaCorrection = new ShaderPass( GammaCorrectionShader );
+// effectComposer.addPass(gammaCorrection)
 
 if(general_quality.fxaa){
     import('three/examples/jsm/shaders/FXAAShader.js').then(({FXAAShader})=>{

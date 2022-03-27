@@ -11,8 +11,8 @@ export const config ={
     },
     scene:{
         background: 'white',
-        toneExposure:3.6,
-        physicallyCorrectLight: false
+        toneExposure:5,
+        physicallyCorrectLight: !false
 
     },
     lights:{
@@ -27,7 +27,7 @@ export const config ={
         },
         ambientLight:{
             enable: true,
-            intensity: 0.5
+            intensity: 2.5
         },
         environmentLight:{
             enable: false,
