@@ -5,12 +5,13 @@ import * as THREE from 'three'
 
 export let general_quality = {
     id: 'custom',
-    pixel_ratio: Math.min(window.devicePixelRatio, 2),
+    // pixel_ratio: Math.min(window.devicePixelRatio, 2),
+    pixel_ratio: 2,
     antialias: false,
     smaa: false,
     fxaa: false,
     ambientLight: true,
-    keylight: true,
+    keylight: !true,
     textures:{
         environment:{
             hdr: false,
@@ -49,7 +50,7 @@ export let general_quality = {
         }
     },
     shadows: {
-        enable: true,
+        enable: !true,
         mapSize: 2048,
         type: THREE.PCFShadowMap
     }

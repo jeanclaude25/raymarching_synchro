@@ -19,6 +19,7 @@ import { createHtmlVideo } from './htmlComponents'
 import { camera, fitCameraToObject } from './camera'
 import { orbitControls } from './controls'
 import { backgroundShader } from './shaders/background/Background'
+import { candleShader_pc } from './shaders/candle_pc/Candle_pc'
 
 
 export const candleList = []
@@ -95,10 +96,26 @@ const shaderMount = (child) => {
 
         }
         if(data === 'candle'){
-            const mat = candleShader.clone()
+            if(!mobileAndTabletCheck()){
+                child.visible = false
+            }else{
+                const mat = candleShader.clone()
             mat.uniforms.uOffset.value = Math.random() * 10
             child.material = mat
             candleList.push(child.material)
+            }
+            
+        }
+
+        if(data === 'candle_pc'){
+            if(!mobileAndTabletCheck()){
+                const mat = candleShader_pc.clone()
+                mat.uniforms.uOffset.value = Math.random() * 10
+                child.material = mat
+                candleList.push(child.material)
+            }else{
+                child.visible = false
+            }
         }
         
         if(data === 'shadowTree'){
