@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { effectComposer, gammaCorrection  } from './postProcess'
+import { effectComposer/*, gammaCorrection */ } from './postProcess'
 import { heatRenderer, renderer } from './renderer'
 import { heatScene, scene } from './scene'
 import { camera } from './camera'
@@ -55,7 +55,7 @@ if(window.location.href.includes(config.debug.commandLine)){
         renderer.setRenderTarget(heatRenderer);
         renderer.render(heatScene, camera);
 
-        gammaCorrection.uniforms.tHeatDistortion.value = heatRenderer.texture
+        // gammaCorrection.uniforms.tHeatDistortion.value = heatRenderer.texture
         
         renderer.setRenderTarget(null);
         effectComposer.render()

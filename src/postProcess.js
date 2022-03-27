@@ -2,12 +2,12 @@
 import {EffectComposer} from 'three/examples/jsm/postprocessing/EffectComposer'
 import {RenderPass} from 'three/examples/jsm/postprocessing/RenderPass'
 
-import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
+// import {UnrealBloomPass} from 'three/examples/jsm/postprocessing/UnrealBloomPass'
 import { camera } from './camera'
 
 import { renderer } from './renderer'
 import { scene } from './scene'
-import { GammaCorrectionShader } from './shaders/gammaCorrection/GammaCorrection'
+// import { GammaCorrectionShader } from './shaders/gammaCorrection/GammaCorrection'
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
 
 import { general_quality } from './quality'

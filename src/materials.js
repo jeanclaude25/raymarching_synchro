@@ -46,7 +46,16 @@ export const mountMaterials = () => {
      })
 }
 
-
+const createVideoTexture = (path, fileName, fileExt, material, speed) =>{
+    const video = createHtmlVideo(path, fileName, fileExt, speed)
+                const texture = new THREE.VideoTexture( video )
+                // texture.format = THREE.RGBAFormat; // for video with alpha
+                material.map = texture
+                material.flatShading = true
+                material.transparent = true
+                material.blending = THREE.AdditiveBlending
+                material.emissiveMap = texture
+}
 
 /**Shader mount */
 const shaderMount = (child) => {
@@ -112,13 +121,7 @@ const shaderMount = (child) => {
                 child.position.y += 0.1        
             }else{
                 //create video html and then catch it
-                const video = createHtmlVideo("./videoTextures/",'fire', 'ogg')
-                const texture = new THREE.VideoTexture( video )
-                child.material.map = texture
-                child.material.flatShading = true
-                child.material.transparent = true
-                child.material.blending = THREE.AdditiveBlending
-                child.material.emissiveMap = texture
+                createVideoTexture("./videoTextures/",'fire', 'ogg', child.material, 1)
                 }
             }
             
@@ -137,6 +140,8 @@ const shaderMount = (child) => {
         }
         // if(data === 'water')child.material = waterShader
         if(data === 'smoke'){
+            if(!mobileAndTabletCheck()){
+
             const mat = SmokeShader.clone()
             child.material = mat
             child.material.index0AttributeName = "position"
@@ -145,8 +150,19 @@ const shaderMount = (child) => {
             if (child.userData.smokeY) child.material.uniforms.uY.value = child.userData.smokeY
             
             if (child.userData.offset) child.material.uniforms.uOffset.value = child.userData.offset
-            
+            }else{
+                //create video html and then catch it
+                const filename = child.userData.videoSmokeName
+                console.log(filename)
+                createVideoTexture("./videoTextures/",filename, 'ogg', child.material, 0.5)
+                child.rotation.z = Math.PI/2
+                child.material.map.flipY = false
+                if(child.userData.mobilePosX)child.position.x += child.userData.mobilePosX
+                if(child.userData.mobilePosY)child.position.y += child.userData.mobilePosY
+                
+                }
             }
+
         if(data === 'heatDistortion'){
             child.material = HeatDistortionShader
             child.material.index0AttributeName = "position"
