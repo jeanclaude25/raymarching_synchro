@@ -49,6 +49,6 @@ const end_load = () => {
         animation.tick()
         if(!window.location.href.includes(config.debug.commandLine)){
         events()
-        }},1000)
+        }},100)
 }
 

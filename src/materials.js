@@ -6,7 +6,7 @@ import { general_quality } from './quality'
 import { load_image } from './textures'
 import { config } from './config'
 import {candleShader} from './shaders/candle/CandleShader'
-import { iFireShader } from './shaders/indirectFire/IndirectFire'
+// import { iFireShader } from './shaders/indirectFire/IndirectFire'
 // import { waterShader } from './shaders/water/Water'
 import { SmokeShader } from './shaders/smoke/Smoke'
 import { uTimeArrays } from './draw'
@@ -20,6 +20,7 @@ import { camera, fitCameraToObject } from './camera'
 import { orbitControls } from './controls'
 import { backgroundShader } from './shaders/background/Background'
 import { candleShader_pc } from './shaders/candle_pc/Candle_pc'
+import { mainShader } from './shaders/main/Main'
 
 
 export const candleList = []
@@ -141,20 +142,50 @@ const shaderMount = (child) => {
                 createVideoTexture("./videoTextures/",'fire', 'ogg', child.material, 1)
                 }
             }
-            
-        if(data === 'indirectFire'){
-            const mat = iFireShader.clone()
+        if(data === 'main'){
+            const mat = mainShader
+            load_image('./models/static/textures/texture.png')
+            .then(response =>{
+                response.flipY = false
+                mat.uniforms.uLight.value = response
+            })
+            load_image('./models/static/textures/shadow.jpg')
+            .then(response =>{
+                response.flipY = false
+                mat.uniforms.uDark.value = response
+            })
+            load_image('./models/static/textures/shadow_mask.jpg')
+            .then(response =>{
+                response.flipY = false
+                mat.uniforms.uMask.value = response
+            })
+            load_image('./models/static/textures/passes/uv.jpg')
+            .then(response =>{
+                response.flipY = false
+                mat.uniforms.uNormal.value = response
+            })
+            load_image('./models/static/textures/passes/z_denoise.jpg')
+            .then(response =>{
+                response.flipY = false
+                mat.uniforms.uParallax.value = response
+            })
+
             child.material = mat
-            child.material.index0AttributeName = "position"
-            child.material.transparent = false
-            child.material.uniforms.uStrength.value = 0.003;
-            }
-        if(data === 'indirectFireFloor'){
-            const mat = iFireShader.clone()
-            child.material = mat
-            child.material.index0AttributeName = "position"
-            child.material.uniforms.uStrength.value = 1;
         }
+            
+        // if(data === 'indirectFire'){
+        //     const mat = iFireShader.clone()
+        //     child.material = mat
+        //     child.material.index0AttributeName = "position"
+        //     child.material.transparent = false
+        //     child.material.uniforms.uStrength.value = 0.003;
+        //     }
+        // if(data === 'indirectFireFloor'){
+        //     const mat = iFireShader.clone()
+        //     child.material = mat
+        //     child.material.index0AttributeName = "position"
+        //     child.material.uniforms.uStrength.value = 1;
+        // }
         // if(data === 'water')child.material = waterShader
         if(data === 'smoke'){
             if(!mobileAndTabletCheck()){
