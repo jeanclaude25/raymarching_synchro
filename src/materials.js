@@ -10,7 +10,7 @@ import {candleShader} from './shaders/candle/CandleShader'
 // import { waterShader } from './shaders/water/Water'
 import { SmokeShader } from './shaders/smoke/Smoke'
 import { uTimeArrays } from './draw'
-import { shadowTreeShader } from './shaders/shadowTrees/ShadowTrees'
+// import { shadowTreeShader } from './shaders/shadowTrees/ShadowTrees'
 import { HeatDistortionShader } from './shaders/heatDistortion/HeatDistortion'
 import { FireShader } from './shaders/Fire/Fire'
 import { mobileAndTabletCheck } from './detect_mobile'
@@ -119,15 +119,15 @@ const shaderMount = (child) => {
             }
         }
         
-        if(data === 'shadowTree'){
-            child.material = shadowTreeShader
-            child.customDepthMaterial = shadowTreeShader
-            load_image('./models/static/textures/other128.png')
-            .then(response =>{
-                response.flipY = false
-            child.material.uniforms.uDiffuse.value = response
-            })
-        }
+        // if(data === 'shadowTree'){
+        //     child.material = shadowTreeShader
+        //     child.customDepthMaterial = shadowTreeShader
+        //     load_image('./models/static/textures/other128.png')
+        //     .then(response =>{
+        //         response.flipY = false
+        //     child.material.uniforms.uDiffuse.value = response
+        //     })
+        // }
         
         if(data === 'fire'){
             if(!mobileAndTabletCheck()){

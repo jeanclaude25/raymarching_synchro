@@ -13,14 +13,14 @@ varying vec2 vUv;
 
 float fbm(float x, float y){
 float amplitude = 1.;
-float frequency = 100.;
+float frequency = 50.;
 y = sin(x * frequency);
 float t = (-uTime*.1);
 y += sin(x*frequency*2.1 + t)*4.5;
 y += sin(x*frequency*1.72 + t*1.121)*4.0;
 y += sin(x*frequency*2.221 + t*0.437)*5.0;
 y += sin(x*frequency*3.1122+ t*4.269)*2.5;
-y *= amplitude * 0.1;
+y *= amplitude * 0.05;
 return y;
 }
 void main()
@@ -32,8 +32,8 @@ vec4 DarkImg = texture2D(uDark, vUv);
 //trees movement
 float maskMiddle = floor(vUv.x + 0.5);
 vec2 newUV = vec2(vUv.x,vUv.y-0.05);
-newUV.x += sin(fbm(10.,10.)) * ((1.0- vUv.y)+0.05) * maskMiddle;
-newUV.x += sin(fbm(15.,10.)) * 0.5* ((1.0- vUv.y)+0.1) * (1.0 - maskMiddle);
+newUV.x += sin(fbm(10.,10.)) * ((1.0- vUv.y)+0.02) * maskMiddle;
+newUV.x += sin(fbm(15.,10.)) * 0.5* ((1.0- vUv.y)+0.05) * (1.0 - maskMiddle);
 
 
 //normal
