@@ -12,13 +12,13 @@ export const config ={
     scene:{
         background: 'white',
         toneExposure:5,
-        physicallyCorrectLight: !false
+        physicallyCorrectLight: true
 
     },
     lights:{
         keyLight:{
-            enable: false,
-            intensity: 36,
+            enable: true,
+            intensity: 12,
             position:{
                     x: -1.35,
                     y: 1.983,
@@ -26,12 +26,13 @@ export const config ={
                     }
         },
         ambientLight:{
-            enable: true,
+            enable: false,
             intensity: 2.5
         },
         environmentLight:{
-            enable: false,
-            intensity: 0,
+            enable: true,
+            visibility: !false,
+            intensity: 2,
             encoding: 2
         }
     },
@@ -48,11 +49,11 @@ export const config ={
         normalBias: 0.117
     },
     camera:{
-        enablePan: false,
-        enableDamping: false,
-        enableZoom: false,
-        enableRotate: false,
-        mouseTilt: false,
+        enablePan: true,
+        enableDamping: true,
+        enableZoom: true,
+        enableRotate: true,
+        mouseTilt: false, //Suitable for fixed camera only
         tiltSensibility: 0.1,
         tiltTime:1,
         tiltBackTime:2,
@@ -61,9 +62,9 @@ export const config ={
             pc: 48
         },
         position:{
-            x: 0,
-            y: 0,
-            z: 3
+            x: -16.4,
+            y: 13.4,
+            z: -18.4
             },
         lookAt:{
             x: 0,
@@ -71,7 +72,7 @@ export const config ={
             z: 0
         },
         constraint:{
-            vertical: true,
+            vertical: !true,
             verticalMin: 0.2,
             verticalMax: 1,
             horizontal: false,
@@ -80,7 +81,7 @@ export const config ={
         }
     },
     mobile:{
-        maxOrientation:20, //degree
+        maxOrientation:20, //degree //Suitable for fixed camera only
     },
     debug:{
         commandLine:'?debug',

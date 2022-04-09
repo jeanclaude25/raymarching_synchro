@@ -1,6 +1,7 @@
 import gsap from 'gsap/all'
 import * as THREE from 'three'
 import { config } from './config'
+// import { lookAtZero } from './controls'
 import { mobileAndTabletCheck } from './detect_mobile'
 import { pointerConvert } from './raytracing'
 import { scene, sizes } from './scene'
@@ -26,6 +27,10 @@ export const cameraZero = () => {
             z: pCam.z
         }
     )
+    import('./controls').then(({lookAtZero})=>{
+        lookAtZero()
+    })
+    // lookAtZero()
 }
 
 camera.lookAt(new THREE.Vector3(

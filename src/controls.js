@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import gsap from 'gsap/all'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { camera } from "./camera"
 import { config } from './config'
@@ -19,6 +20,16 @@ orbitControls.target = new THREE.Vector3(
     cCam.lookAt.y, 
     cCam.lookAt.z,
     )
+export const lookAtZero = () =>{
+    gsap.to(
+        orbitControls.target,{
+            duration:config.camera.tiltBackTime,
+            x: cCam.lookAt.x,
+            y: cCam.lookAt.y,
+            z: cCam.lookAt.z
+        }
+    )
+}
 
 /**Constraints */
 if(config.camera.constraint.horizontal){

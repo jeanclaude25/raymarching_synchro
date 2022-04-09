@@ -8,7 +8,7 @@ debugObject.envMapIntensity = config.lights.environmentLight.intensity
 debugObject.background = true
 debugObject.environment = true
 
-const cubeTextureLoader = new THREE.CubeTextureLoader() 
+
 
 /**
  * ENVIRONNEMENT MAP //realism
@@ -26,17 +26,24 @@ const environment_object = {
     env_right:`./textures/environmentMaps/${general_quality.textures.environment.extension}/${general_quality.textures.environment.size}/cube_tile_0006.${general_quality.textures.environment.extension}`
      }
 }
-// cubeTextureLoader.load([
-//     environment_object.path.env_front,
-//     environment_object.path.env_back,
-//     environment_object.path.env_up,
-//     environment_object.path.env_down,
-//     environment_object.path.env_left,
-//     environment_object.path.env_right,
-// ],(texture)=>{
-//     texture.encoding = THREE.sRGBEncoding
-//     // texture.intensity = 1.5
-//     update_environmentBackground(texture)
-//     update_sceneBackground(texture)
-// })
+
+
+if(config.lights.environmentLight.enable){
+const cubeTextureLoader = new THREE.CubeTextureLoader() 
+
+     cubeTextureLoader.load([
+         environment_object.path.env_front,
+         environment_object.path.env_back,
+         environment_object.path.env_up,
+         environment_object.path.env_down,
+         environment_object.path.env_left,
+         environment_object.path.env_right,
+     ],(texture)=>{
+         texture.encoding = THREE.sRGBEncoding
+         // texture.intensity = 1.5
+         update_environmentBackground(texture)
+         if(config.lights.environmentLight.visibility) update_sceneBackground(texture)
+     })
+}
+
             

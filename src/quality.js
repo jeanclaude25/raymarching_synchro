@@ -10,8 +10,8 @@ export let general_quality = {
     antialias: false,
     smaa: false,
     fxaa: false,
-    ambientLight: true,
-    keylight: !true,
+    ambientLight: !true,
+    keylight: true,
     textures:{
         environment:{
             hdr: false,
@@ -50,7 +50,7 @@ export let general_quality = {
         }
     },
     shadows: {
-        enable: !true,
+        enable: true,
         mapSize: 2048,
         type: THREE.PCFShadowMap
     }

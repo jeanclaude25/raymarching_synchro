@@ -1,9 +1,7 @@
 import './style.css'
 import { general_quality } from './quality'
 import { config } from './config'
-import { heatScene, scene } from './scene'
-import { renderer } from './renderer'
-import { camera } from './camera'
+import { scene } from './scene'
 
 
 
@@ -42,18 +40,5 @@ switch(general_quality.id){
     case 'insane':
         break;
 }
-//LOAD GLB 4K files for computer or wide screen devices
-// loading3dfiles.load_objects({path:'./models/static/walls.glb',instance:false, scene})
-// loading3dfiles.load_objects({path:'./models/static/last_furniture.glb',instance:false, scene})
-// loading3dfiles.load_objects({path:'./models/static/background.glb',instance:false, scene})
-// loading3dfiles.load_objects({path:'./models/static/FX_Heat_cage.glb',instance:false, scene: heatScene})
 
-//create plane
-loading3dfiles.load_objects({path:'./models/static/solution_2.glb',instance:false, scene})
-loading3dfiles.load_objects({path:'./models/static/FX_Heat_cage_s2.glb',instance:false, scene: heatScene})
-
-
-
-//LOAD GLB 2K files for mobile devices
-
-// loading3dfiles.load_objects('./models/instances/clouds/cloud.gltf',true, 'json/cloudsPoints.json')
+loading3dfiles.load_objects({path:'./models/static/cube.glb',instance:false, scene})

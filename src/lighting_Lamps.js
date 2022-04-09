@@ -15,7 +15,7 @@ const colors = {
                 }
 
 export const lighting = []
-
+export let dLightPosition;
 
 /**
  * Lights
@@ -33,6 +33,7 @@ export const lighting = []
     directionnalLight.position.x = config.lights.keyLight.position.x
     directionnalLight.position.y = config.lights.keyLight.position.y
     directionnalLight.position.z = config.lights.keyLight.position.z
+    dLightPosition = directionnalLight.position
     directionnalLight.shadow.normalBias = config.shadows.normalBias
     
     lighting.push(directionnalLight)

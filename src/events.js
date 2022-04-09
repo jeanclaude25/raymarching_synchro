@@ -4,6 +4,7 @@ import { refreshSizes } from './scene';
 import { passes } from './postProcess';
 import { config } from './config';
 import { mobileAndTabletCheck, orientationProcess } from './detect_mobile';
+import { rayMarchCube } from './materials';
 
 export const events = () => {
 
@@ -35,6 +36,12 @@ window.addEventListener('resize', () => {
 	resizeRenderer(renderer)
 	resizeRenderer(heatRenderer, false)
 	passes.forEach((child)=> resizeRenderer(child) )
+
+	if(rayMarchCube.length>0)
+		import('./shaders/rayMarchCube/Cube').then( ({resizeMarchCube})=>
+			rayMarchCube.forEach((cube)=> resizeMarchCube(cube, renderer) )
+			)
+	
 })
 
 /*************************************************************** */
