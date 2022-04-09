@@ -55,4 +55,3 @@ It is also necessary that when we face a panLeft or right, it works.
 And when we change the perspective.
 (./src/shaders/rayMarchCube/fragment.glsl)
 ![Design preview](./design/8.jpg)
-

@@ -20,9 +20,6 @@ const scene_val = {
 // Scene
 export const scene = new THREE.Scene()
 scene.name = 'mainScene'
-export const heatScene = new THREE.Scene()
-heatScene.background = new THREE.Color('black')
-heatScene.name = 'FX_HeatScene'
 
 //update background
 export const update_sceneBackground = (value) => {

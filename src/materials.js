@@ -1,7 +1,6 @@
 import * as THREE from 'three'
 import { scene } from './scene'
 import { debugObject } from './gui'
-import { DoubleSide, FrontSide } from 'three'
 import { general_quality } from './quality'
 import { config } from './config'
 import { uTimeArrays } from './draw'
@@ -107,7 +106,7 @@ const shaderMount = (child) => {
     child.material.needsUpdate = true
     child.castShadow = general_quality.shadows.enable
     child.receiveShadow = general_quality.shadows.enable
-    child.userData.materialSide =='double'?child.material.side = DoubleSide: child.material.side = FrontSide
+    child.userData.materialSide =='double'?child.material.side = THREE.DoubleSide: child.material.side = THREE.FrontSide
     child.material.needsUpdate = true
  }
 

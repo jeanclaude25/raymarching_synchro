@@ -38,15 +38,3 @@ renderer.outputEncoding = THREE.sRGBEncoding //realism
     renderer.shadowMap.enabled = general_quality.shadows.enable //realism
     renderer.shadowMap.type =  general_quality.shadows.type//realism
     }
-
-
-/**Heat Renderer */
-const rtWidth = sizes.width;
-const rtHeight = sizes.height;
-export const heatRenderer = new THREE.WebGLRenderTarget(rtWidth, rtHeight,{
-    minFilter: THREE.LinearFilter, 
-    magFilter: THREE.NearestFilter,
-    depthBuffer: false,
-    stencilBuffer: false
-})
-resizeRenderer(heatRenderer, false)
