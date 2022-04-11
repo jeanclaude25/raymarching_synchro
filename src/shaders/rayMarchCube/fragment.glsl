@@ -1,12 +1,14 @@
 precision lowp float;
-#define MAX_STEPS 200
+#define MAX_STEPS 100
 #define MAX_DIST 100.
-#define SURFACE_DIST .001
+#define SURFACE_DIST .01
 
 #define S smoothstep
 #define T uTime
 
-        uniform float uTest;
+        uniform float uSmooth1;
+        uniform float uSmooth2;
+        uniform float uTime;
 
         uniform float uIOR;
 
@@ -73,7 +75,7 @@ precision lowp float;
                 camDistance * cos(camAngle)
             );
 
-            rayDirection = getRay(rayOrigin, rayTarget, screenPos, uTest);
+            rayDirection = getRay(rayOrigin, rayTarget, screenPos, 2.0);
             }
 
         //ROTATION
@@ -95,6 +97,9 @@ precision lowp float;
 
         // BOOLEAN OPERATOR
         float unite( float a, float b){return min(a, b);}
+        float uniteSmooth( float a, float b, float k){
+                float h = clamp(.5+.5*(b-a)/k,0.,1.);
+                return mix(b,a,h)-k*h*(1.-h);}
         float subtract( float a, float b ){ return max(-a, b); }
         float intersect( float a, float b ){ return max(a, b); }
 
@@ -109,11 +114,16 @@ precision lowp float;
             //Object position
             p.xz += uObjectPosition.xz;
             p.y += -uObjectPosition.y;
-
-            float s = sphere(p, vec3(0), uObjectScale);
-            float boxe = box(p, vec3(0), vec3(uObjectScale),0.);
             
-            float sortie = unite(s,boxe);
+            
+            float boxe = box(p, vec3(0), vec3(uObjectScale),0.);
+            float s1 = sphere(p, vec3(0), uObjectScale + 0.2);
+            p.x += sin(uTime);
+            p.z += cos(uTime);
+            float s = sphere(p, vec3(0), uObjectScale);
+            
+            
+            float sortie = uniteSmooth(uniteSmooth(s,boxe,uSmooth2),s1,uSmooth1);
             return sortie;
         }
 

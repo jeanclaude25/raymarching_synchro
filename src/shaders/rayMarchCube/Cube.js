@@ -11,7 +11,9 @@ export const rayMarchCubeShader = new THREE.ShaderMaterial({
         tDiffuse: {value: null},
         cameraPosition:{value: new THREE.Vector3()},
         uCameraAngle:{value: null},
-        uTest:{value: 2.0},
+        uSmooth1:{value: 0.5},
+        uSmooth2:{value: 0.5},
+        uTime:{value: null},
         uIOR:{value: 2.46},
         uCamLookAt:{value: new THREE.Vector3()},
         uObjectPosition:{value: new THREE.Vector3()},
@@ -28,5 +30,7 @@ export const resizeMarchCube = (elem, renderer) => {
 
 if(window.location.href.includes(config.debug.commandLine)){
 const props = shadersGui.addFolder('CameraGLSL')
-props.add(rayMarchCubeShader.uniforms.uTest ,'value').min(-250).max(250).step(0.001).name('Test')
+props.add(rayMarchCubeShader.uniforms.uSmooth1 ,'value').min(0).max(1).step(0.001).name('Smooth1')
+props.add(rayMarchCubeShader.uniforms.uSmooth2 ,'value').min(0).max(1).step(0.001).name('Smooth2')
+
 }
