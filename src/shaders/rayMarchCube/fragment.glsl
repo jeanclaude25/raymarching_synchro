@@ -10,7 +10,6 @@ precision lowp float;
 
         uniform vec3 uCamLookAt; //camera lookAt
         uniform float uCameraAngle; //Camera Angle in radians
-        uniform float uCameraDistance; //distance
 
         uniform vec3 uLightPosition;
 
@@ -149,7 +148,7 @@ precision lowp float;
             vec3 ro, rd;
             float cameraAngle = uCameraAngle; // camera's rotation around the origin in radians
             float cameraHeight = cameraPosition.y; //camera's height relative to the origin.
-            float cameraDistance = uCameraDistance; //the distance the camera is placed from the origin
+            float cameraDistance = sqrt((cameraPosition.z * cameraPosition.z)+ (cameraPosition.x * cameraPosition.x));//uCameraDistance; //the distance the camera is placed from the origin
             orbitCamera(cameraAngle, cameraHeight, cameraDistance, uResolution.xy, ro, rd);
 
             float dOut = RayMarch(ro, rd, 1.); //Outside of object

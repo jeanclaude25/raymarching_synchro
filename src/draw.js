@@ -48,14 +48,10 @@ if(window.location.href.includes(config.debug.commandLine)){
         
         const angle = getCameraAngle()
 
-         const distance = camera.position.length()
-
          rayMarchCube.forEach((cube)=>{
             cube.uniforms.cameraPosition.value = camPos//update cam pos
             cube.uniforms.uCamLookAt.value = lookAt//update cam look At
             cube.uniforms.uCameraAngle.value = angle;
-            cube.uniforms.uCameraDistance.value = distance;
-
         })
          
      }
