@@ -6,6 +6,8 @@ precision lowp float;
 #define S smoothstep
 #define T uTime
 
+        uniform float uTest;
+
         uniform float uIOR;
 
         uniform vec3 uCamLookAt; //camera lookAt
@@ -26,6 +28,8 @@ precision lowp float;
 
         //CAMERA
         mat3 calcLookAtMatrix(vec3 origin, vec3 target, float roll) {
+            // target.xz -= uCamLookAt.xz;
+            // target.y += uCamLookAt.y;
             vec3 rr = vec3(sin(roll), cos(roll), 0.0);
             vec3 ww = normalize(target - origin);
             vec3 uu = normalize(cross(ww, rr));
@@ -69,7 +73,7 @@ precision lowp float;
                 camDistance * cos(camAngle)
             );
 
-            rayDirection = getRay(rayOrigin, rayTarget, screenPos, 2.0);
+            rayDirection = getRay(rayOrigin, rayTarget, screenPos, uTest);
             }
 
         //ROTATION
@@ -95,7 +99,17 @@ precision lowp float;
         float intersect( float a, float b ){ return max(a, b); }
 
         float GetDist(vec3 p){
-            // vec4 s = vec4(uObjectPosition.x, uObjectPosition.z, uObjectPosition.y, uObjectScale);//define the sphere position x,y,z and scale
+            //camera pan
+            // p.xz -= uCamLookAt.xz;
+            // p.y += uCamLookAt.y;
+
+            // p.xz -= cameraPosition.xz;
+            // p.y += cameraPosition.y;
+
+            //Object position
+            p.xz += uObjectPosition.xz;
+            p.y += -uObjectPosition.y;
+
             float s = sphere(p, vec3(0), uObjectScale);
             float boxe = box(p, vec3(0), vec3(uObjectScale),0.);
             

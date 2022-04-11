@@ -47,6 +47,7 @@ if(window.location.href.includes(config.debug.commandLine)){
          const lookAt = orbitControls.target
         
         const angle = getCameraAngle()
+        // console.log(orbitControls.target)
 
          rayMarchCube.forEach((cube)=>{
             cube.uniforms.cameraPosition.value = camPos//update cam pos

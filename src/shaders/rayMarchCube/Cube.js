@@ -11,7 +11,7 @@ export const rayMarchCubeShader = new THREE.ShaderMaterial({
         tDiffuse: {value: null},
         cameraPosition:{value: new THREE.Vector3()},
         uCameraAngle:{value: null},
-        uTest:{value: 0},
+        uTest:{value: 2.0},
         uIOR:{value: 2.46},
         uCamLookAt:{value: new THREE.Vector3()},
         uObjectPosition:{value: new THREE.Vector3()},
