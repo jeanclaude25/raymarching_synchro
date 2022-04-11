@@ -113,6 +113,29 @@ export const fitCameraToObject = ( camera, object, offset, controls ) => {
     }
 }
 
+///
+/// Get ThreeJS Camera Angle
+///
+export const getCameraAngle = (type) =>
+{
+    const targetDirection = new THREE.Vector3()
+    const cameraVector = camera.getWorldDirection(targetDirection)
+    const angle = Math.atan2(cameraVector.x, cameraVector.z)
+    if (type ==='deg'){
+    return radiansToDegrees(angle);
+    }else{
+        return angle;
+    }
+}
+
+///
+/// Convert Radians to Degrees
+///
+const radiansToDegrees = (radians) =>
+{
+    return radians * 180 / Math.PI;
+}
+
 
 /**FOR DEBUG */
 if(window.location.href.includes(config.debug.commandLine)){
