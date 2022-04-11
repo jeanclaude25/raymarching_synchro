@@ -44,12 +44,28 @@ if(window.location.href.includes(config.debug.commandLine)){
 
      if(rayMarchCube.length>0){
          const camPos = camera.position 
-         const lookAt = orbitControls.target 
+         const lookAt = orbitControls.target
+         let angle;
+         
+         if(camera.position.x>0){
+            angle = camera.position.angleTo(new THREE.Vector3(0.,0.,1.))
+            console.log(angle)
+        }else{
+            angle = camera.position.angleTo(new THREE.Vector3(0.,0.,-1.))-Math.PI/2
+            console.log(angle)
+
+         }
+         
+         const distance = camera.position.length()
+        //  console.log(camera.position)
 
          rayMarchCube.forEach((cube)=>{
-            cube.uniforms.uCamPos.value = camPos//update cam pos
+            cube.uniforms.cameraPosition.value = camPos//update cam pos
             cube.uniforms.uCamLookAt.value = lookAt//update cam look At
-         })
+            cube.uniforms.uCameraAngle.value = angle;
+            cube.uniforms.uCameraDistance.value = distance;
+
+        })
          
      }
 

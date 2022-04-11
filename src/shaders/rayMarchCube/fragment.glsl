@@ -8,8 +8,9 @@ precision lowp float;
 
         uniform float uIOR;
 
-        uniform vec3 uCamPos; //camera position
         uniform vec3 uCamLookAt; //camera lookAt
+        uniform float uCameraAngle; //Camera Angle in radians
+        uniform float uCameraDistance; //distance
 
         uniform vec3 uLightPosition;
 
@@ -24,26 +25,83 @@ precision lowp float;
 
         varying vec2 vUv;
 
+        //CAMERA
+        mat3 calcLookAtMatrix(vec3 origin, vec3 target, float roll) {
+            vec3 rr = vec3(sin(roll), cos(roll), 0.0);
+            vec3 ww = normalize(target - origin);
+            vec3 uu = normalize(cross(ww, rr));
+            vec3 vv = normalize(cross(uu, ww));
+
+            return mat3(uu, vv, ww);
+            }
+        vec3 getRay(mat3 camMat, vec2 screenPos, float lensLength) {
+            return normalize(camMat * vec3(screenPos, lensLength));
+            }
+
+        vec3 getRay(vec3 origin, vec3 target, vec2 screenPos, float lensLength) {
+            mat3 camMat = calcLookAtMatrix(origin, target, 0.0);
+            return getRay(camMat, screenPos, lensLength);
+            }
+        vec2 squareFrame(vec2 screenSize) {
+            vec2 position = 2.0 * (gl_FragCoord.xy / screenSize.xy) - 1.0;
+            position.x *= screenSize.x / screenSize.y;
+            return position;
+            }
+
+        vec2 squareFrame(vec2 screenSize, vec2 coord) {
+            vec2 position = 2.0 * (coord.xy / screenSize.xy) - 1.0;
+            position.x *= screenSize.x / screenSize.y;
+            return position;
+            }
+        void orbitCamera(
+            in float camAngle,
+            in float camHeight,
+            in float camDistance,
+            in vec2 screenResolution,
+            out vec3 rayOrigin,
+            out vec3 rayDirection
+            ) {
+        vec2 screenPos = squareFrame(screenResolution);
+        vec3 rayTarget = vec3(0.0);
+
+            rayOrigin = vec3(
+                camDistance * sin(camAngle),
+                camHeight,
+                camDistance * cos(camAngle)
+            );
+
+            rayDirection = getRay(rayOrigin, rayTarget, screenPos, 2.0);
+            }
+
+        //ROTATION
         mat2 Rot(float a){
             float s=sin(a), c=cos(a);
             return mat2(c, -s, s, c);
         }
 
-        float sdBox(vec3 p, vec3 s){
-            p = abs(p) - s ;
-            return length(max(p, 0.)) + min(max(p.x, max(p.y, p.z)), 0.);
+        //BASIC SHAPES
+        float sphere( vec3 pos, vec3 center, float radius )
+        {
+            return length( pos - center ) - radius;
+        }
+ 
+        float box( vec3 pos, vec3 center, vec3 size, float corner )
+        {
+            return length( max( abs( pos-center )-size, 0.0 ) )-corner;
         }
 
-        float GetDist(vec3 p){
-            vec4 s = vec4(uObjectPosition.x, uObjectPosition.z, uObjectPosition.y, uObjectScale);//define the sphere position x,y,z and scale
-            float sphereDist = length(p-s.xyz)-s.w;
-            float planeDist = p.y;
-            float box = sdBox(p, vec3(uObjectScale));
+        // BOOLEAN OPERATOR
+        float unite( float a, float b){return min(a, b);}
+        float subtract( float a, float b ){ return max(-a, b); }
+        float intersect( float a, float b ){ return max(a, b); }
 
-            float d = min(sphereDist, planeDist);
-            // return d; //a sphere on a floor
-            return box;
-            // return sphere; //You can try with the sphere too
+        float GetDist(vec3 p){
+            // vec4 s = vec4(uObjectPosition.x, uObjectPosition.z, uObjectPosition.y, uObjectScale);//define the sphere position x,y,z and scale
+            float s = sphere(p, vec3(0), uObjectScale);
+            float boxe = box(p, vec3(0), vec3(uObjectScale),0.);
+            
+            float sortie = unite(s,boxe);
+            return sortie;
         }
 
         float RayMarch (vec3 ro, vec3 rd, float side){
@@ -71,11 +129,10 @@ precision lowp float;
         }
 
         float GetLight(vec3 p){
-            vec3 lightPos = uLightPosition; //LightPosition
-            vec3 l = normalize(lightPos-p);
+            vec3 lightPosition = normalize(uLightPosition-p); //LightPosition
             vec3 n = GetNormal(p);
 
-            float dif = dot(n, l);
+            float dif = dot(n, lightPosition);
 
             return dif ;
 
@@ -88,14 +145,12 @@ precision lowp float;
 
             vec2 uv = ((vUv - .5) * uResolution) / uResolution.y;
 
-            
             //camera
-            vec3 ro = normalize(uCamPos.xyz); //camera space position
-            // vec3 rd = normalize(uCamLookAt); //camera view vector
-            vec3 rd = normalize(vec3(
-                (uCamLookAt.x * 0.05) -uv.x, 
-                (uCamLookAt.y * 0.05) +uv.y, 
-                .75));
+            vec3 ro, rd;
+            float cameraAngle = uCameraAngle; // camera's rotation around the origin in radians
+            float cameraHeight = cameraPosition.y; //camera's height relative to the origin.
+            float cameraDistance = uCameraDistance; //the distance the camera is placed from the origin
+            orbitCamera(cameraAngle, cameraHeight, cameraDistance, uResolution.xy, ro, rd);
 
             float dOut = RayMarch(ro, rd, 1.); //Outside of object
 
