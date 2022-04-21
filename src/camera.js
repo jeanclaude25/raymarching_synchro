@@ -45,6 +45,7 @@ camera.lookAt(new THREE.Vector3(
     camera.updateProjectionMatrix()
 }
 cameraUpdate()
+console.log(camera)
 
 
 

@@ -59,7 +59,7 @@ export const config ={
         tiltBackTime:2,
         fov:{
             mobile:48,
-            pc: 48
+            pc: 50
         },
         position:{
             x: -16.4,

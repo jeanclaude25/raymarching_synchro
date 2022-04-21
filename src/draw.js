@@ -54,6 +54,7 @@ if(window.location.href.includes(config.debug.commandLine)){
             cube.uniforms.uCamLookAt.value = lookAt//update cam look At
             cube.uniforms.uCameraAngle.value = angle;
             cube.uniforms.uTime.value = elapsedTime
+            cube.uniforms.uFov.value = camera.fov
         })
          
      }

@@ -9,6 +9,7 @@ import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
 import { effectComposer } from './postProcess'
 import { renderer } from './renderer'
 import { dLightPosition } from './lighting_Lamps'
+import { camera } from './camera'
 
 
 export const rayMarchCube = []
@@ -54,8 +55,9 @@ const shaderMount = (child) => {
             
             //send obj position to the shader
             cube.uniforms.uObjectPosition.value = child.position
+            cube.uniforms.uObjectRotation.value = child.rotation
             cube.uniforms.uLightPosition.value = dLightPosition
-
+            
             //send scale
             cube.uniforms.uObjectScale.value = child.userData.scale
 
